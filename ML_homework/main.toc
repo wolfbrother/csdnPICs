@@ -1,0 +1,51 @@
+\contentsline {chapter}{\numberline {第一章\hspace {0.3em}}简介}{1}
+\contentsline {section}{\numberline {1.1}章节简介}{1}
+\contentsline {section}{\numberline {1.2}本书来源}{1}
+\contentsline {chapter}{\numberline {第二章\hspace {0.3em}}感知机模型介绍}{3}
+\contentsline {section}{\numberline {2.1}感知机要解决的问题}{3}
+\contentsline {section}{\numberline {2.2}感知机模型}{3}
+\contentsline {section}{\numberline {2.3}感知机学习策略}{4}
+\contentsline {section}{\numberline {2.4}优化算法}{5}
+\contentsline {subsection}{\numberline {2.4.1}随机梯度下降法与标准梯度下降}{5}
+\contentsline {subsection}{\numberline {2.4.2}感知机优化算法及其实现}{5}
+\contentsline {section}{\numberline {2.5}感知机优化算法的收敛性证明}{6}
+\contentsline {section}{\numberline {2.6}感知机学习优化算法的对偶形式}{7}
+\contentsline {chapter}{\numberline {第三章\hspace {0.3em}}LDA,SVD和PCA}{15}
+\contentsline {section}{\numberline {3.1}矩阵工具}{15}
+\contentsline {subsection}{\numberline {3.1.1}协方差矩阵}{15}
+\contentsline {subsection}{\numberline {3.1.2}特征值分解}{16}
+\contentsline {subsection}{\numberline {3.1.3}实对称矩阵性质}{17}
+\contentsline {section}{\numberline {3.2}LDA}{18}
+\contentsline {subsection}{\numberline {3.2.1}二类问题}{18}
+\contentsline {subsection}{\numberline {3.2.2}多类问题}{20}
+\contentsline {subsection}{\numberline {3.2.3}LDA的局限}{21}
+\contentsline {section}{\numberline {3.3}PCA}{21}
+\contentsline {subsection}{\numberline {3.3.1}PCA算法}{21}
+\contentsline {subsection}{\numberline {3.3.2}最大化方差解释PCA}{22}
+\contentsline {subsection}{\numberline {3.3.3}最小化损失解释PCA}{24}
+\contentsline {section}{\numberline {3.4}SVD}{26}
+\contentsline {subsection}{\numberline {3.4.1}几何方法导出SVD}{26}
+\contentsline {subsection}{\numberline {3.4.2}SVD剖析}{28}
+\contentsline {subsubsection}{SVD与特征值分解}{28}
+\contentsline {subsubsection}{SVD与PCA}{28}
+\contentsline {chapter}{\numberline {第四章\hspace {0.3em}}Naive Bayes}{35}
+\contentsline {section}{\numberline {4.1}Naive Bayes基本方法}{35}
+\contentsline {section}{\numberline {4.2}极大似然估计参数}{36}
+\contentsline {section}{\numberline {4.3}后验概率与期望风险的关系}{36}
+\contentsline {section}{\numberline {4.4}单调递增变换与线性求和}{37}
+\contentsline {section}{\numberline {4.5}独立假设的利弊及扩展}{39}
+\contentsline {subsection}{\numberline {4.5.1}为什么独立性假设可行}{39}
+\contentsline {subsubsection}{降低复杂度}{39}
+\contentsline {subsubsection}{训练数据已做预处理}{39}
+\contentsline {subsubsection}{距离不遥远}{39}
+\contentsline {subsubsection}{非线性分类器}{39}
+\contentsline {subsection}{\numberline {4.5.2}收缩系数的引入}{39}
+\contentsline {subsubsection}{``偏差-方差''均衡原理}{39}
+\contentsline {subsubsection}{收缩系数}{40}
+\contentsline {section}{\numberline {4.6}拉普拉斯平滑}{41}
+\contentsline {subsection}{\numberline {4.6.1}先验概率修正}{42}
+\contentsline {subsection}{\numberline {4.6.2}条件概率修正}{42}
+\contentsline {chapter}{\numberline {第五章\hspace {0.3em}}PageRank算法}{45}
+\contentsline {section}{\numberline {5.1}PageRank算法}{45}
+\contentsline {section}{\numberline {5.2}PageRank的扩展：Timed-PageRank}{50}
+\contentsline {section}{\numberline {5.3}Perron–Frobenius 定理}{50}

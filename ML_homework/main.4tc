@@ -1,0 +1,77 @@
+\expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-1000}{QQ2-1-1}{目录}}{3}\relax 
+\doTocEntry\tocchapter{1}{\csname a:TocLink\endcsname{1}{x1-20001}{QQ2-1-2}{简介}}{3}\relax 
+\doTocEntry\tocsection{1.1}{\csname a:TocLink\endcsname{1}{x1-30001.1}{QQ2-1-3}{章节简介}}{3}\relax 
+\doTocEntry\tocsection{1.2}{\csname a:TocLink\endcsname{1}{x1-40001.2}{QQ2-1-4}{本书来源}}{3}\relax 
+\doTocEntry\toclot{1.1}{\csname a:TocLink\endcsname{1}{x1-4001r1}{}{\ignorespaces 四篇博客的博文名字、网址和发表时间表}}{table}\relax 
+\doTocEntry\toclof{1.1}{\csname a:TocLink\endcsname{1}{x1-4002r1}{}{\ignorespaces 我的CSDN博客示意图}}{figure}\relax 
+\doTocEntry\tocchapter{2}{\csname a:TocLink\endcsname{1}{x1-50002}{QQ2-1-7}{感知机模型介绍}}{13}\relax 
+\doTocEntry\tocsection{2.1}{\csname a:TocLink\endcsname{1}{x1-60002.1}{QQ2-1-8}{感知机要解决的问题}}{13}\relax 
+\doTocEntry\toclof{2.1}{\csname a:TocLink\endcsname{1}{x1-6003r1}{}{\ignorespaces 感知机模型是线性二分类模型，故只能用于线性可分的数据(image 4.1(a)\hbox {})，而不能用于线性不可分的数据(image 4.1(b)\hbox {})。当训练数据不可分时，感知机模型学习过程不收敛，迭代结果会发生震荡.}}{figure}\relax 
+\doTocEntry\tocsection{2.2}{\csname a:TocLink\endcsname{1}{x1-70002.2}{QQ2-1-10}{感知机模型}}{16}\relax 
+\doTocEntry\toclof{2.2}{\csname a:TocLink\endcsname{1}{x1-7004r2}{}{\ignorespaces 三维空间的分离超平面示意图。不同标记的两类点集被分离超平面分开。}}{figure}\relax 
+\doTocEntry\tocsection{2.3}{\csname a:TocLink\endcsname{1}{x1-80002.3}{QQ2-1-12}{感知机学习策略}}{20}\relax 
+\doTocEntry\tocsection{2.4}{\csname a:TocLink\endcsname{1}{x1-90002.4}{QQ2-1-13}{优化算法}}{20}\relax 
+\doTocEntry\tocsubsection{2.4.1}{\csname a:TocLink\endcsname{1}{x1-100002.4.1}{QQ2-1-14}{随机梯度下降法与标准梯度下降}}{20}\relax 
+\doTocEntry\tocsubsection{2.4.2}{\csname a:TocLink\endcsname{1}{x1-110002.4.2}{QQ2-1-15}{感知机优化算法及其实现}}{22}\relax 
+\doTocEntry\tocloa{1}{\csname a:TocLink\endcsname{1}{x1-11001r1}{}{\ignorespaces The perceptron learning algorithm.}}{algorithm}\relax 
+\doTocEntry\toclot{2.1}{\csname a:TocLink\endcsname{1}{x1-11009r1}{}{\ignorespaces 变量或函数定义}}{table}\relax 
+\doTocEntry\tocsection{2.5}{\csname a:TocLink\endcsname{1}{x1-120002.5}{QQ2-1-18}{感知机优化算法的收敛性证明}}{28}\relax 
+\doTocEntry\tocloa{2}{\csname a:TocLink\endcsname{1}{x1-12002r2}{}{\ignorespaces The perceptron learning algorithm using augment vector.}}{algorithm}\relax 
+\doTocEntry\tocsection{2.6}{\csname a:TocLink\endcsname{1}{x1-130002.6}{QQ2-1-20}{感知机学习优化算法的对偶形式}}{35}\relax 
+\doTocEntry\tocloa{3}{\csname a:TocLink\endcsname{1}{x1-13003r3}{}{\ignorespaces The perceptron learning algorithm using augment vector.}}{algorithm}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-140002.6}{QQ2-1-22}{参考文献}}{45}\relax 
+\doTocEntry\tocchapter{3}{\csname a:TocLink\endcsname{1}{x1-150003}{QQ2-1-23}{LDA,SVD和PCA}}{49}\relax 
+\doTocEntry\tocsection{3.1}{\csname a:TocLink\endcsname{1}{x1-160003.1}{QQ2-1-24}{矩阵工具}}{49}\relax 
+\doTocEntry\tocsubsection{3.1.1}{\csname a:TocLink\endcsname{1}{x1-170003.1.1}{QQ2-1-25}{协方差矩阵}}{49}\relax 
+\doTocEntry\toclot{3.1}{\csname a:TocLink\endcsname{1}{x1-17001r1}{}{\ignorespaces 数据表。$\bm  {x}$表示一条记录，$\bm  {c}$表示一个维度}}{table}\relax 
+\doTocEntry\tocsubsection{3.1.2}{\csname a:TocLink\endcsname{1}{x1-180003.1.2}{QQ2-1-27}{特征值分解}}{53}\relax 
+\doTocEntry\tocsubsection{3.1.3}{\csname a:TocLink\endcsname{1}{x1-190003.1.3}{QQ2-1-28}{实对称矩阵性质}}{56}\relax 
+\doTocEntry\tocsection{3.2}{\csname a:TocLink\endcsname{1}{x1-200003.2}{QQ2-1-29}{LDA}}{60}\relax 
+\doTocEntry\toclof{3.1}{\csname a:TocLink\endcsname{1}{x1-20004r1}{}{\ignorespaces LDA将二维空间的两类数据(分别标记为红、蓝两色)集投射到一维示意图。子图4.1(a)\hbox {}将数据投射到一维空间后，两种类别的数据点交错在一起，给类别判定带来困难；而子图4.1(b)\hbox {}投射到一维空间后保留了类别判定信息，能够在一维空间很好地进行分类，LDA就是找到最佳的投射方向}}{figure}\relax 
+\doTocEntry\tocsubsection{3.2.1}{\csname a:TocLink\endcsname{1}{x1-210003.2.1}{QQ2-1-31}{二类问题}}{64}\relax 
+\doTocEntry\tocsubsection{3.2.2}{\csname a:TocLink\endcsname{1}{x1-220003.2.2}{QQ2-1-32}{多类问题}}{69}\relax 
+\doTocEntry\tocsubsection{3.2.3}{\csname a:TocLink\endcsname{1}{x1-230003.2.3}{QQ2-1-33}{LDA的局限}}{71}\relax 
+\doTocEntry\toclof{3.2}{\csname a:TocLink\endcsname{1}{x1-23004r2}{}{\ignorespaces 子图3.2(a)\hbox {}的两个类别(分别用红、蓝两种颜色区分)分别由两个均值不同高斯分布组成，不是unimodal Gaussian 所以不能用LDA;子图3.2(b)\hbox {}的分布也不是高斯分布;子图子图3.2(c)\hbox {}的两个分布的均值相等，这将使式\oldstylenums  {3.2}.\oldstylenums  {14}\hbox {}恒为0，所以也不能用LDA}}{figure}\relax 
+\doTocEntry\tocsection{3.3}{\csname a:TocLink\endcsname{1}{x1-240003.3}{QQ2-1-35}{PCA}}{74}\relax 
+\doTocEntry\tocsubsection{3.3.1}{\csname a:TocLink\endcsname{1}{x1-250003.3.1}{QQ2-1-36}{PCA算法}}{74}\relax 
+\doTocEntry\tocsubsection{3.3.2}{\csname a:TocLink\endcsname{1}{x1-260003.3.2}{QQ2-1-37}{最大化方差解释PCA}}{75}\relax 
+\doTocEntry\toclof{3.3}{\csname a:TocLink\endcsname{1}{x1-26001r3}{}{\ignorespaces 最大化方差示意图。图中的红色三角是检CE到的信号，可以看到基本上沿对角线分布（即图示的较粗的箭头指示的方向），检CE信号沿该方向的投影（图示的叉所形成的线）可以看成是真实的信号（Signal），很明显的该投影数据方差最大。而垂直于该方向的投影（即图示的较细的箭头指示的方向，投影数据未画出）可以看成是噪声(Noise)。我们可以摒弃噪声数据，只提取在方差最大方向上的投影数据，就实现了用一维数据表示原来的二维数据，这就是用PCA来降维的基本原理。}}{figure}\relax 
+\doTocEntry\tocsubsection{3.3.3}{\csname a:TocLink\endcsname{1}{x1-270003.3.3}{QQ2-1-39}{最小化损失解释PCA}}{83}\relax 
+\doTocEntry\tocsection{3.4}{\csname a:TocLink\endcsname{1}{x1-280003.4}{QQ2-1-40}{SVD}}{88}\relax 
+\doTocEntry\tocsubsection{3.4.1}{\csname a:TocLink\endcsname{1}{x1-290003.4.1}{QQ2-1-41}{几何方法导出SVD}}{88}\relax 
+\doTocEntry\toclof{3.4}{\csname a:TocLink\endcsname{1}{x1-29003r4}{}{\ignorespaces 对任一二阶方矩阵$\bm  {A}$，必存在正交的单位列向量$\bm  {v}_1,\bm  {v}_2$，满足$\bm  {A}\bm  {v}_1$ 与$\bm  {A}\bm  {v}_2$也是正交的。}}{figure}\relax 
+\doTocEntry\tocsubsection{3.4.2}{\csname a:TocLink\endcsname{1}{x1-300003.4.2}{QQ2-1-43}{SVD剖析}}{93}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{1}{x1-310003.4.2}{QQ2-1-44}{SVD与特征值分解}}{94}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{1}{x1-320003.4.2}{QQ2-1-45}{SVD与PCA}}{95}\relax 
+\doTocEntry\toclof{3.5}{\csname a:TocLink\endcsname{1}{x1-32001r5}{}{\ignorespaces SVD矩阵压缩示意图。取前$r$个奇异值（矩阵$\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle \bm  {\Sigma }_{rr}$}\mathaccent "0365{\bm  {\Sigma }_{rr}}$）及其对应的左奇异矩阵( $\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle \bm  {U}_{mr}$}\mathaccent "0365{\bm  {U}_{mr}}$)和右奇异矩阵($\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle \bm  {V}_{nr}$}\mathaccent "0365{\bm  {V}_{nr}}$)的矩阵乘得到矩阵$\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle \bm  {A}_{mn}$}\mathaccent "0365{\bm  {A}_{mn}}$，可以近似原来的$\bm  {A}_{mm}$。通常仅用前面的很少的特征值就可能以很小的损失恢复出原矩阵。}}{figure}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-330003.4.2}{QQ2-1-47}{参考文献}}{103}\relax 
+\doTocEntry\tocchapter{4}{\csname a:TocLink\endcsname{1}{x1-340004}{QQ2-1-48}{Naive Bayes}}{107}\relax 
+\doTocEntry\tocsection{4.1}{\csname a:TocLink\endcsname{1}{x1-350004.1}{QQ2-1-49}{Naive Bayes基本方法}}{107}\relax 
+\doTocEntry\tocsection{4.2}{\csname a:TocLink\endcsname{1}{x1-360004.2}{QQ2-1-50}{极大似然估计参数}}{110}\relax 
+\doTocEntry\toclot{4.1}{\csname a:TocLink\endcsname{1}{x1-36001r1}{}{\ignorespaces 变量或函数定义}}{table}\relax 
+\doTocEntry\tocsection{4.3}{\csname a:TocLink\endcsname{1}{x1-370004.3}{QQ2-1-52}{后验概率与期望风险的关系}}{113}\relax 
+\doTocEntry\tocsection{4.4}{\csname a:TocLink\endcsname{1}{x1-380004.4}{QQ2-1-53}{单调递增变换与线性求和}}{116}\relax 
+\doTocEntry\tocsection{4.5}{\csname a:TocLink\endcsname{1}{x1-390004.5}{QQ2-1-54}{独立假设的利弊及扩展}}{119}\relax 
+\doTocEntry\tocsubsection{4.5.1}{\csname a:TocLink\endcsname{1}{x1-400004.5.1}{QQ2-1-55}{为什么独立性假设可行}}{119}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{1}{x1-410004.5.1}{QQ2-1-56}{降低复杂度}}{119}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{1}{x1-420004.5.1}{QQ2-1-57}{训练数据已做预处理}}{120}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{1}{x1-430004.5.1}{QQ2-1-58}{距离不遥远}}{120}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{1}{x1-440004.5.1}{QQ2-1-59}{非线性分类器}}{120}\relax 
+\doTocEntry\tocsubsection{4.5.2}{\csname a:TocLink\endcsname{1}{x1-450004.5.2}{QQ2-1-60}{收缩系数的引入}}{120}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{1}{x1-460004.5.2}{QQ2-1-61}{``偏差-方差''均衡原理}}{120}\relax 
+\doTocEntry\toclof{4.1}{\csname a:TocLink\endcsname{1}{x1-46005r1}{}{\ignorespaces A function (red) is approximated using RBF (blue). Several trials are shown in each graph. For each trial, a few noisy data points are provided as training set. For a big $\sigma $ (image 4.1(b)\hbox {}) the bias is high(i.e.the RBFs cannot fully approximate the function,especially the central dip), but the variance between different trials is low. As $\sigma $ decreases (image 4.1(c)\hbox {} and 4.1(c)\hbox {}) the bias decreases(i.e.the blue curves more closely approximate the red). However, depending on the noise in different trials the variance between trials increases. In image4.1(d)\hbox {} the approximated values for x=0 varies wildly depending on where the data points were located.}}{figure}\relax 
+\doTocEntry\toclof{4.2}{\csname a:TocLink\endcsname{1}{x1-46006r2}{}{\ignorespaces ``方差-偏差''均衡示意图,为了实现方差和偏差二者的均衡，需要对模型假设的复杂度取折中，即模型太复杂了或太简单了都不可取}}{figure}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{1}{x1-470004.5.2}{QQ2-1-64}{收缩系数}}{124}\relax 
+\doTocEntry\tocsection{4.6}{\csname a:TocLink\endcsname{1}{x1-480004.6}{QQ2-1-65}{拉普拉斯平滑}}{125}\relax 
+\doTocEntry\tocsubsection{4.6.1}{\csname a:TocLink\endcsname{1}{x1-490004.6.1}{QQ2-1-66}{先验概率修正}}{126}\relax 
+\doTocEntry\tocsubsection{4.6.2}{\csname a:TocLink\endcsname{1}{x1-500004.6.2}{QQ2-1-67}{条件概率修正}}{127}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-510004.6.2}{QQ2-1-68}{参考文献}}{131}\relax 
+\doTocEntry\tocchapter{5}{\csname a:TocLink\endcsname{1}{x1-520005}{QQ2-1-69}{PageRank算法}}{135}\relax 
+\doTocEntry\tocsection{5.1}{\csname a:TocLink\endcsname{1}{x1-530005.1}{QQ2-1-70}{PageRank算法}}{135}\relax 
+\doTocEntry\toclof{5.1}{\csname a:TocLink\endcsname{1}{x1-53016r1}{}{\ignorespaces 网络的超链接图的例子}}{figure}\relax 
+\doTocEntry\toclof{5.2}{\csname a:TocLink\endcsname{1}{x1-53025r2}{}{\ignorespaces 周期为3的马尔科夫链}}{figure}\relax 
+\doTocEntry\tocloa{4}{\csname a:TocLink\endcsname{1}{x1-53036r4}{}{\ignorespaces PageRank-Iterate(G).}}{algorithm}\relax 
+\doTocEntry\tocsection{5.2}{\csname a:TocLink\endcsname{1}{x1-540005.2}{QQ2-1-74}{PageRank的扩展：Timed-PageRank}}{146}\relax 
+\doTocEntry\tocsection{5.3}{\csname a:TocLink\endcsname{1}{x1-550005.3}{QQ2-1-75}{Perron–Frobenius 定理}}{146}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-560005.3}{QQ2-1-76}{参考文献}}{149}\relax 

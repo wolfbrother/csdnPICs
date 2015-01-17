@@ -1,0 +1,765 @@
+
+
+
+
+\chapter{LDA,SVD和PCA}
+\section{矩阵工具}
+\subsection{协方差矩阵}\label{subsec:cov}
+假如我们从某个实验中得到相同类型的$N$个记录$\bm{x}_1,\bm{x}_2,\cdots,\bm{x}_N$，每条记录都是$M$维的，依次标记为$\bm{c}_1,\bm{c}_2,\cdots,\bm{c}_M$，记录的数据直观地用表\ref{tab:data}表示
+ \begin{table}[h]
+  \centering
+  %\scriptsize
+  \caption{数据表。$\bm{x}$表示一条记录，$\bm{c}$表示一个维度}
+  \label{tab:data}
+  \begin{tabular}{lcccc}
+    \\[-2mm]
+    \hline
+    \hline
+    {\bf }&\qquad{ $\bm{c}_1$}&\qquad { $\bm{c}_2$}&\qquad { $\cdots$}&\qquad {$\bm{c}_M$}\\
+    \hline
+    $\bm{x}_1$&\qquad$x_{11}$&\qquad$x_{12}$&\qquad$\cdots$&\qquad$x_{1M}$\\
+    $\bm{x}_2$&\qquad$x_{21}$&\qquad$x_{22}$&\qquad$\cdots$&\qquad$x_{2M}$\\
+    $\bm{x}_3$&\qquad$x_{31}$&\qquad$x_{32}$&\qquad$\cdots$&\qquad$x_{3M}$\\
+    $\vdots$&\qquad$\vdots$&\qquad$\vdots$&\qquad$\ddots$&\qquad$\vdots$\\
+    $\bm{x}_N$&\qquad$x_{N1}$&\qquad$x_{N2}$&\qquad$\cdots$&\qquad$x_{NM}$\\
+    \vspace{1mm}\\[-3mm]
+    \hline
+    \hline
+  \end{tabular}
+\end{table}
+
+根据表\ref{tab:data}，我们规定第$i$条记录表示为列向量$\bm{x}_n=\left(x_{n1},x_{n2},\cdots,x_{nM}\right)^T$，所有记录的第$m$ 维的数据表示为有序列向量$\bm{c}_m=\left(x_{1m},x_{2m},x_{3m},\cdots,x_{Nm}\right)^T$。另外我们用列向量$\bm{\mu}=\frac{1}{N}\sum_{n=1}^{N}\bm{x}_n$表示由$N$条记录所得到的各个维度的均值组成的向量，可以看出$\bm{\mu}$的维度也是$M$。
+
+现在我们开始讨论表\ref{tab:data}记录的数据的协方差矩阵$\bm{\Sigma}$。首先可以明确的一点是$\bm{\Sigma}$为$M$阶对称的方阵，因为它描述的是维度两两之间（当然也包括与本身，体现在协方差矩阵的对角线上）的协方差，或者相关程度。它有以下两种表示方法
+\begin{enumerate}
+  \item
+  $\bm{\Sigma}=\frac{1}{N}\sum_{n=1}^{N}\left(\bm{x}_n-\bm{\mu}\right)\left(\bm{x}_n-\bm{\mu}\right)^T$
+  \item
+  $\bm{\Sigma}=\frac{1}{N}
+  \begin{bmatrix}
+    \left(\bm{c}_1-\mu_1\right)^T\left(\bm{c}_1-\mu_1\right)&\left(\bm{c}_1-\mu_1\right)^T\left(\bm{c}_2-\mu_2\right)&\cdots&\left( \bm{c}_1-\mu_1\right)^T\left(\bm{c}_M-\mu_M\right)\\
+    \left(\bm{c}_2-\mu_2\right)^T\left(\bm{c}_1-\mu_1\right)&\left(\bm{c}_2-\mu_2\right)^T\left(\bm{c}_2-\mu_2\right)&\cdots&\left( \bm{c}_2-\mu_2\right)^T\left( \bm{c}_M-\mu_M\right)\\
+    \left(\bm{c}_3-\mu_3\right)^T\left(\bm{c}_1-\mu_1\right)&\left(\bm{c}_3-\mu_3\right)^T\left(\bm{c}_2-\mu_2\right)&\cdots&\left( \bm{c}_3-\mu_3\right)^T\left(\bm{c}_M-\mu_M\right)\\
+    \vdots&\vdots&\ddots&\vdots\\
+    \left(\bm{c}_M-\mu_M\right)^T\left(\bm{c}_1-\mu_1\right)&\left(\bm{c}_M-\mu_M\right)^T\left(\bm{c}_2-\mu_2\right)&\cdots&\left( \bm{c}_M-\mu_M\right)^T\left(\bm{c}_M-\mu_M\right)
+  \end{bmatrix}
+  $
+\end{enumerate}
+
+下面证明这两种表示方法是等效的：
+\begin{proof}:\\
+\begin{description}
+  \item[\qquad Step 1] 方法$1$表示的方差的第$i$行、第$j$列的元素
+    \begin{equation}
+    \label{equ:1}
+    \begin{split}
+      \Sigma_{ij}   &=\frac{1}{N}\sum_{n=1}^{N}\left(\bm{x}_n-\bm{\mu}\right)_{i}\left(\bm{x}_n-\bm{\mu}\right)_{j}\\
+                    &=\frac{1}{N}\sum_{n=1}^{N}\left(x_{ni}-\mu_{i}\right)\left(x_{nj}-\mu_{j}\right)
+    \end{split}
+    \end{equation}
+  \item[\qquad Step 2] 方法$2$表示的方差的第$i$行、第$j$列的元素
+    \begin{equation}
+    \label{equ:2}
+    \begin{split}
+      \Sigma_{ij}   &=\frac{1}{N}\sum_{n=1}^{N}\langle\bm{c}_i-\mu_i,\bm{c}_j-\mu_j\rangle\\
+                    &=\frac{1}{N}\sum_{n=1}^{N}\left(x_{ni}-\mu_{i}\right)\left(x_{nj}-\mu_{j}\right)
+    \end{split}
+    \end{equation}
+  \item[\qquad Step 3] 由式\ref{equ:1}和式\ref{equ:2}知二者等效，都可以用来计算协方差矩阵。
+\end{description}
+\end{proof}
+\subsection{特征值分解}\label{subsec:deco}
+给定$N$阶方阵$\bm{A}$，则$N$维列向量$\bm{\nu}$是$\bm{A}$的特征向量，当且仅当下式成立
+\begin{equation}
+    \label{equ:eign}
+  \bm{A}\bm{\nu}=\lambda \bm{\nu}
+\end{equation}
+其中$\lambda$是标量，是特征向量$\bm{\nu}$对应的特征值。
+
+假设$N$阶方阵$\bm{A}$有$N$个线性无关的特征向量$\bm{\nu}_1,\bm{\nu}_2,\cdots,\bm{\nu}_N$，分别对应特征值$\lambda_1,\lambda_2,\cdots,\lambda_N$，则每个特征向量—特征值对$\{\bm{\nu}_i,\lambda_i\},i=1,2,\cdots,N$都满足式\ref{equ:eign}。
+
+构造$N$阶对角矩阵$\bm{\varLambda}$，满足
+\begin{equation*}
+\centering
+\bm{\varLambda}_{ij}=\begin{cases}\lambda_i\!&i=j\\0\!&otherwise\end{cases}
+\end{equation*}
+
+构造$N$阶方阵$\bm{Q}$，满足
+\begin{equation*}
+\centering
+\bm{Q}=\left(\bm{\nu}_1,\bm{\nu}_2,\cdots,\bm{\nu}_N\right)
+\end{equation*}
+
+则矩阵$\bm{A},\bm{Q},\bm{\varLambda}$满足关系
+\begin{equation}
+    \label{equ:dimen}
+  \bm{A}\bm{Q}=\bm{Q}\bm{\varLambda}
+\end{equation}
+
+进而得到
+\begin{equation}
+    \label{equ:eigndec}
+  \bm{A}=\bm{Q}\bm{\varLambda}\bm{Q}^{-1}
+\end{equation}
+式\ref{equ:eigndec}就是特征值分解，又叫谱分解（Spectral decomposition）。
+
+对特征值和特征向量的一种解释是：$N$阶方阵$\bm{A}$可以看成是一个拉伸变换，其$N$个特征向量可以看成是$N$个拉伸方向。需要说明的是这$N$个方向的拉伸幅度是不相同的，这个度量由各个特征向量对应的特征值表示。具体的，特征值越大，表示在该方向的拉伸幅度越大，在整个拉伸变换中它的权重越大。
+
+如果我们选取最大的$k$个特征值组成$k$阶对角阵$\bm{\varLambda}_k$，用对应的$k$个特征向量组成$N\times k$的矩阵$\bm{Q}_k$，仿照式\ref{equ:dimen},得到
+\begin{equation}
+    \label{equ:dimension}
+  \bm{A}\bm{Q}_k=\bm{Q}_k\bm{\varLambda}_k
+\end{equation}
+观察式\ref{equ:dimension}，左边的运算的实际意义是将矩阵$\bm{A}$投射到权重最大的$k$个拉伸方向上。令$\bm{A}'=\bm{A}\bm{Q}_k$，对比$\bm{A}'$（每行用$k$维向量表示）和$\bm{A}$（每行用$N$维向量表示），可以发现实现了降维的目的。
+
+\subsection{实对称矩阵性质}\label{subsec:symetric}
+协方差矩阵是实对称矩阵，所以我们有必要给出实对称矩阵的几条性质。
+首先介绍一个关系式：考虑$N\times N$阶对称矩阵$\bm{A}$,它也可以视为定义于$\mathcal{R}^N$域的线性算子，即$A:\mathcal{R}^n\rightarrow \mathcal{R}^n$。因为$\bm{A}^H=\bm{A}$，则对于$\mathcal{R}^N$中任意向量$\bm{x}$和$\bm{y}$，有
+\begin{equation}
+(\bm{A}\bm{x})^H\bm{y}=\bm{x}^H\bm{A}^H\bm{y}=\bm{x}^H(\bm{A}\bm{y})
+\end{equation}
+\begin{thm}[实对称矩阵的特征值是实数，其对应的特征向量为实向量]~\\
+\indent 令$\bm{A}$为实对称矩阵，$\lambda$为其特征值，$\bm{\nu}$为该特征值对应的特征向量，我们要证明$\lambda\in \mathcal{R}$。\\
+\indent 根据特征值定义，有
+\begin{equation}\label{equ:defn}
+  \bm{A}\bm{\nu}=\lambda\bm{\nu}
+\end{equation}
+\indent 两边取共轭转置，有
+\begin{equation}
+  \bm{\nu}^H\bm{A}^H=\bar{\lambda}\bm{\nu}^H
+\end{equation}
+\indent 因为$\bm{A}$为实对称矩阵，则其共轭转置等于其本身，有
+\begin{equation}
+  \bm{\nu}^H\bm{A}=\bar{\lambda}\bm{\nu}^H
+\end{equation}
+\indent 两边同时乘以$\bm{\nu}$，有
+\begin{equation}
+  \bm{\nu}^H\bm{A}\bm{\nu}=\bar{\lambda}\bm{\nu}^H\bm{\nu}
+\end{equation}
+\indent 带入式\ref{equ:defn}，有
+\begin{equation}
+  \bm{\nu}^H\lambda\bm{\nu}=\bar{\lambda}\bm{\nu}^H\bm{\nu}
+\end{equation}
+\indent 进而得到
+\begin{equation}
+  \left(\lambda-\bar{\lambda}\right)\bm{\nu}^H\bm{\nu}=0
+\end{equation}
+\indent 因为$\bm{\nu}^H\bm{\nu}\neq 0$，所以有$\left(\lambda-\bar{\lambda}\right)=0$，即$\lambda=\bar{\lambda}$，$\lambda$为实数。
+~\\
+\indent 在数学中，一个算子$\bm{A}$的零空间$N(\bm{A})$是方程$\bm{A}\bm{\nu}=0$的所有解$\bm{\nu}$的集合，即
+\begin{equation}
+  N(\bm{A})=\{\bm{\nu}\in \mathcal{V}|\bm{A}\bm{\nu}=0\}
+\end{equation}
+\indent 如果$\bm{A}$是矩阵，它的零空间是所有向量的空间的线性子空间。\\
+\indent 回到证明过程，则$N(\bm{A}-\lambda \bm{I})$是$\mathcal{R}^N$的子空间，而$\bm{\nu}\in N(\bm{A}-\lambda \bm{I})$，故$\bm{\nu}$是实向量。
+\end{thm}
+\begin{thm}[不同特征值对应的特征向量正交]~\\
+\indent $\bm{A}$为方矩阵，$\lambda_1,\lambda_2$为其特征值，且有$\lambda_1\neq\lambda_2$，$\lambda_1,\lambda_2$ 分别对应的特征向量为$\bm{\nu}_1,\bm{\nu}_2$，要证明$\bm{\nu}_1^H\bm{\nu}_2=0$。\\
+\indent 首先推演以下等式
+\begin{equation*}
+\lambda_1\bm{\nu}_1^H\bm{\nu}_2=(\lambda_1\bm{\nu}_1)^H\bm{\nu}_2=(\bm{A}\bm{\nu}_1)^H\bm{\nu}_2 =\bm{\nu}_1^H(\bm{A}\bm{\nu}_2)=\bm{\nu}_1^H(\lambda_2\bm{\nu}_2)=\lambda_2\bm{\nu}_1^H\bm{\nu}_2
+\end{equation*}
+~\\
+\indent 从而得到等式\\
+\begin{equation}
+\lambda_1\bm{\nu}_1^H\bm{\nu}_2-\lambda_2\bm{\nu}_1^H\bm{\nu}_2=0
+\end{equation}
+~\\
+\indent 即\\
+\begin{equation}
+(\lambda_1-\lambda_2)\bm{\nu}_1^H\bm{\nu}_2=0
+\end{equation}
+~\\
+\indent 因为$(\lambda_1-\lambda_2)\neq 0$ 所以有$\bm{\nu}_1^H\bm{\nu}_2=0$
+\end{thm}
+\begin{thm}[实对称矩阵是满秩的，有$N$个线性无关的特征向量，且某特征值的重数等于该特征值所对应的线性无关的特征向量的个数]
+\end{thm}
+\begin{thm}[必存在正交矩阵$\bm{P}$，使得$\bm{P}^{-1}\bm{A}\bm{P}=\bm{\varLambda}$，且$\bm{\varLambda}$是以$\bm{A}$的$N$个特征值为对角元素的对角矩阵]
+\end{thm}
+
+\section{LDA}
+LDA全称是Linear Discriminant Analysis（线性判别分析），又叫Fisher’s Linear Discriminant，属于supervised learning。LDA试图从带有标签的大量数据样本学习到一种投射方法，
+\begin{equation}\label{equ:project}
+  y=\bm{w}^T\bm{x},\qquad \mathrm{~in~which~} y \mathrm{~is~a~scalar}
+\end{equation}
+能够利用该投射将高维数据降到低维，并且尽可能多地保留类别判定信息，如图\ref{fig:LDAsample}。
+\begin{figure}[!ht]
+\centering
+\subfigure[]{
+\label{fig:a}
+\includegraphics[width=0.3\textwidth]{LDAsimple_a.jpg}}
+\hspace{0.2in}
+\subfigure[]{
+\label{fig:b}
+\includegraphics[width=0.3\textwidth]{LDAsimple_b.jpg}}
+\caption{LDA将二维空间的两类数据(分别标记为红、蓝两色)集投射到一维示意图。子图\ref{fig:a}将数据投射到一维空间后，两种类别的数据点交错在一起，给类别判定带来困难；而子图\ref{fig:b}投射到一维空间后保留了类别判定信息，能够在一维空间很好地进行分类，LDA就是找到最佳的投射方向}
+\label{fig:LDAsample}
+\end{figure}
+\subsection{二类问题}
+首先定义数据集，特征向量$\bm{x}\in \mathcal{R}^n$，类别标签$\{c_1,c_2\}$，要求的参数就是投射函数式\ref{equ:project}中的投射向量$\bm{w}\in \mathcal{R}^n$。因为是二分类问题，所以投射向量$\bm{w}$只有一个。设类别$c_1$的实例数目$n_1$，$c_2$的实例数目$n_2$，$N=n_1+n_2$，再定义变量
+\begin{eqnarray}
+  \bm{\mu_1}=&\frac{1}{n_1}\sum_{\bm{x}\in c_1}{\bm{x}}\\
+  \bm{\mu_2}=&\frac{1}{n_2}\sum_{\bm{x}\in c_2}{\bm{x}}\\
+  \bm{\mu}=&\frac{1}{N}\sum_{\forall \bm{x}}{\bm{x}}=\frac{1}{N}\left(n_1\bm{\mu_1}+n_2\bm{\mu_2}\right)
+\end{eqnarray}
+其中$\mu_1,\mu_2$分别是类别$c_1,c_2$的实例的特征向量的中心点，$\mu$是所有实例的中心点。
+则投射到一维后的三个中心点
+\begin{eqnarray}
+  \widetilde{\mu_1}&=\bm{w}^T\mu_1=\frac{1}{n_1}\sum_{\bm{x}\in c_1}{\bm{w}^T\bm{x}}\\
+  \widetilde{\mu_2}&=\bm{w}^T\mu_2=\frac{1}{n_2}\sum_{\bm{x}\in c_2}{\bm{w}^T\bm{x}}\\
+  \widetilde{\mu}&=\frac{1}{N}\sum_{\forall \bm{x}}{\bm{w}^T\bm{x}}=\frac{1}{N}\left(n_1\widetilde{\mu_1}+n_2\widetilde{\mu_2}\right)
+\end{eqnarray}
+
+我们定义初始样本各个类别内的实例的特征向量的分散程度的度量$S_1,S_2$
+\begin{eqnarray}
+  S_1&=\sum_{\bm{x}\in c_1}(\bm{x}-\bm{\mu}_1)(\bm{x}-\bm{\mu}_1)^T\\
+  S_2&=\sum_{\bm{x}\in c_2}(\bm{x}-\bm{\mu}_1)(\bm{x}-\bm{\mu}_1)^T
+\end{eqnarray}
+在此基础上定义初始样本总的类别内的实例的特征向量的分散程度的度量$S_W$
+\begin{equation}\label{equ:SW}
+  S_W=S_1+S_2=\sum_{i=1}^{2}\sum_{\bm{x}\in c_i}(\bm{x}-\bm{\mu}_i)(\bm{x}-\bm{\mu}_i)^T
+\end{equation}
+然后我们定义初始样本类别间的分散程度的度量$S_B$
+\begin{equation}\label{equ:SB}
+  S_B=(\bm{\mu}_1-\bm{\mu}_2)(\bm{\mu}_1-\bm{\mu}_2)^T
+\end{equation}
+
+投影后的类别内的分散程度的度量$\widetilde{S_W}$
+\begin{equation}
+\begin{split}
+  \widetilde{S_W}   &=\sum_{i=1}^{2}\sum_{c\in c_i}(y-\mu_i)(y-\mu_i)^T\\
+                    &=\sum_{i=1}^{2}\sum_{c\in c_i}(\bm{w}^T\bm{x}-\bm{w}^T\bm{\mu}_i)(\bm{w}^T\bm{x}-\bm{w}^T\bm{\mu}_i)^T\\
+                    &=\sum_{i=1}^{2}\sum_{c\in c_i}\bm{w}^T(\bm{x}-\bm{\mu}_i)(\bm{x}-\bm{\mu}_i)^T\bm{w}\\
+                    &=\bm{w}^T\left(\sum_{i=1}^{2}\sum_{c\in c_i}(\bm{x}-\bm{\mu}_i)(\bm{x}-\bm{\mu}_i)^T\right)\bm{w}\\
+                    &=\bm{w}^TS_W\bm{w}
+\end{split}
+\end{equation}
+投影后的类别间的分散程度的度量$\widetilde{S_B}$
+\begin{equation}
+\begin{split}
+  \widetilde{S_B}   &=(\widetilde{\mu_1}-\widetilde{\mu_2})(\widetilde{\mu_1}-\widetilde{\mu_2})^T \\
+        &=(\bm{w}^T\bm{\mu}_1-\bm{w}^T\bm{\mu}_2)(\bm{w}^T\bm{\mu}_1-\bm{w}^T\bm{\mu}_2)^T\\
+        &=\bm{w}^T S_B\bm{w}
+\end{split}
+\end{equation}
+
+由于投影后的实例的类间分散程度(用$\widetilde{S_B}$)越大，类内分散程度(用$\widetilde{S_W}$)越小，效果越好，所以我们定义如下模型评价函数
+\begin{equation}\label{equ:LDA2J}
+\begin{split}
+  J(\bm{w})=\frac{\widetilde{S_B}}{\widetilde{S_W}}=\frac{\bm{w}^T S_B\bm{w}}{\bm{w}^T S_W\bm{w}}
+\end{split}
+\end{equation}
+
+式\ref{equ:LDA2J}是关于投影向量$\bm{w}$的函数，分子和分母都是标量，而且矩阵$S_B,S_W$都可以用公式\ref{equ:SB},\ref{equ:SW} 根据初始数据直接计算得出。下面我们求解式\ref{equ:LDA2J}得到最佳的投影向量$\bm{w}$的目标函数：
+\begin{equation}\label{equ:LDAarg}
+\bm{w}^{*}=\arg\min_{\bm{w}}-\frac{\bm{w}^T S_B\bm{w}}{\bm{w}^T S_W\bm{w}}
+\end{equation}
+
+观察式\ref{equ:LDA2J}，这是一个不随$\bm{w}$的尺度改变而改变的量，所以我们可以加个条件来限定$\bm{w}$的尺度，最简单的，规定$\bm{w}^T S_W\bm{w}=1$，则目标函数改写为
+\begin{equation}\label{equ:LDAarg2}
+\begin{split}
+\bm{w}^{*}&=\arg\min_{\bm{w}}-\frac{1}{2}\bm{w}^T S_B\bm{w}\\
+            & s.t.\quad\bm{w}^T S_W\bm{w}=1
+\end{split}
+\end{equation}
+这里之所以加个系数$\frac{1}{2}$只是为了方便后边的求导。
+
+式\ref{equ:LDAarg2}对应的Lagrangian形式
+\begin{equation}
+  \mathcal{L}_J=-\frac{1}{2}\bm{w}^T S_B\bm{w}+\frac{1}{2}\lambda \left(\bm{w}^T S_W\bm{w}-1\right)
+\end{equation}
+
+KKT条件告诉我们问题的解$\bm{w}^{*}$必满足
+\begin{equation}
+  \frac{\partial \mathcal{L}_J}{\partial \bm{w}^{*}}=S_B\bm{w}^{*}-\lambda S_W\bm{w}^{*}=0\Rightarrow S_B\bm{w}^{*}=\lambda S_W\bm{w}^{*}
+\end{equation}
+
+由于矩阵$S_B$是实对称矩阵，根据第\ref{subsec:symetric}节，它必是可逆的，所以有
+\begin{equation}
+  S_W^{-1}S_B\bm{w}^{*}=\lambda \bm{w}^{*}
+\end{equation}
+问题的求解变成了求解$n$阶矩阵$S_W^{-1}S_B$的特征向量。
+
+由于矩阵$S_B，S_W$都是实对称矩阵，所以$S_W^{-1}S_B$也是实对称矩阵，根据第\ref{subsec:symetric}节，它有$n$个正交的特征向量，我们取$S_W^{-1}S_B$的最大的特征值$\lambda^{*}$ 所对应的特征向量作为最佳的投影向量$\bm{w}^{*}$。
+
+下面给出证明：假设有矩阵$S_W^{-1}S_B$的特征值$\lambda$和其对应的特征向量$\bm{w}$，将其带入到式\ref{equ:LDA2J}，得到
+\begin{equation}
+  \begin{split}
+    J(\bm{w})&=\frac{\bm{w}^T S_B\bm{w}}{\bm{w}^T S_W\bm{w}}\\
+            &=\bm{w}^T S_B\bm{w}\\
+            &=\lambda\bm{w}S_W\bm{w}\\
+            &=\lambda
+  \end{split}
+\end{equation}
+也就是说，$J(\bm{w})$的大小就是特征值$\lambda$，所以能够最大化$J(\bm{w})$的$\bm{w}^{*}$为$S_W^{-1}S_B$的最大的特征值$\lambda^{*}$所对应的特征向量。
+\subsection{多类问题}
+将LDA扩展到用于多分类（如$c$个类别）问题，我们仍沿用上一小节的投影列向量$\bm{w}$，思路和上一小节的二分类大致相同。例如下面几个变量的定义方法都没有改变
+\begin{eqnarray}
+  \bm{\mu}_i&=\frac{1}{n_i}\sum_{\bm{x}\in c_i}{\bm{x}}\\
+  \bm{\mu}&=\frac{1}{N}\sum_{\forall \bm{x}}{\bm{x}}=\frac{1}{N}\sum_{i=1}^{c}n_i\bm{\mu}_i\\
+  \widetilde{\bm{\mu}_i}&=\frac{1}{n_i}\sum_{\bm{x}\in c_i}{\bm{w}^T\bm{x}}\\
+  \widetilde{\bm{\mu}}&=\frac{1}{N}\sum_{\forall \bm{x}}{\bm{w}^T\bm{x}}=\frac{1}{N}\sum_{i=1}^{c}n_i\bm{w}^T\bm{\mu}_i\\
+  S_i&=\sum_{\bm{x}\in c_i}(\bm{x}-\bm{\mu}_i)(\bm{x}-\bm{\mu}_i)^T\\
+  S_W&=\sum_{i=1}^{c}S_i=\sum_{i=1}^{c}\sum_{\bm{x}\in c_i}(\bm{x}-\bm{\mu}_i)(\bm{x}-\bm{\mu}_i)^T\\
+  \widetilde{S_W}&=\bm{w}^TS_W\bm{w}\\
+  \widetilde{S_B}&=\bm{w}^TS_B\bm{w}
+\end{eqnarray}
+只有矩阵$S_B$的定义作了修改，重新定义如下
+\begin{equation}
+  S_B=\sum_{i=1}^{c}n_i(\bm{\mu}_i-\bm{\mu})(\bm{\mu}_i-\bm{\mu})^T
+\end{equation}
+还有一个不同于二分类问题的是，$c$分类问题可以选取最多$c-1$个特征向量(当然是最大的$c-1$个特征值所对应的特征向量)。假设我们最终选取$k(k\leq c-1)$个特征向量，这$k$ 个特征向量用矩阵表示为
+\begin{equation}
+  \bm{w}=(\bm{w}_1,\bm{w}_2,\cdots,\bm{w}_k)
+\end{equation}
+则实例$\bm{x}$就可以用下面的方式映射到一个$k$维列向量
+\begin{equation}
+  \bm{y}=\bm{w}^T\bm{x}
+\end{equation}
+然后我们就可以通过对低维空间（$k$个个特征）的$\bm{y}$的分类来达到对高维空间（$n$个特征）的$x$进行分类的目的。
+\subsection{LDA的局限}
+LDA方法假设各个类别内部的实例遵循高斯分布（unimodal Gaussian），如果不是，也就是说如果数据有别的与分类有关的复杂的结构信息，LDA 方法将会在降维的过程中把这些结果信息丢掉，从而得不偿失。图\ref{fig:LDAcase}的几种情况不能用LDA方法
+\begin{figure}[!ht]
+\centering
+\subfigure[]{
+\label{fig:c1}
+\includegraphics[width=0.3\textwidth]{LDAcase1.jpg}}
+\hspace{0.1in}
+\subfigure[]{
+\label{fig:c2}
+\includegraphics[width=0.3\textwidth]{LDAcase2.jpg}}
+\hspace{0.1in}
+\subfigure[]{
+\label{fig:c3}
+\includegraphics[width=0.3\textwidth]{LDAcase3.jpg}}
+\caption{子图\ref{fig:c1}的两个类别(分别用红、蓝两种颜色区分)分别由两个均值不同高斯分布组成，不是unimodal Gaussian 所以不能用LDA;子图\ref{fig:c2}的分布也不是高斯分布;子图子图\ref{fig:c3}的两个分布的均值相等，这将使式\ref{equ:LDA2J}恒为0，所以也不能用LDA}
+\label{fig:LDAcase}
+\end{figure}
+\section{PCA}\label{sec:PCA}
+PCA，即主成分分析（Principal components analysis），是一种unsupervised learning，主要用于数据预处理中的特征提取环节，将数据集用为数较少的有效特征来表示，同时使得原来的数据信息尽可能的保留。
+\subsection{PCA算法}
+沿用第\ref{subsec:cov}小节（协方差矩阵）的例子，我们从某个实验中得到相同类型的$N$个记录数据$\bm{x}_1,\bm{x}_2,\cdots,\bm{x}_N$，每条记录都是$M$ 维的列向量，对应于$M$ 个数据特征，下面我们介绍一下用PCA来提取少数有效特征来降维的过程。
+\begin{enumerate}
+  \item 用$M\times N$阶的矩阵$\bm{A}=\left(\bm{x}_1,\bm{x}_2,\cdots,\bm{x}_N\right)$代表数据，计算$\bm{A}$的协方差矩阵（方法见第\ref{subsec:cov}），得到$M\times M$的协方差矩阵$\bm{\Sigma}$
+  \item 对$\bm{\Sigma}$进行特征值分解（方法见第\ref{subsec:deco}），由于$\bm{\Sigma}$是协方差矩阵，根据第\ref{subsec:symetric}小节的结论，必得到$M$个特征根(计入重根)，按从小到大排列$\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_M$，以及对应的特征向量$\bm{\nu}_1,\bm{\nu}_2,\cdots,\bm{\nu}_M$。
+  \item 从前向后选择$k$个，也就是最大的$k$个特征值$\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_k$对应的特征向量，组成$M\times k$阶的矩阵$\bm{w}=(\bm{\nu}_1,\bm{\nu}_2,\cdots,\bm{\nu}_k)$。
+  \item 计算$\bm{w}^T\times\bm{A}$，得到$k\times N$的矩阵，将其标记为$\widetilde{\bm{A}}$，则$\widetilde{\bm{A}}$就是PCA 降维后的数据矩阵。
+\end{enumerate}
+
+选取的前$k$个主成分（即特征向量）的累计贡献率的计算方法
+\begin{equation}
+  \eta =\frac{\sum_{i=1}^{k}\lambda_i}{\sum_{i=1}^{M}\lambda_i}
+\end{equation}
+它用来表示保留的信息的比重，或者用这$k$个主成分来解释原始数据的能力。如果原始的维度之间具有较高的相关性，则前面少数几个主成分的累积贡献率通常就能达到一个较高的水平。
+
+\subsection{最大化方差解释PCA}
+在信号处理中认为信号具有较大的方差，噪声有较小的方差，信噪比就是信号与噪声的方差之比，越大越好。可以参考图\ref{fig:PCAvar} 来帮助理解该概念。
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.6\textwidth,height=0.5\textwidth]{PCA_sample.jpg}
+  \caption{最大化方差示意图。图中的红色三角是检CE到的信号，可以看到基本上沿对角线分布（即图示的较粗的箭头指示的方向），检CE信号沿该方向的投影（图示的叉所形成的线）可以看成是真实的信号（Signal），很明显的该投影数据方差最大。而垂直于该方向的投影（即图示的较细的箭头指示的方向，投影数据未画出）可以看成是噪声(Noise)。我们可以摒弃噪声数据，只提取在方差最大方向上的投影数据，就实现了用一维数据表示原来的二维数据，这就是用PCA来降维的基本原理。}
+  \label{fig:PCAvar}
+\end{figure}
+
+主成分是这样的投射向量$\bm{w}$，样本投影到$\bm{w}$上之后被广泛散布，使得样本之间的差别变得最明显，即最大化方差。
+
+设第一个投射向量$\bm{w}_1$，根据前面的讲述，原始数据投射到该方向得到的新数据为
+\begin{equation*}
+  \widetilde{\bm{x}}=\left(\bm{w}_1^T\bm{x}_1,\bm{w}_1^T\bm{x}_2,\bm{w}_1^T\bm{x}_3,\cdots,\bm{w}_1^T\bm{x}_N,\right)
+\end{equation*}
+$\widetilde{\bm{x}}$的中心
+\begin{equation}
+  \widetilde{\mu}=\frac{1}{N}\sum_{i=1}^{N}\bm{w}_1^T\bm{x}_i
+\end{equation}
+则$\widetilde{\bm{x}}$的方差
+\begin{equation}
+\begin{split}
+  \widetilde{\bm{\Sigma}}&=\frac{1}{N}\sum_{i=1}^{N}(\bm{w}_1^T\bm{x}_i-\widetilde{\mu})^T(\bm{w}_1^T\bm{x}_i-\widetilde{\mu})\\
+                         &=\bm{w}_1^T\left(\frac{1}{N}\sum_{i=1}^{N}(\bm{x}_i-\widetilde{\mu})^T(\bm{x}_i-\widetilde{\mu})\right)\bm{w}_1\\                    &=\bm{w}_1^T\bm{\Sigma}\bm{w}_1
+\end{split}
+\end{equation}
+其中$\bm{\Sigma}$就是原始数据的方差矩阵。
+则我们的问题转化成
+\begin{equation}
+  \begin{split}
+    \bm{w}_1^{*}=&\quad\arg\max_{\bm{w}_1} \quad\bm{w}_1^T\bm{\Sigma}\bm{w}_1\\
+                    &\bm{w}_1^T\bm{w}_1=1
+  \end{split}
+\end{equation}
+其对应的Lagrangian形式
+\begin{equation}\label{equ:PCA_larg}
+  \mathcal{L}_J\left(\bm{w}_1\right)=-\frac{1}{2}\bm{w}_1^T\bm{\Sigma}\bm{w}_1+\frac{1}{2}\lambda \left(\bm{w}_1^T\bm{w}_1-1\right)
+\end{equation}
+对$\mathcal{L}_J$关于$\bm{w}_1$求导为0，得
+\begin{equation}
+  \frac{\partial\mathcal{L}_J\left(\bm{w}_1\right)}{\partial\bm{w}_1 }=-\bm{\Sigma}\bm{w}_1+\lambda\bm{w}_1 = 0 \Rightarrow \bm{\Sigma}\bm{w}_1=\lambda\bm{w}_1
+\end{equation}
+将$\bm{\Sigma}\bm{w}_1=\lambda\bm{w}_1$和$\bm{w}_1^T\bm{w}_1=1$带入式\ref{equ:PCA_larg}得
+\begin{equation}
+  \mathcal{L}_J\left(\bm{w}_1\right)=-\frac{1}{2}\bm{w}_1^T\bm{\Sigma}\bm{w}_1=-\frac{1}{2}\bm{w}_1^T\lambda_1\bm{w}_1=-\frac{1}{2}\lambda_1
+\end{equation}
+可以看出，第一个主成分$\bm{w}_1^{*}$应该取为方差矩阵$\bm{\Sigma}$最大特征值所对应的特征向量，而该特征值$\lambda_1^{*}$ 就是该主成分在原始数据的贡献率。
+
+在求得第一个主成分$\bm{w}_1^{*}$的基础上，我们求解下一个主成分$\bm{w}_2$，$\bm{w}_2$是与$\bm{w}_1^{*}$正交的使得投射在其上的数据的方差最大的投射向量。为了简化符号，我们把第一个主成分$\bm{w}_1^{*}$标记为$\bm{w}_1$，其对应的特征值$\lambda_1^{*}$标记为标记为$\lambda_1$。参考上面的推导得到优化目标
+\begin{equation}
+  \begin{split}
+    \bm{w}_2^{*}=&\quad\arg\max_{\bm{w}_2} \quad\bm{w}_2^T\bm{\Sigma}\bm{w}_2\\
+                    &\bm{w}_2^T\bm{w}_2=1\\
+                    &\bm{w}_2^T\bm{w}_1=0
+  \end{split}
+\end{equation}
+对应的Lagrangian形式
+\begin{equation}\label{equ:PCA_larg2}
+  \mathcal{L}_J\left(\bm{w}_2\right)=-\frac{1}{2}\bm{w}_2^T\bm{\Sigma}\bm{w}_2+\frac{1}{2}\lambda \left(\bm{w}_2^T\bm{w}_2-1\right)+\beta\left(\bm{w}_2^T\bm{w}_1-0\right)
+\end{equation}
+对$\mathcal{L}_J\left(\bm{w}_2\right)$关于$\bm{w}_2$求导为0，得
+\begin{equation}\label{equ:PCA_beta}
+  \bm{\Sigma}\bm{w}_2-\lambda\bm{w}_2-\beta\bm{w}_1=0
+\end{equation}
+对上式左乘$\bm{w}_1^T$，得
+\begin{equation}
+  \bm{w}_1^T\bm{\Sigma}\bm{w}_2-\lambda\bm{w}_1^T\bm{w}_2-\beta\bm{w}_1^T\bm{w}_1=0
+\end{equation}
+去掉为$0$项，化简得
+\begin{equation}\label{equ:PCA_beta0}
+  \bm{w}_1^T\bm{\Sigma}\bm{w}_2-\beta\bm{w}_1^T\bm{w}_1=0
+\end{equation}
+由于$\bm{w}_1^T\bm{\Sigma}\bm{w}_2$为标量且协方差矩阵$\bm{\Sigma}$为对称矩阵，所以有
+\begin{equation}
+  \bm{w}_1^T\bm{\Sigma}\bm{w}_2=\left(\bm{w}_1^T\bm{\Sigma}\bm{w}_2\right)^T=\bm{w}_2^T\bm{\Sigma}\bm{w}_1=\bm{w}_2^T\lambda_1\bm{w}_1=0
+\end{equation}
+将$\bm{w}_1^T\bm{\Sigma}\bm{w}_2=0$代入式\ref{equ:PCA_beta0}知$\beta=0$，将$\beta=0$代入式\ref{equ:PCA_beta}，得等式
+\begin{equation}\label{equ:PCA_eign2}
+  \bm{\Sigma}\bm{w}_2=\lambda\bm{w}_2
+\end{equation}
+由式\ref{equ:PCA_eign2}知$\bm{w}_2$是$\bm{\Sigma}$的一个特征向量，$\lambda$是$\bm{w}_2$对应的特征值。
+将式\ref{equ:PCA_eign2}代入式\label{equ:PCA_larg2}，并结合前面的条件和结论，得到
+\begin{equation}
+  \mathcal{L}_J\left(\bm{w}_2\right)==-\frac{1}{2}\lambda_2
+\end{equation}
+这表明第二个主成分$\bm{w}_2^{*}$应该是次大的特征值$\lambda_2^{*}$对应的特征向量。
+
+按照前面用最大化方差方法求得第一、第二主成分的方法，我们可以依次求得后续的主成分。PCA的全部工作简单点说，就是对原始的空间中顺序地找一组相互正交的坐标轴，第一个轴是使得方差最大的，第二个轴是在与第一个轴正交的平面中使得方差最大的，第三个轴是在与第1$,2$ 个轴正交的平面中方差最大的，这样假设在$N$维空间中，我们可以找到$N$个这样的坐标轴，我们取前$k$个去近似这个空间，这样就从一个$N$ 维的空间压缩到$k$维的空间了，但是我们选择的$k$个坐标轴能够使得空间的压缩使得数据的损失最小。
+\subsection{最小化损失解释PCA}
+最小化损失从另一个角度解释PCA为什么要用最大的特征值所对应的特征向量，答案是，为了最小化损失。
+
+假设已经找到了$N$个单位正交向量$\bm{w}_1,\bm{w}_2,\cdots,\bm{w}_N$来表示$N$维的数据$\bm{x}$，如下
+\begin{equation}
+  \bm{x_n}=\sum_{i=1}^{N}\left(\bm{x_n}^T\bm{w}_i\right)\bm{w}_i
+\end{equation}
+用它们的线性组合$\widetilde{\bm{x}}_n$来近似原来的点$\bm{x}_n$
+\begin{equation}\label{equ:PCA_near}
+  \widetilde{\bm{x}}_n=\sum_{i=1}^{K}z_{ni}\bm{w}_i+\sum_{i=K+1}^{N}b_i\bm{w}_i
+\end{equation}
+观察式\ref{equ:PCA_near}，注意$z_{ni}$对每个$x_n$都是不同的，而$b_i$对所有的$x_n$都是相同的。如果明白这一点，你将不至于对后面的求导不知所措。另外，由于$b_i$对所有的$x_n$都是无差别的，或者说$b_i$是与具体的$x_n$无关的，用PCA降到低维后我们将不保留这些信息。而$z_{ni}$是$x_n$之间的差异化信息，降到低维后得到的就是$z_{ni}$。式\ref{equ:PCA_near}表示用PCA将数据从原来的$N$ 维空间降到$K$维空间。
+
+PCA降维肯定损失了一些信息，这种损失可以形式化为
+\begin{equation}
+\begin{split}
+  J(z,b)&=\frac{1}{N}\sum_{n=1}^{N}||\bm{x}_n-\widetilde{\bm{x}_n}||^2\\
+        &=\frac{1}{N}\sum_{n=1}^{N}||\sum_{i=1}^{K}z_{ni}\bm{w}_i+\sum_{i=K+1}^{N}b_i\bm{w}_i-\bm{x}_n||^2\\
+        &=\frac{1}{N}\sum_{n=1}^{N}\left(\sum_{i=1}^{K}z_{ni}\bm{w}_i+\sum_{i=K+1}^{N}b_i\bm{w}_i-\bm{x}_n\right)^T\left(\sum_{i=1}^{K}z_{ni}\bm{w}_i+\sum_{i=K+1}^{N}b_i\bm{w}_i-\bm{x}_n\right)
+\end{split}
+\end{equation}
+要让损失函数$J(z,b)$最小化，则必有对$z,b$求导为$0$。下面是求导过程。
+\begin{equation}
+\begin{split}
+  \frac{\partial J(z,b)}{\partial z_{nj}}&=\frac{1}{N}\left(\sum_{i=1}^{K}z_{ni}\bm{w}_i+\sum_{i=K+1}^{N}b_i\bm{w}_i-\bm{x}_n\right)^T\bm{w}_j\\
+        &=\frac{1}{N}\left(\sum_{i=1}^{K}z_{ni}\bm{w}_i^T\bm{w}_j+\sum_{i=K+1}^{N}b_i\bm{w}_i^T\bm{w}_j-\bm{x}_n^T\bm{w}_j\right)\\
+        &=\frac{1}{N}\left(z_{nj}\bm{w}_j^T\bm{w}_j-\bm{x}_n^T\bm{w}_j\right)\\
+        &=\frac{1}{N}\left(z_{nj}-\bm{x}_n^T\bm{w}_j\right)=0
+\end{split}
+\end{equation}
+得到
+\begin{equation}\label{equ:PCA_znj}
+  z_{nj}=\bm{x}_n^T\bm{w}_j
+\end{equation}
+\begin{equation}
+\begin{split}
+  \frac{\partial J(z,b)}{\partial b_{j}}&=\frac{1}{N}\sum_{n=1}^{N}\left(\sum_{i=1}^{K}z_{ni}\bm{w}_i+\sum_{i=K+1}^{N}b_i\bm{w}_i-\bm{x}_n\right)^T\bm{w}_j\\
+        &=\frac{1}{N}\sum_{n=1}^{N}\left(b_j\bm{w}_j^T\bm{w}_j-\bm{x}_n^T\bm{w}_j\right)\\
+        &=\frac{1}{N}\sum_{n=1}^{N}\left(b_j-\bm{x}_n^T\bm{w}_j\right)\\
+        &=b_j-\frac{1}{N}\sum_{n=1}^{N}\bm{x}_n^T\bm{w}_j\\
+        &=b_j-\left(\frac{1}{N}\sum_{n=1}^{N}\bm{x}_n^T\right)\bm{w}_j\\
+        &=b_j-\left(\frac{1}{N}\sum_{n=1}^{N}\bm{x}_n\right)^T\bm{w}_j\\
+        &=b_j-\bm{\mu}^T\bm{w}_j=0
+\end{split}
+\end{equation}
+得到
+\begin{equation}\label{equ:PCA_bj}
+  b_j=\bm{\mu}^T\bm{w}_j
+\end{equation}
+
+将式\ref{equ:PCA_znj}和式\ref{equ:PCA_bj}，化简$\bm{x}_n-\widetilde{\bm{x}_n}$
+\begin{equation}
+  \begin{split}
+    \widetilde{\bm{x}_n}-\bm{x}_n&=\sum_{i=1}^{K}z_{ni}\bm{w}_i+\sum_{i=K+1}^{N}b_i\bm{w}_i-\bm{x}_n\\
+                &=\sum_{i=1}^{K}\left(\bm{x}_n^T\bm{w}_i\right)\bm{w}_i+\sum_{i=K+1}^{N}\left(\bm{\mu}^T\bm{w}_i\right)\bm{w}_i-\bm{x}_n\\
+                &=\sum_{i=1}^{K}\left(\bm{x}_n^T\bm{w}_i\right)\bm{w}_i+\sum_{i=K+1}^{N}\left(\bm{\mu}^T\bm{w}_i\right)\bm{w}_i-\sum_{i=1}^{N}\left(\bm{x}_n^T\bm{w}_i\right)\bm{w}_i\\
+                &=\sum_{i=K+1}^{N}\left(\bm{\mu}^T\bm{w}_i\right)\bm{w}_i-\sum_{i=K+1}^{N}\left(\bm{x}_n^T\bm{w}_i\right)\bm{w}_i\\
+                &=\sum_{i=K+1}^{N}\left(\left(\bm{\mu}-\bm{x}_n\right)^T\bm{w}_i\right)\bm{w}_i
+  \end{split}
+\end{equation}
+
+代入损失函数化简
+\begin{equation}
+  \begin{split}
+      J(z,b)&=\frac{1}{N}\sum_{n=1}^{N}\left(\sum_{i=K+1}^{N}\left(\left(\bm{\mu}-\bm{x}_n\right)^T\bm{w}_i\right)\bm{w}_i\right)^T\left(\sum_{i=K+1}^{N}\left(\left(\bm{\mu}-\bm{x}_n\right)^T\bm{w}_i\right)\bm{w}_i\right)\\
+      &=\frac{1}{N}\sum_{n=1}^{N}\sum_{i=K+1}^{N}\left(\left(\bm{\mu}-\bm{x}_n\right)^T\bm{w}_i\right)^2\bm{w}_i^T\bm{w}_i\\
+      &=\frac{1}{N}\sum_{n=1}^{N}\sum_{i=K+1}^{N}\left(\left(\bm{\mu}-\bm{x}_n\right)^T\bm{w}_i\right)^2\\
+      &=\sum_{i=K+1}^{N}\frac{1}{N}\sum_{n=1}^{N}\left(\left(\bm{\mu}-\bm{x}_n\right)^T\bm{w}_i\right)^2\\
+      &=\sum_{i=K+1}^{N}\frac{1}{N}\sum_{n=1}^{N}\left(\left(\bm{\mu}-\bm{x}_n\right)^T\bm{w}_i\right)^T\left(\left(\bm{\mu}-\bm{x}_n\right)^T\bm{w}_i\right)\\
+      &=\sum_{i=K+1}^{N}\frac{1}{N}\sum_{n=1}^{N}\bm{w}_i^T\left(\bm{\mu}-\bm{x}_n\right)\left(\bm{\mu}-\bm{x}_n\right)^T\bm{w}_i\\
+      &=\sum_{i=K+1}^{N}\bm{w}_i^T\left(\frac{1}{N}\sum_{n=1}^{N}\left(\bm{\mu}-\bm{x}_n\right)\left(\bm{\mu}-\bm{x}_n\right)^T\right)\bm{w}_i\\
+      &=\sum_{i=K+1}^{N}\bm{w}_i^T\bm{\Sigma}\bm{w}_i\\
+      &=\sum_{i=K+1}^{N}\bm{w}_i^T\lambda_i\bm{w}_i\\
+      &=\sum_{i=K+1}^{N}\lambda_i
+  \end{split}
+\end{equation}
+所以要使损失函数$J$最小，只要让未选取的N-K个特征向量所对应的特征值的和最小，所以我们要选取最大的$K$个特征值对应的特征向量作为主成分才能使PCA损失最小。
+
+
+
+
+\section{SVD}
+SVD(Singular Value Decomposition)，翻译成中文是奇异值分解，它可以将一个非方阵的一般矩阵分解成三个矩阵的乘的形式，可以用于矩阵特征提取、降维和压缩等等。
+\subsection{几何方法导出SVD}
+给定一个方矩阵，我们先从二阶方矩阵说起，将该矩阵用$\bm{A}$表示，必存在正交的单位列向量$\bm{v}_1,\bm{v}_2$(如图\ref{fig:SVD})，满足$\bm{A}\bm{v}_1$ 与$\bm{A}\bm{v}_2$也是正交的。
+\begin{figure}[!ht]
+\centering
+\subfigure[]{
+\label{fig:SVDa}
+\includegraphics[width=0.3\textwidth]{SVD_intro1.jpg}}
+\hspace{0.2in}
+\subfigure[]{
+\label{fig:SVDb}
+\includegraphics[width=0.3\textwidth]{SVD_intro2.jpg}}
+\caption{对任一二阶方矩阵$\bm{A}$，必存在正交的单位列向量$\bm{v}_1,\bm{v}_2$，满足$\bm{A}\bm{v}_1$ 与$\bm{A}\bm{v}_2$也是正交的。}
+\label{fig:SVD}
+\end{figure}
+设$\bm{A}\bm{v}_1=\sigma_1\bm{u}_1,\bm{A}\bm{v}_2=\sigma_2\bm{u}_2$，其中$\bm{u}_1,\bm{u}_2$为单位向量。形式化表达如下：
+\begin{equation}
+  \begin{split}
+    \forall \bm{A},\exists \bm{A}\bm{v}_1=\sigma_1\bm{u}_1,&\bm{A}\bm{v}_2=\sigma_2\bm{u}_2\\
+                    s.t.\quad   &\bm{v}_1^T\bm{v}_2=0,\bm{u}_1^T\bm{u}_2=0\\
+                                &||\bm{v}_1||=||\bm{v}_2||=||\bm{u}_1||=||\bm{u}_2||=1
+  \end{split}
+\end{equation}
+对一个向量$\bm{x}$，由于$\bm{v}_1,\bm{v}_2$是正交的，则有
+\begin{equation}
+  \bm{x}=\left(\bm{v}_1^T\bm{x}\right)\bm{v}_1+\left(\bm{v}_2^T\bm{x}\right)\bm{v}_2
+\end{equation}
+则有
+\begin{equation}
+\begin{split}
+  \bm{A}\bm{x}  &=\bm{A}\left(\left(\bm{v}_1^T\bm{x}\right)\bm{v}_1+\left(\bm{v}_2^T\bm{x}\right)\bm{v}_2\right)\\
+                &=\left(\bm{v}_1^T\bm{x}\right)\left(\bm{A}\bm{v}_1\right)+\left(\bm{v}_2^T\bm{x}\right)\left(\bm{A}\bm{v}_2\right)\\
+                &=\left(\bm{v}_1^T\bm{x}\right)\left(\sigma_1\bm{u}_1\right)+\left(\bm{v}_2^T\bm{x}\right)\left(\sigma_1\bm{u}_1\right)\\
+                &=\left(\sigma_1\bm{u}_1\right)\left(\bm{v}_1^T\bm{x}\right)+\left(\sigma_2\bm{u}_2\right)\left(\bm{v}_2^T\bm{x}\right)\\
+                &=\left(\sigma_1\bm{u}_1\bm{v}_1^T\right)\bm{x}+\left(\sigma_2\bm{u}_2\bm{v}_2^T\right)\bm{x}\\
+                &=\left(\sigma_1\bm{u}_1\bm{v}_1^T+\sigma_2\bm{u}_2\bm{v}_2^T\right)\bm{x}
+\end{split}
+\end{equation}
+从而可以将矩阵$\bm{A}$写成如下形式
+\begin{equation}
+  \bm{A}=\sigma_1\bm{u}_1\bm{v}_1^T+\sigma_2\bm{u}_2\bm{v}_2^T
+\end{equation}
+根据矩阵块运算的规则，对上面的表达式进一步改写
+\begin{equation}
+  \begin{split}
+    \bm{A}&=\bm{u}_1\sigma_1\bm{v}_1^T+\bm{u}_2\sigma_2\bm{v}_2^T\\
+            &=\left(\bm{u}_1\sigma_1,\bm{u}_2\sigma_2\right)\begin{pmatrix}\bm{v}_1^T \\ \bm{v}_2^T\end{pmatrix}\\
+            &=\left(\bm{u}_1\sigma_1,\bm{u}_2\sigma_2\right)\left(\bm{v}_1,\bm{v}_2\right)^T\\
+            &=\left(\bm{u}_1,\bm{u}_2\right)\begin{pmatrix}\sigma_1&0\\0&\sigma_2\end{pmatrix}\left(\bm{v}_1,\bm{v}_2\right)^T
+  \end{split}
+\end{equation}
+令$\bm{U}=\left(\bm{u}_1,\bm{u}_2\right),\bm{\Sigma}=\begin{pmatrix}\sigma_1&0\\0&\sigma_2\end{pmatrix},\bm{V}=\left(\bm{v}_1,\bm{v}_2\right)$, 则矩阵$\bm{A}$可以分解为三个矩阵
+\begin{equation}
+  \bm{A}=\bm{U}\bm{\Sigma}\bm{V}^T
+\end{equation}
+
+前面一直假定矩阵$\bm{A}$是方阵，现在我们假定$\bm{A}$是$m\times n$阶的一般矩阵，则其分解成的三个矩阵以及各矩阵的阶(用下标表示)如下式所示
+\begin{equation}\label{equ:SVD}
+  \bm{A}_{mn}=\bm{U}_{mm}\bm{\Sigma}_{mn}\bm{V}^T_{nn}
+\end{equation}
+
+式\ref{equ:SVD}就是奇异值分解(SVD)的表达式。其中$\bm{U}$是正交的矩阵，称为左奇异矩阵，组成它的列向量称为左奇异向量;$\bm{V}$ 也是正交矩阵，称为左奇异矩阵，组成它的列向量称为右奇异向量;$\bm{\Sigma}$是对角阵，其对角线上的元素是奇异值，是其对应的左奇异向量经过$\bm{A}$ 转换到对应的右奇异向量后的被拉伸(或压缩)的系数（见图\ref{fig:SVD}）。非$0$的奇异值的个数是矩阵$\bm{A}$ 的秩。
+\subsection{SVD剖析}
+\subsubsection{SVD与特征值分解}
+假设$\bm{A}$是$5\times 3$阶的，则其SVD分解示意图如下所示
+\begin{equation*}
+\begin{split}
+\bm{A}_{5,3}\quad&=\qquad\,\,\bm{U}_{5,5}\qquad\qquad\,\bm{\Sigma}_{5,3}\qquad\qquad\bm{V}^T_{3,3}\\
+\begin{bmatrix}
+  \cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot
+\end{bmatrix}
+&=
+\begin{bmatrix}
+  \cdot&\cdot&\cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot&\cdot&\cdot
+\end{bmatrix}
+\begin{bmatrix}
+  \sigma_1&0&0\\
+  0&\sigma_2&0\\
+  0&0&\sigma_3\\
+  0&0&0\\
+  0&0&0
+\end{bmatrix}
+\begin{bmatrix}
+  \cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot\\
+  \cdot&\cdot&\cdot
+\end{bmatrix}
+\end{split}
+\end{equation*}
+因为$\bm{U},\bm{V}$是正交矩阵（正交矩阵转置等于其逆），$\bm{\Sigma}$为对角阵，所以有如下推导
+\begin{equation}
+\begin{split}
+  \bm{A}^T\bm{A}&=\bm{V}\bm{\Sigma}\left(\bm{U}^T\bm{U}\right)\bm{\Sigma}\bm{V}^T
+  =\bm{V}\begin{bmatrix}\sigma_1^2&0&0\\0&\sigma_2^2&0\\0&0&\sigma_3^2\end{bmatrix}\bm{V}^T
+  =\bm{V}\begin{bmatrix}\sigma_1^2&0&0\\0&\sigma_2^2&0\\0&0&\sigma_3^2\end{bmatrix}\bm{V}^{-1}\\
+  \bm{A}\bm{A}^T&=\bm{U}\bm{\Sigma}\left(\bm{V}^T\bm{V}\right)\bm{\Sigma}\bm{U}^T
+  =\bm{U}\begin{bmatrix}\sigma_1^2&0&0&0&0\\0&\sigma_2^2&0&0&0\\0&0&\sigma_3^2&0&0\\0&0&0&0&0\\0&0&0&0&0\end{bmatrix}\bm{U}^T
+  =\bm{U}\begin{bmatrix}\sigma_1^2&0&0&0&0\\0&\sigma_2^2&0&0&0\\0&0&\sigma_3^2&0&0\\0&0&0&0&0\\0&0&0&0&0\end{bmatrix}\bm{U}^{-1}
+\end{split}
+\end{equation}
+上述两个关系式系式的右边描述了关系式左边的特征值分解。于是有如下结论：
+\begin{itemize}
+  \item $\bm{V}$的列向量（右奇异向量）是$\bm{A}^T\bm{A}$的特征向量。
+  \item $\bm{U}$的列向量（左奇异向量）是$\bm{A}\bm{A}^T$的特征向量。
+  \item $\bm{\Sigma}$的非零奇异值是$\bm{A}^T\bm{A}$或者$\bm{A}\bm{A}^T$的非零特征值的平方根。
+\end{itemize}
+\subsubsection{SVD与PCA}
+在第\ref{sec:PCA}节讲到PCA可以用来做特征提取（数据降维），下面讲怎么用SVD来降维。
+
+请看图\ref{fig:SVDPCA}，上面的部分是SVD矩阵分解的示意图，矩阵$\bm{A}_{mn}$被分解成方阵$\bm{U}_{mm},\bm{V}^T_{nn}$ 以及对角阵$\ bm{\Sigma}_{mn}$。如果我们仅取$\ bm{\Sigma}_{mn}$前$r$个对角元素组成的子方阵$\widetilde{\bm{\Sigma}_{rr}}$，$\widetilde{\bm{\Sigma}_{rr}}$包含的$r$个奇异值所对应的左奇异向量组成的矩阵$\widetilde{\bm{U}_{mr}}$（即矩阵$\bm{U}_{mm}$的左边$r$列），以及这$r$个奇异值所对应的右奇异向量组成的矩阵$\widetilde{\bm{V}_{nr}}^T$（即矩阵$\bm{V}_{nn}^T$的上边$r$行），则它们的矩阵乘积$\widetilde{\bm{A}_{mn}}$可以作为原始矩阵$\bm{A}_{mn}$的近似，而且近似程度用$\eta=\frac{\sum_{i=1}^{r}\sigma_i^2}{\sum_{i=1}^{\max(m,n)}\sigma_i^2}$表达。实际上，由于奇异值$\sigma_1,\sigma_2,\cdots\quad$下降的很快，一般$r$取到很小时就能使$\eta$达到$85\%\sim 95\%$。由于$\bm{U}_{mr},bm{\Sigma}_{rr},\bm{V}^T_{rn}$这三个矩阵所包含的元素个数一般远小于初始矩阵$\bm{A}_{mn}$所包含的元素数，所以我们可以根据这个规律来达到压缩矩阵$\bm{A}_{mn}$的目的。
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.6\textwidth]{SVDPCA.jpg}
+\caption{SVD矩阵压缩示意图。取前$r$个奇异值（矩阵$\widetilde{\bm{\Sigma}_{rr}}$）及其对应的左奇异矩阵( $\widetilde{\bm{U}_{mr}}$)和右奇异矩阵($\widetilde{\bm{V}_{nr}}$)的矩阵乘得到矩阵$\widetilde{\bm{A}_{mn}}$，可以近似原来的$\bm{A}_{mm}$。通常仅用前面的很少的特征值就可能以很小的损失恢复出原矩阵。}
+\label{fig:SVDPCA}
+\end{figure}
+
+图\ref{fig:SVDPCA}图下半部分所示的矩阵压缩过程可以形式化为
+\begin{equation}\label{equ:SVDPCA}
+  \widetilde{\bm{A}_{mn}}=\widetilde{\bm{U}_{mr}}\widetilde{\bm{\Sigma}_{rr}}\widetilde{\bm{V}_{rn}}^T
+\end{equation}
+
+对式\ref{equ:SVDPCA}两边右乘$\widetilde{\bm{V}_{nr}}$，得到一个$m\times r$阶的矩阵，我们用符号$\widetilde{\bm{A}_{mr}}$来标记它，注意不要将其与式$\ref{equ:SVDPCA}$的$\widetilde{\bm{A}_{mn}}$混淆。
+\begin{equation}
+\begin{split}
+\widetilde{\bm{A}_{mr}}&=\widetilde{\bm{A}_{mn}}\widetilde{\bm{V}_{nr}}=\widetilde{\bm{U}_{mr}}\widetilde{\bm{\Sigma}_{rr}}\widetilde{\bm{V}_{rn}}^T\widetilde{\bm{V}_{nr}}\\
+                        &=\widetilde{\bm{U}_{mr}}\widetilde{\bm{\Sigma}_{rr}}
+\end{split}
+\end{equation}
+矩阵$\widetilde{\bm{A}_{mr}}$是一个$m\times r$阶的矩阵，它实现了对原始矩阵$\bm{A}_{mn}$的列的压缩，它的$r$个列可以看成是从$\bm{A}_{mn}$的$n$个列所提取出来的$r$个典型特征。这与我们在第\ref{sec:PCA}节所讲的用PCA提取特征的方法有异曲同工之妙。
+
+讲完了对矩阵的列提取特征，再将对矩阵的行提取特征。对式\ref{equ:SVDPCA}两边左乘$\widetilde{\bm{U}_{mr}}^T$，得到一个$r\times n$阶的矩阵，我们用符号$\widetilde{\bm{A}_{rn}}$来标记它，
+\begin{equation}
+\begin{split}
+\widetilde{\bm{A}_{rn}}&=\widetilde{\bm{U}_{mr}}^T\widetilde{\bm{A}_{mn}}=\widetilde{\bm{U}_{mr}}^T\widetilde{\bm{U}_{mr}}\widetilde{\bm{\Sigma}_{rr}}\widetilde{\bm{V}_{rn}}^T\\
+                        &=\widetilde{\bm{\Sigma}_{rr}}\widetilde{\bm{V}_{rn}}^T
+\end{split}
+\end{equation}
+这样我们得到了一个$r\times n$阶的矩阵$\widetilde{\bm{A}_{rn}}$，它的每一行都是原始矩阵$\bm{A}_{mn}$的特征行。
+
+可以看到对矩阵用SVD方法一次，既可以提取行特征又可以提取列特征。在第\ref{sec:PCA}节用PCA方法是对矩阵提取列特征，如果要对行特征，则在求矩阵协方差阶段需要求的是初始矩阵的转置的协方差。\ref{fig:PCAvar}
+
+\clearpage
+\begin{lstlisting}[language=Python,title={sample.py},basicstyle=\scriptsize,captionpos=t]
+import numpy
+import scipy
+import random
+import matplotlib.pyplot as pyplot
+import scipy.linalg as linalg
+import scipy.stats as stats
+def loaddata():
+    dataset=[];   locset =[]
+    center = numpy.array([2,2]);    direct = numpy.array([-1,1])
+    gauss = stats.norm(0,0.6)
+    direct = numpy.divide(numpy.array([-1,1]),linalg.norm(numpy.array([-1,1])))
+    for i in range(50):
+        bias = random.gauss(0,2)
+        while numpy.abs(bias)>1.6:
+            bias = random.gauss(0,0.4)
+        loc =center +bias*center/linalg.norm(center)
+        locset.append(loc)
+        gausspdf = gauss.pdf(bias)
+        label =random.random()-0.5
+        dataset.append(loc+label*gausspdf*direct)
+    return numpy.array(dataset),numpy.array(locset)
+def plot(dataset,locset):
+    pyplot.plot(dataset[:,0],dataset[:,1],'r^')
+    locset[:,0] = locset[:,0]+0.3;locset[:,1]=locset[:,1]-0.3
+    pyplot.plot(locset[:,0],locset[:,1],'k+')
+    for i in range(dataset.shape[0]):
+        pyplot.plot([locset[i,0],dataset[i,0]],[locset[i,1],dataset[i,1]],'y--')
+    pyplot.annotate('',xytext=(1.6,1.6),xy=(3.0,3.0),arrowprops=dict(facecolor='black',width =3, shrink=0.01))
+    pyplot.annotate('',xytext=(1.65,1.65),xy=(1.45,1.85),arrowprops=dict(facecolor='black',width =1, shrink=0.01))
+    pyplot.text(1.5,1.9,'Noise',color="black",ha="center")
+    pyplot.text(2.8,3,'Signal',color="black",ha="center")
+    pyplot.xlim(0.5,3.5);    pyplot.ylim(0.5,3.5)
+    pyplot.xlabel("x axis");    pyplot.ylabel("y axis")
+    pyplot.show()
+dataset,locset =loaddata()
+plot(dataset,locset)
+\end{lstlisting}
+\clearpage
+
+\begin{lstlisting}[language=Python,title={svd.py},basicstyle=\scriptsize,captionpos=t]
+import numpy
+import random
+import matplotlib.pyplot as pyplot
+
+data = numpy.array([[1,0.6,1,0,0.4],\
+                    [2,1.7,2,0.2,0],\
+                    [1,0,1,0.1,0],\
+                    [3.2,4.8,5,0,0.4],\
+                    [1,1,1.3,2,2],\
+                    [0,0,0,3.2,3],\
+                    [0,0,0,0.9,1]])
+U,Sigma,VT=numpy.linalg.svd(data)
+print U.shape,VT.shape,Sigma.shape
+print Sigma
+i=2
+colomnclass=data.dot(VT[:i,:].T)
+print colomnclass
+rowclass = U[:,:i].T.dot(data)
+print rowclass
+
+pyplot.figure(1)
+ax1=pyplot.subplot(211)
+ax2=pyplot.subplot(212)
+pyplot.sca(ax1)
+pyplot.plot(colomnclass[:,0],colomnclass[:,1],'s')
+pyplot.sca(ax2)
+pyplot.plot(rowclass[0,:],rowclass[1,:],'^')
+pyplot.show()
+\end{lstlisting}
+
+\begin{thebibliography}{9}
+\bibitem{}{LeftNotEasy},{机器学习中的数学(5)-强大的矩阵奇异值分解(SVD)及其应用}, \url{http://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html}, 01/19 2011.
+\bibitem{}{LeftNotEasy},{机器学习中的数学(4)-线性判别分析（LDA）, 主成分分析(PCA)}, \url{http://www.cnblogs.com/LeftNotEasy/archive/2011/01/08/lda-and-pca-machine-learning.html}, 01/08 2011.
+\bibitem{}{jerrylead},{主成分分析（Principal components analysis）-最大方差解释}, \url{http://www.cnblogs.com/jerrylead/archive/2011/04/18/2020209.html}, 04/18 2011.
+\bibitem{}{260682605},{PCA原理及应用}, \url{http://220.181.112.102/view/eecbe0110b4e767f5acfce8b.html}, 11/03 2012.
+\bibitem{}{Vincent乐},{线性判别分析（LDA）}, \url{http://blog.csdn.net/chlele0105/article/details/13005527 }, 10/24 2013.
+\bibitem{}{Linear discriminants analysis}, \url{http://research.cs.tamu.edu/prism/lectures/pr/pr_l10.pdf }.
+\bibitem{}{Max Welling},{Fisher Linear Discriminant Analysis}, \url{http://www.ics.uci.edu/~welling/classnotes/papers_class/Fisher-LDA.pdf }
+\bibitem{}{Vincent乐},{主成分分析（Principal components analysis）}, \url{http://blog.csdn.net/chlele0105/article/details/13004499 }, 10/24 2013.
+\bibitem{}{Vincent乐},{Singular Value Decomposition (SVD) tutorial }, \url{http://web.mit.edu/be.400/www/SVD/Singular_Value_Decomposition.htm }, 10/24 2013.
+\bibitem{}{We Recommend a Singular Value Decomposition}, \url{http://www.ams.org/samplings/feature-column/fcarc-svd }.
+
+\bibitem{}{ccjou},{實對稱矩陣可正交對角化的證明}, \url{https://ccjou.wordpress.com/2011/02/09/%E5%AF%A6%E5%B0%8D%E7%A8%B1%E7%9F%A9%E9%99%A3%E5%8F%AF%E6%AD%A3%E4%BA%A4%E5%B0%8D%E8%A7%92%E5%8C%96%E7%9A%84%E8%AD%89%E6%98%8E/}, 02/09 2011.
+\bibitem{}{iMetaSearch},{Latent Semantic Analysis (LSA) Tutorial },    \url{http://www.puffinwarellc.com/index.php/news-and-articles/articles/33-latent-semantic-analysis-tutorial.html?start=6}.
+\end{thebibliography}
+
+
+
+

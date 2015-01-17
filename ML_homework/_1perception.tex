@@ -1,0 +1,409 @@
+
+
+
+\newcommand{\button}[1]{\raisebox{-0.3ex}{\includegraphics[width=1.0em]{#1.jpg}}}
+
+\chapter{感知机模型介绍}
+\section{感知机要解决的问题}
+感知机(perception)是的{\bf 线性可分二分类模型}，其输入为实例的特征向量，输出是实例的类别标签，取$+1$和$-1$值。感知机学习旨在求出能够将训练数据进行线性划分的分离超平面，由于训练数据本来就线性可分，所以感知机总是能够找到可行解。理论上，在不同的初始值或训练参数下，感知机模型可以得到无数个可行解。{\bf 感知机模型是神经网络(ANN) 和支持向量机(SVM)的基础}。
+\begin{figure}[!ht]
+\centering
+\subfigure[模型可用]{
+\label{fig:a}
+\includegraphics[width=0.4\textwidth,height=2.5in]{linear.png}}
+\hspace{0.2in}
+\subfigure[模型不可用]{
+\label{fig:b}
+\includegraphics[width=0.4\textwidth,height=2.5in]{nonlinear.png}}
+
+\caption{感知机模型是线性二分类模型，故只能用于线性可分的数据(image \ref{fig:a})，而不能用于线性不可分的数据(image \ref{fig:b})。当训练数据不可分时，感知机模型学习过程不收敛，迭代结果会发生震荡.}
+\label{fig:todeal}
+\end{figure}
+\section{感知机模型}
+\begin{defn}\label{defn:perception}{\bf 感知机模型\quad} 假设输入空间(特征空间)是$\chi \subseteq \mathcal{R}^{n}$，输出空间是$mathcal{Y}=\{+1,-1\}$。输入$x\in \chi$表示实例的特征向量，对应于输入空间(特征空间)的一个点；输入$y\in \mathcal{Y}$ 表示实例的类别。由输入空间到输出空间的如下函数
+\begin{equation}
+  f(\bm{x})=\mathrm{sign}(\bf{w}\cdot \bm{x}+b)
+\end{equation}
+称为感知机。其中，$\bm{w}$和$b$为感知机模型参数，$\bm{w}\in \mathcal{R}^n$叫作权值向量(weight vector)，$b\in \mathcal{R}$叫作偏置(bias)。
+\end{defn}
+
+感知机模型的假设空间是定义在特征空间中的所有线性分类模型(linear classification model)或线性分类器(linear classifier)，即函数集合$\{f|f(x)=\bf{w}\cdot \bm{x}+b\}$。
+
+感知机的几何解释：线性方程
+\begin{equation}
+  \bf{w}\cdot \bm{x}+b=0
+\end{equation}
+对应于特征空间$\mathcal{R}^{n}$中的一个超平面$S$,其中$\bm{w}$是超平面的法向量，$b$是超平面的截距。这个超平面将特征空间划分为两部分，分别位于这两部分的点（特征向量）集被分为正类（有$\bf{w}\cdot \bm{x}+b>0\Rightarrow f(\bm{x})=1$）和负类（有$\bf{w}\cdot \bm{x}+b<0\Rightarrow f(\bm{x})=-1$）。因此，超平面$S$称为分离超平面(separating hyperplane)。 如图(\ref{fig:hyperplane})所示，分别标记为~\button{mycircle}~ 和~\button{mytriangle}~的两类实例被分离超平面区分开，分别位于分离超平面上下两侧。
+\begin{figure}[!ht]
+\centering
+\includegraphics{hyperplane.jpg}
+\caption{三维空间的分离超平面示意图。不同标记的两类点集被分离超平面分开。}
+\label{fig:hyperplane}
+\end{figure}
+
+感知机的学习，就是根据数据集$T=\langle(\bm{x}_1,y_1),(\bm{x}_2,y_2),\cdots,(\bm{x}_N,y_N)\rangle$逐步修正、获得模型参数$\bm{w}$和$b$的过程。而感知机的预CE，就是通过学习得到的感知机模型，对新的实例$\bm{x}$确定其类别标签$y$。
+\section{感知机学习策略}
+确定学习策略，就是定义（经验）损失函数并将损失函数最小化。
+\begin{defn}{\bf 损失函数\quad} 假设超平面$S$的误分类点集合为$M$，那么感知机的损失函数定义为
+\begin{equation}
+\label{equ:loss}
+  \L(\bm{w},b)=-\sum\limits_{x_i\in M}y_i(\bm{w}\cdot \bm{x}_i+b)
+\end{equation}
+\end{defn}
+其实$\L(\bm{w},b)$就是所有误分类点到分离超平面的{\bf 函数距离}之和。
+
+显然，损失函数$\L(\bm{w},b)$是{\bf 非负}的。更重要的是，损失函数$\L(\bm{w},b)$是$\bm{w}$，$b$的{\bf 连续可导}函数。
+\section{优化算法}
+感知机学习算法是误分类驱动的，具体采用{\bf 随机梯度下降法}（stochastic gradient descent）。
+\subsection{随机梯度下降法与标准梯度下降}
+如果采用标准梯度下降法，根据损失函数式(\ref{equ:loss})，那么每次迭代就需要求如下的梯度
+\begin{equation}
+\label{equ:stand}
+\begin{split}
+  \nabla_{\bm{w}}(\bm{w},b)&=-\sum\limits_{x_i\in M}y_i\bm{x}_i\\
+  \nabla_{b}(\bm{w},b)&=-\sum\limits_{x_i\in M}y_i
+\end{split}
+\end{equation}
+由式(\ref{equ:stand})可知，标准梯度下降法在每次迭代都要用到$M$的所有数据，当$|M|$很大时，复杂度可想而知。
+
+如果采用随机梯度下降法，每次只需要随机取一个误分类点$(\bm{x}_i,y_i)\in M$并仅用它求梯度
+\begin{equation}
+\label{equ:stoch}
+\begin{split}
+  \nabla_{\bm{w}}(\bm{w},b)&=-y_i\bm{x}_i\\
+  \nabla_{b}(\bm{w},b)&=-y_i
+\end{split}
+\end{equation}
+进而对参数进行更新
+\begin{equation}
+\label{equ:cor}
+\begin{split}
+  \bm{w}&\leftarrow \bm{w}+\eta y_i\bm{x}_i\\
+  b &\leftarrow b+\eta y_i
+\end{split}
+\end{equation}
+
+当学习率(learning rate)$\eta$足够小时，随机梯度下降法可以任意逼近标准梯度下降法。虽然不是每次迭代得到的损失函数都向着全局最优方向， 但是大的整体的方向是向全局最优解的，最终的结果往往是在全局最优解附近。
+\subsection{感知机优化算法及其实现}
+感知机优化算法伪代码如算法\ref{alg:alg1}所示。
+  \begin{algorithm}[htb]
+  \renewcommand{\algorithmicensure}{\textbf{Output:}}
+  \caption{The perceptron learning algorithm.}
+  \label{alg:alg1}
+  \begin{algorithmic}[1]
+    \REQUIRE training dataset $T=\langle(\bm{x}_1,y_1),(\bm{x}_2,y_2),\cdots,(\bm{x}_N,y_N)\rangle$ where $\bm{x}\in \mathcal{R}^{n}$,$y\in \{+1,-1\}$;
+    learning rate $\eta(0<\eta \leq 1)$
+    \ENSURE $\bm{w},b$
+    \STATE $\bm{w}\leftarrow \bm{w}_0$
+    \STATE $b\leftarrow b_0$
+    \REPEAT
+    \STATE randomly select a $(\bm{x}_i,y_i)$ such that $y_i(\bm{w}\cdot \bm{x}_i+b)\leq 0$
+    \STATE $\bm{w}\leftarrow \bm{w}+\eta y_i\bm{x}_i;~b \leftarrow b+\eta y_i$
+    \UNTIL $\forall t_i\in T,y_i(\bm{w}\cdot \bm{x}_i+b)>0$
+    %\RETURN $P_k$
+  \end{algorithmic}
+\end{algorithm}
+\begin{exmp}
+  如表(\ref{tab:data})的数据，feature vector 一栏为特征向量，label 一栏为类标签，一共10组数据。求其感知机模型$f(x)=\mathrm{sign}(\bm{w}\cdot \bm{x}_i+b)$（设初值$\bm{w}= (0,0)^T,b=0$，学习率$\eta=1$）。
+\end{exmp}
+
+
+例~1~的数据画在二维坐标上的示意图如(\ref{fig:ani1})所示。
+ \begin{table}[h]
+  \centering
+  %\scriptsize
+  \caption{变量或函数定义}
+  \label{tab:data}
+  \begin{tabular}{lc|lc}
+    \\[-2mm]
+    \hline
+    \hline
+    {\bf \small {\bf feature vector}}&\qquad {\bf\small label}&\qquad {\bf \small feature vector}&\qquad {\bf\small label}\\
+    \hline
+    \vspace{1mm}\\[-3mm]
+
+    $(0.5,1.9)$&$-1$&$(2,3)$&$1$\\
+    $(2,2)$&$1$&$(1,1)$&$-1$\\
+    $(1,2)$&$1$&$(2,0.5)$&$-1$\\
+    $(3,2)$&$1$&$(1.5,0.6)$&$-1$\\
+   $(3,1.5)$&$1$&$(2.5,1)$&$1$\\
+    \hline
+  \end{tabular}
+\end{table}
+%\begin{figure}[ht]
+%\centering
+%    \animategraphics[width=4in,height=3in,autoplay,loop]{10}{}{0}{41}
+%    \caption{例1的数据示意图}
+%    \label{fig:ani1}
+%\end{figure}
+
+
+\section{感知机优化算法的收敛性证明}
+  \newcommand{\myw}{\hat{\bm{w}}}
+  \newcommand{\myx}{\hat{\bm{x}}}
+  \newcommand{\myeq}{{\bf Eq.~}}
+感知机算法的收敛性，也就是算法经过有限次迭代可以得到一个将训练数据集完全正确划分的分离超平面，即感知机模型。
+
+我们在定义(\ref{defn:perception})所涉及到的变量定义的基础上定义新的变量
+\begin{equation}\label{equ:augment}
+  \begin{split}
+    \myw&=(\bm{w}^T,b)^T\\
+    \myx&=(\bm{x}^T,1)^T
+  \end{split}
+\end{equation}
+这样，$\myx\in\mathcal{R}^{n+1},\myw\in\mathcal{R}^{n+1}$。显然，$\myw\cdot \myx=\bm{w}\cdot\bm{x}+b$。我们将算法(\ref{alg:alg1})用扩充后的向量$\myw$和$\myx$重写一遍，如算法(\ref{alg:alg2})。
+  \begin{algorithm}[htb]
+  \renewcommand{\algorithmicensure}{\textbf{Output:}}
+  \caption{The perceptron learning algorithm using augment vector.}
+  \label{alg:alg2}
+  \begin{algorithmic}[1]
+    \REQUIRE training dataset $T=\langle(\myx_1,y_1),(\myx_2,y_2),\cdots,(\myx_N,y_N)\rangle$ where $\myx\in \mathcal{R}^{n+1}$,$y\in \{+1,-1\}$;
+    learning rate $\eta(0<\eta \leq 1)$
+    \ENSURE $\myw\in \mathcal{R}^{n+1}$
+    \STATE $\myw\leftarrow \bm{0}$
+    \REPEAT
+    \STATE randomly select a $(\myx_i,y_i)$ such that $y_i(\myw\cdot \myx_i)\leq 0$
+    \STATE $\myw\leftarrow \myw+\eta y_i\myx_i$
+    \UNTIL $\forall t_i\in T,y_i(\myw\cdot \myx_i)>0$
+  \end{algorithmic}
+\end{algorithm}
+\begin{thm}\label{defn:novikoff}({\bf Novikoff})\quad Assume that there exists some parameter vector $\myw^{*}$ such that $||\myw^{*}||=1$,and some $\gamma>0$ such that for all $i=1,2,\cdots,n$,
+\begin{equation*}
+  y_i(\myw^{*}\cdot \myx_i)\geq \gamma
+\end{equation*}
+Assume in addition that for all $t=1,2,\cdots,n$,$||\myx_i||\leq \mathcal{R}$,then the perceptron algorithm makes at most \begin{equation*}
+  \frac{\mathcal{R}^2}{\gamma^2}
+\end{equation*}
+errors.(The definition of an error is as follows : an error occurs whenever we have $y_i(\myw\cdot \myx_i)\leq 0$ for the $(\myx_i),y_i) $ pair we select).
+\end{thm}
+
+Note that for any vector $\myx$, we use $||\myx||$ to refer to the Euclidean norm of $\myx$,i.e.,$||\myx||=\sqrt{\sum_{j}(\myx^{(j)})^2}$.
+
+\begin{proof}
+%\setcounter{equation}{0}
+  First,define $\myw$ to be the parameter vector when the algorithm makes its k'th error.Note that we have
+  \begin{equation*}
+    \myw_{1}=\bm{0}
+  \end{equation*}
+  Next,assuming the k'th error is made on example $i$,we have
+  \begin{eqnarray}%如果相对某行不加编号，可在换行之前添加命令/nonumber
+    \myw_{k+1}\cdot \myw^{*}    =&\left(\myw_{k}+\eta y_i\myx_i\right)\cdot\myw^{*}\label{eqa:1}\\
+                                =&\myw_{k} \cdot \myw^{*}+\eta y_i\myx_i\cdot \myw^{*}\\
+                                \geq &\myw_{k} \cdot \myw^{*}+\eta\gamma \label{eqa:3}
+  \end{eqnarray}
+  \myeq \ref{eqa:1} follows by the definition of the perceptron updates.\myeq \ref{eqa:3} follows because by the assumptions of the theorem,we have
+  \begin{equation*}
+    y_i\myx_i\cdot\myw^{*}\geq \gamma
+  \end{equation*}
+  It follows by induction on $k$(recall that $||\myw_{1}||=0$),that
+  \begin{equation*}
+    \myw_{k+1}\cdot \myw^{*}\geq k\eta\gamma
+  \end{equation*}
+  In addition,because $||\myw_{k+1}||=||\myw_{k+1}||\cdot ||\myw^{*}||\geq \myw_{k+1}\cdot \myw^{*}$,we have
+  \begin{equation}
+  \label{eqa:4}
+    ||\myw_{k+1}||\geq k\eta\gamma
+  \end{equation}
+
+  In the second part of the proof,we will derive an upper bound on $||\myw_{k+1}||$.We have
+  \begin{eqnarray}
+    ||\myw_{k+1}||^2=   &||\myw_k+y_i\myx_i||^2\label{eqa:5}\\
+                    =   &||\myw_k||^2+y_i^2||\myx_i||^2+2y_i\myx_i\cdot\myw_k\\
+                   \leq &||\myw_k||^2+\mathcal{R}^2\label{eqa:7}
+  \end{eqnarray}
+  The equality in \myeq \ref{eqa:5} follows by the definition of the perceptron updates. \myeq \ref{eqa:7} follows because we have 1)$y_i^2||\myx_i||^2=||\myx_i||^2\leq \mathcal{R}^2$ by the assumptions of theorem,and because $y_i^2=1$;2)$y_i\myx_i\cdot\myw_k\leq 0$ because we know that the parameter vector $\myw_k$ gave an error on the i'th example.
+  It follows by induction on $k$(recall that $||\myw_1||=0$),that
+  \begin{equation}
+  \label{eqa:8}
+    ||\myw_{k+1}||^2\leq k\mathcal{R}^2
+  \end{equation}
+
+  Combining the bounds in \myeq \ref{eqa:4} and \myeq \ref{eqa:8} gives
+  \begin{equation*}
+    k^2\gamma^2\leq ||\myw_{k+1}||^2\leq k\mathcal{R}^2
+  \end{equation*}
+  from which if follows that
+  \begin{equation}
+    k\leq\frac{\mathcal{R}^2}{\gamma^2}
+  \end{equation}
+
+\end{proof}
+
+\section{感知机学习优化算法的对偶形式}
+在这一节我们仍沿用式(\ref{equ:augment})定义的扩充的向量$\myx\in\mathcal{R}^{n+1},\myw\in\mathcal{R}^{n+1}$。算法\ref{alg:alg2} 设初值$\myw=\bm{0}$，对误分类点$(\myx_i,y_i)$通过
+\begin{equation*}
+  \myw\leftarrow \myw+\eta y_i\myx_i
+\end{equation*}
+逐步修改$\myw$，设算法\ref{alg:alg2}从开始执行到执行结束对第$i$个实例$(\myx_i,y_i)$一共修改了$n_i$次，则最终的$\myw$可以表示为
+\begin{equation}
+  \myw=\sum_{i=1}^{N}\eta n_i y_i\myx_i=\sum_{i=1}^{N}\alpha_i y_i\myx_i
+\end{equation}
+其中$\alpha_i=\eta n_i$。
+
+则有
+\begin{equation}
+  \begin{split}
+    \langle\myw,\myx\rangle= \langle\sum_{i=1}^{N}\alpha_i y_i\myx_i,\myx\rangle=\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx\rangle\\
+  \end{split}
+\end{equation}
+
+好了，下面我们直接给出感知机算法的对偶形式：
+  \begin{algorithm}[htb]
+  \renewcommand{\algorithmicensure}{\textbf{Output:}}
+  \caption{The perceptron learning algorithm using augment vector.}
+  \label{alg:alg3}
+  \begin{algorithmic}[1]
+    \REQUIRE training dataset $T=\langle(\myx_1,y_1),(\myx_2,y_2),\cdots,(\myx_N,y_N)\rangle$ where $\myx\in \mathcal{R}^{n+1}$,$y\in \{+1,-1\}$;
+    learning rate $\eta(0<\eta \leq 1)$
+    \ENSURE $\alpha_i,i=1,2,\cdots,N$
+    \STATE $\alpha_i\leftarrow 0,i=1,2,\cdots,N$
+    \REPEAT
+    \STATE randomly select a $(\myx_j,y_j)$ such that $y_j\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx_j\rangle\leq 0$ and update $\alpha_i= \alpha_i+\eta y_jy_i\langle\myx_i,\myx_j\rangle$ for all $i=1,2,\cdots,N$
+    \UNTIL $\forall t_j\in T,y_j\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx_j\rangle >0$
+  \end{algorithmic}
+\end{algorithm}
+
+从算法\ref{alg:alg3}可以看到，经过这样的变换（对偶变换）后，感知机的学习已经完全与权值向量$\myw$没有关系了，变成了求解$\alpha_i,i=1,2,\cdots,N$。感知机的对偶形式算法训练中只用到了训练实例的特征向量两两之间的内积，而没有用到具体的特征向量。为了提高训练速度，可以预先将训练集实例间的内积计算出来并以$N\times N$的矩阵形式存储，这个矩阵就是所谓的$Gram$ 矩阵(Gram matrix)
+\begin{equation}
+  \bm{G}=[\langle\myx_i,\myx_j\rangle]_{N\times N}
+\end{equation}
+\begin{exmp}
+  用感知机学习算法的对偶性时求感知机模型，正样本点是$\bm{x}_1=(3,3)^T,\bm{x}_2=(4,3)^T$，负样本点$\bm{x}_3=(1,1)^T,\bm{x}_4=(2,1)^T$。
+\end{exmp}
+
+样本点的扩展特征向量(式(\ref{equ:augment}))是$\myx_1=(3,3,1)^T,\myx_2=(4,3,1)^T,\myx_3=(1,1,1)^T,,\myx_4=(2,1,1)^T$，其$Gram$ 矩阵
+\begin{center}
+$\bm{G}=\begin{bmatrix}
+    \langle\myx_1, \myx_1\rangle&\langle\myx_1, \myx_2\rangle&\langle\myx_1, \myx_3\rangle&\langle\myx_1, \myx_4\rangle\\
+    \langle\myx_2, \myx_1\rangle&\langle\myx_2, \myx_2\rangle&\langle\myx_2, \myx_3\rangle&\langle\myx_2, \myx_4\rangle\\
+    \langle\myx_3, \myx_1\rangle&\langle\myx_3, \myx_2\rangle&\langle\myx_3, \myx_3\rangle&\langle\myx_3, \myx_4\rangle\\
+    \langle\myx_4, \myx_1\rangle&\langle\myx_4, \myx_2\rangle&\langle\myx_4, \myx_3\rangle&\langle\myx_4, \myx_4\rangle
+  \end{bmatrix}
+=\begin{bmatrix}  19&22&7&10\\  22&26&8&12\\  7&8&3&4   \\10&12&4&6\end{bmatrix}$
+\end{center}
+
+令$\bm{y}=(y_1,y_2,y_3,y_4)=(1,1,-1,-1),\bm{\alpha}=(\alpha_1,\alpha_2,\alpha_3,\alpha_4)$，则表达式
+\begin{equation}
+\label{equ:compute}
+  \bm{\alpha} * \bm{y} \times \bm{G}*\bm{y}=\left(y_1\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx_1\rangle,y_2\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx_2\rangle,y_3\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx_3\rangle,y_4\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx_4\rangle\right)
+\end{equation}
+的元素就是算法(\ref{alg:alg3})中用来判断$t_j\in T$是否为误分类的表达式$y_j\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx_j\rangle$。 式(\ref{equ:compute})中的运算符$~*~$表示元素乘，运算符$~\times~$ 表示矩阵乘。
+
+按照随机梯度下降的思路，假设某次迭代我们抽取到误分类的点是$(\myx_j,y_j)$，则损失函数则我们对其代表的损失函数$L(\bm{\alpha},j)=-y_j\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx_j\rangle$求其关于$\bm{\alpha}$的导数
+\begin{equation}
+  \begin{split}
+    \frac{\partial L(\bm{\alpha},j)}{\partial \bm{\alpha} }&=\frac{-\partial y_j\sum_{i=1}^{N}\alpha_i y_i\langle\myx_i, \myx_j\rangle}{\partial \bm{\alpha} }\\
+                                            &=-y_j \bm{y}*G[j]
+  \end{split}
+\end{equation}
+然后更新$\bm{\alpha}$向量
+\begin{equation}
+  \bm{\alpha}=\bm{\alpha}-\eta\frac{\partial L(\bm{\alpha},j)}{\partial \bm{\alpha} }
+\end{equation}
+
+\clearpage
+\begin{lstlisting}[language=Python,title={perception.py},basicstyle=\scriptsize,captionpos=t]
+import numpy
+import random
+import matplotlib.pyplot as pyplot
+def myplot(x,y,omega,b,iter):
+    for i in range(x.shape[0]):
+        if y[i]==-1:
+            pyplot.plot(x[i][0],x[i][1],'mo')
+        else:
+            pyplot.plot(x[i][0],x[i][1],'k*')
+    if (omega[1]==0.0)&(omega[0]==0.0):
+        return
+    elif omega[1]==0:
+        xline=[-b/omega[0]]*100
+        yline =numpy.linspace(0,5,100)
+    elif omega[0]==0:
+        xline =numpy.linspace(0,5,100)
+        yline=[-b/omega[1]]*100
+    else:
+        xline=numpy.linspace(0,5,100)
+        yline=(-b-omega[0]*xline)/omega[1]
+    pyplot.plot(xline,yline,'b-')
+    pyplot.xlim(0,4);    pyplot.ylim(0,4)
+    pyplot.xlabel('x(1)');    pyplot.ylabel('x(2)')
+    pyplot.title('The perception example')
+    pyplot.savefig('./pic/perception1/'+str(iter)+'.jpg');
+    pyplot.close('all')#close the picture
+x=numpy.array([[0.5,1.9],[2,3],[2,2],[1,1],[1,2],[2,0.5],[3,2],[1.5,0.6],[3,1.5],[2.5,1]])
+y=numpy.array([-1,1,1,-1,1,-1,1,-1,1,1])
+omega=numpy.array([0,0]);b=0;eta=0.03145errorset=[]
+for i in range(x.shape[0]):
+    if((x[i].dot(omega)+b)*y[i]<=0):
+        errorset.append(i)
+iter=0
+while len(errorset)>0:
+    errornum=len(errorset)
+    num=random.randrange(0,errornum)
+    loc=errorset[num]
+    omega =omega+eta*y[loc]*x[loc]
+    b =b+eta*y[loc]
+    print eta*y[loc]*x[loc],y[loc],x[loc],omega,b
+    myplot(x,y,omega,b,iter)
+    iter+=1
+    errorset=[]
+    for i in range(x.shape[0]):
+        if((x[i].dot(omega)+b)*y[i]<=0):
+            errorset.append(i)
+\end{lstlisting}
+\clearpage
+%\section{例2的Python源码}
+\begin{lstlisting}[language=Python,title={perception.py},basicstyle=\scriptsize,captionpos=t]
+# -*- coding: cp936 -*-
+import numpy
+import random
+import matplotlib.pyplot as pyplot
+
+def add(x):
+    temp=[]
+    for i in range(x.shape[0]):
+        a=x[i].tolist()
+        a.append(1)
+        temp.append(a)
+    x=numpy.array(temp)
+    return x
+def Gram(x):
+    G=numpy.zeros([x.shape[0],x.shape[0]])
+    for i in range(x.shape[0]):
+        for j in range(i+1):
+            G[i][j]=G[j][i]=x[i].dot(x[j])
+    return G
+def Main():
+    x=numpy.array([[3,3],[4,3],[1,1],[2,1]])
+    y=numpy.array([1,1,-1,-1])
+    x=add(x)
+    G=Gram(x)
+    alpha=numpy.zeros([1,x.shape[0]])
+    eta=0.31415
+    indic=alpha*y.dot(G)*y
+    errorset=[]
+    for i in range(indic.shape[1]):
+        if indic[0][i]<=0:
+            errorset.append(i)
+    while len(errorset)>0:
+        num=random.randrange(0,len(errorset))
+        i=errorset[num]
+        alpha=alpha+eta*y[i]*y*G[i]
+        print alpha
+        indic=alpha*y.dot(G)*y
+        errorset=[]
+        for i in range(indic.shape[1]):
+            if indic[0][i]<=0:
+                errorset.append(i)
+    print (alpha*y).dot(x)
+Main()
+\end{lstlisting}
+
+\begin{thebibliography}{9}
+\bibitem{lihang}
+  李航,
+  \emph{统计学习方法}.
+  清华大学出版社, 北京,
+  2014.
+\bibitem{bl}{OldPanda},{《统计学习方法》读书笔记——感知机}, \url{http://www.cnblogs.com/OldPanda/archive/2013/04/12/3017100.html}, 4/12 2013.
+\bibitem{b2}{Michael Collins},{Convergence Proof for the Perceptron Algorithm}, \url{http://www.cs.columbia.edu/~mcollins/courses/6998-2012/notes/perc.converge.pdf}, 2012.
+\end{thebibliography}

@@ -1,0 +1,808 @@
+'' ''         209
+'' ''         210
+'' ''         211
+'' ''         212
+'' ''         213
+'&#x0391;' '' 214
+'&#x0392;' '' 215
+'&#x0393;' '' 216
+'&#x0394;' '' 217
+'&#x0395;' '' 218
+'&#x0396;' '' 219
+'&#x0397;' '' 220
+'&#x0398;' '' 221
+'&#x0399;' '' 222
+'&#x039A;' '' 223
+'&#x039B;' '' 224
+'&#x039C;' '' 225
+'&#x039D;' '' 226
+'&#x039E;' '' 227
+'&#x039F;' '' 228
+'&#x03A0;' '' 229
+'&#x03A1;' '' 230
+'&#x03A3;' '' 231
+'&#x03A4;' '' 232
+'&#x03A5;' '' 233
+'&#x03A6;' '' 234
+'&#x03A7;' '' 235
+'&#x03A8;' '' 236
+'&#x03A9;' '' 237
+'' ''         238
+'' ''         239
+'' ''         240
+'' ''         241
+'' ''         242
+'' ''         243
+'' ''         244
+'' ''         245
+'&#x03B1;' '' 246
+'&#x03B2;' '' 247
+'&#x03B3;' '' 248
+'&#x03B4;' '' 249
+'&#x03B5;' '' 250
+'&#x03B6;' '' 251
+'&#x03B7;' '' 252
+'&#x03B8;' '' 253
+'&#x03B9;' '' 254
+'&#x03BA;' '' 255 
+gbksong28 0 255
+htfcss: gbkhei63 font-family: 黑体, sans-serif;
+htfcss: gbkhei26 font-family: 黑体, sans-serif;
+htfcss: gbkhei54 font-family: 黑体, sans-serif;
+htfcss: gbkhei50 font-family: 黑体, sans-serif;
+htfcss: gbkhei65 font-family: 黑体, sans-serif;
+htfcss: gbkhei62 font-family: 黑体, sans-serif;
+htfcss: gbkhei53 font-family: 黑体, sans-serif;
+htfcss: gbkkai50 font-family: monospace; font-style: italic;
+htfcss: gbkkai64 font-family: monospace; font-style: italic;
+htfcss: gbkkai55 font-family: monospace; font-style: italic;
+htfcss: cmmi font-style: italic;
+htfcss: cmmib font-style: italic; font-weight: bold;
+htfcss: gbkhei52 font-family: 黑体, sans-serif;
+htfcss: gbkhei37 font-family: 黑体, sans-serif;
+htfcss: gbkkai41 font-family: monospace; font-style: italic;
+htfcss: gbkkai59 font-family: monospace; font-style: italic;
+htfcss: gbkkai60 font-family: monospace; font-style: italic;
+htfcss: gbkkai45 font-family: monospace; font-style: italic;
+htfcss: gbkkai57 font-family: monospace; font-style: italic;
+htfcss: cmti  font-style: italic;
+htfcss: cmbx  font-weight: bold;
+htfcss: cmbxsl  font-weight: bold; font-style: oblique;
+htfcss: gbkhei45 font-family: 黑体, sans-serif;
+htfcss: gbkhei57 font-family: 黑体, sans-serif;
+htfcss: gbkhei56 font-family: 黑体, sans-serif;
+htfcss: gbkhei61 font-family: 黑体, sans-serif;
+htfcss: gbkhei39 font-family: 黑体, sans-serif;
+htfcss: gbkhei40 font-family: 黑体, sans-serif;
+htfcss: gbkhei38 font-family: 黑体, sans-serif;
+htfcss: gbkhei43 font-family: 黑体, sans-serif;
+htfcss: gbkhei49 font-family: 黑体, sans-serif;
+htfcss: gbkhei58 font-family: 黑体, sans-serif;
+htfcss: gbkhei46 font-family: 黑体, sans-serif;
+htfcss: gbkhei55 font-family: 黑体, sans-serif;
+htfcss: gbkhei44 font-family: 黑体, sans-serif;
+htfcss: gbkhei64 font-family: 黑体, sans-serif;
+htfcss: gbkhei42 font-family: 黑体, sans-serif;
+htfcss: gbkhei51 font-family: 黑体, sans-serif;
+htfcss: gbkhei48 font-family: 黑体, sans-serif;
+htfcss: gbkhei41 font-family: 黑体, sans-serif;
+htfcss: gbkhei47 font-family: 黑体, sans-serif;
+htfcss: gbkhei60 font-family: 黑体, sans-serif;
+htfcss: gbkhei59 font-family: 黑体, sans-serif;
+htfcss: cmbsy font-weight: bold;
+htfcss: cmbx  font-weight: bold;
+htfcss: cmbxsl  font-weight: bold; font-style: oblique;
+htfcss: cmbx  font-weight: bold;
+htfcss: cmbxsl  font-weight: bold; font-style: oblique;
+'' ''         193
+'' ''         194
+'' ''         195
+'' ''         196
+'' ''         197
+'' ''         198
+'' ''         199
+'' ''         200
+'' ''         201
+'' ''         202
+'' ''         203
+'' ''         204
+'' ''         205
+'' ''         206
+'' ''         207
+'' ''         208
+'' ''         209
+'' ''         210
+'' ''         211
+'' ''         212
+'' ''         213
+'' ''         214
+'' ''         215
+'' ''         216
+'' ''         217
+'' ''         218
+'' ''         219
+'' ''         220
+'' ''         221
+'&#x2170;' '' 222
+'&#x2171;' '' 223
+'&#x2172;' '' 224
+'&#x2173;' '' 225
+'&#x2174;' '' 226
+'&#x2175;' '' 227
+'&#x2176;' '' 228
+'&#x2177;' '' 229
+'&#x2178;' '' 230
+'&#x2179;' '' 231
+'' ''         232
+'' ''         233
+'' ''         234
+'' ''         235
+'' ''         236
+'' ''         237
+'&#x2488;' '' 238
+'&#x2489;' '' 239
+'&#x248A;' '' 240
+'&#x248B;' '' 241
+'&#x248C;' '' 242
+'&#x248D;' '' 243
+'&#x248E;' '' 244
+'&#x248F;' '' 245
+'&#x2490;' '' 246
+'&#x2491;' '' 247
+'&#x2492;' '' 248
+'&#x2493;' '' 249
+'&#x2494;' '' 250
+'&#x2495;' '' 251
+'&#x2496;' '' 252
+'&#x2497;' '' 253
+'&#x2498;' '' 254
+'&#x2499;' '' 255  
+gbksong25 0 255
+htfcss: cmtt font-family: monospace;
+htfcss: cmtt font-family: monospace;
+htfcss: gbkhei46 font-family: 黑体, sans-serif;
+htfcss: gbkhei65 font-family: 黑体, sans-serif;
+htfcss: gbkhei38 font-family: 黑体, sans-serif;
+htfcss: gbkhei47 font-family: 黑体, sans-serif;
+htfcss: gbkhei59 font-family: 黑体, sans-serif;
+htfcss: gbkhei60 font-family: 黑体, sans-serif;
+htfcss: gbkhei52 font-family: 黑体, sans-serif;
+htfcss: gbkhei44 font-family: 黑体, sans-serif;
+htfcss: gbkhei25 font-family: 黑体, sans-serif;
+File: main.html
+File: main.css
+File: main.tmp
+Font_Class(4,"4"): <span  class="small-caps"></span>
+Font_Class(1,"1"): <img  src="Images/" alt="" class="%s-%dx-x-%x" />
+Css: p.noindent { text-indent: 0em }
+Css: td p.noindent { text-indent: 0em; margin-top:0em; }
+Css: p.nopar { text-indent: 0em; }
+Css: p.indent{ text-indent: 1.5em }
+Css: @media print {div.crosslinks {visibility:hidden;}}
+Css: a img { border-top: 0; border-left: 0; border-right: 0; }
+Font_Css("4"): .small-caps{font-variant: small-caps; }
+Font_Css("10"): .htf-cmbx {font-weight: bold; font-style:normal;}
+Font_Css("12"): .htf-calligraphy {font-family:cursive}
+Font_Css("14"): .htf-italic {font-style: italic;}
+Font_Css("16"): .htf-bold {font-weight: bold;}
+Font_Css("12"): .htf-calligraphy-bold {font-family:cursive ; font-weight: bold; }
+Css: center { margin-top:1em; margin-bottom:1em; }
+Css: td center { margin-top:0em; margin-bottom:0em; }
+Css: .Canvas { position:relative; }
+Css: img.math{vertical-align:middle;}
+Css: li p.indent { text-indent: 0em }
+Css: li p:first-child{ margin-top:0em; }
+Css: li p:last-child, li div:last-child { margin-bottom:0.5em; }
+Css: li p~ul:last-child, li p~ol:last-child{ margin-bottom:0.5em; }
+Css: .enumerate1 {list-style-type:decimal;}
+Css: .enumerate2 {list-style-type:lower-alpha;}
+Css: .enumerate3 {list-style-type:lower-roman;}
+Css: .enumerate4 {list-style-type:upper-alpha;}
+Css: div.newtheorem { margin-bottom: 2em; margin-top: 2em;}
+Css: .obeylines-h,.obeylines-v {white-space: nowrap; }
+Css: div.obeylines-v p { margin-top:0; margin-bottom:0; }
+Css: .overline{ text-decoration:overline; }
+Css: .overline img{ border-top: 1px solid black; }
+Css: td.displaylines {text-align:center; white-space:nowrap;}
+Css: .centerline {text-align:center;}
+Css: .rightline {text-align:right;}
+Css: div.verbatim {font-family: monospace; white-space: nowrap; text-align:left; clear:both; }
+Css: .fbox {padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
+Css: div.fbox {display:table}
+Css: div.center div.fbox {text-align:center; clear:both; padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
+Css: div.minipage{width:100%;}
+Css: div.center, div.center div.center {text-align: center; margin-left:1em; margin-right:1em;}
+Css: div.center div {text-align: left;}
+Css: div.flushright, div.flushright div.flushright {text-align: right;}
+Css: div.flushright div {text-align: left;}
+Css: div.flushleft {text-align: left;}
+Css: .underline{ text-decoration:underline; }
+Css: .underline img{ border-bottom: 1px solid black; margin-bottom:1pt; }
+Css: .framebox-c, .framebox-l, .framebox-r { padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
+Css: .framebox-c {text-align:center;}
+Css: .framebox-l {text-align:left;}
+Css: .framebox-r {text-align:right;}
+Css: span.thank-mark{ vertical-align: super }
+Css: span.footnote-mark sup.textsuperscript, span.footnote-mark a sup.textsuperscript{ font-size:80%; }
+Css: div.footnotes{border-top:solid 1px black; border-bottom:solid 1px black; padding-bottom:1ex; padding-top:0.5ex; margin-right:15%; margin-top:2ex; font-style:italic; font-size:85%;}
+Css: div.footnotes p{margin-top:0; margin-bottom:0; text-indent:0;}
+Css: div.tabular, div.center div.tabular {text-align: center; margin-top:0.5em; margin-bottom:0.5em; }
+Css: table.tabular td p{margin-top:0em;}
+Css: table.tabular {margin-left: auto; margin-right: auto;}
+Css: td p:first-child{ margin-top:0em; }
+Css: td p:last-child{ margin-bottom:0em; }
+Css: div.td00{ margin-left:0pt; margin-right:0pt; }
+Css: div.td01{ margin-left:0pt; margin-right:5pt; }
+Css: div.td10{ margin-left:5pt; margin-right:0pt; }
+Css: div.td11{ margin-left:5pt; margin-right:5pt; }
+Css: table[rules] {border-left:solid black 0.4pt; border-right:solid black 0.4pt; }
+Css: td.td00{ padding-left:0pt; padding-right:0pt; }
+Css: td.td01{ padding-left:0pt; padding-right:5pt; }
+Css: td.td10{ padding-left:5pt; padding-right:0pt; }
+Css: td.td11{ padding-left:5pt; padding-right:5pt; }
+Css: table[rules] {border-left:solid black 0.4pt; border-right:solid black 0.4pt; }
+Css: .hline hr, .cline hr{ height : 1px; margin:0px; }
+Css: .tabbing-right {text-align:right;}
+Css: span.TEX {letter-spacing: -0.125em; }
+Css: span.TEX span.E{ position:relative;top:0.5ex;left:-0.0417em;}
+Css: a span.TEX span.E {text-decoration: none; }
+Css: span.LATEX span.A{ position:relative; top:-0.5ex; left:-0.4em; font-size:85%;}
+Css: span.LATEX span.TEX{ position:relative; left: -0.4em; }
+Css: div.float, div.figure {margin-left: auto; margin-right: auto;}
+Css: div.float img {text-align:center;}
+Css: div.figure img {text-align:center;}
+Css: .marginpar {width:20%; float:right; text-align:left; margin-left:auto; margin-top:0.5em; font-size:85%; text-decoration:underline;}
+Css: .marginpar p{margin-top:0.4em; margin-bottom:0.4em;}
+Css: table.equation {width:100%;}
+Css: .equation td{text-align:center; }
+Css: td.equation { margin-top:1em; margin-bottom:1em; } 
+Css: td.equation-label { width:5%; text-align:center; }
+Css: td.eqnarray4 { width:5%; white-space: normal; }
+Css: td.eqnarray2 { width:5%; }
+Css: table.eqnarray-star, table.eqnarray {width:100%;}
+Css: div.eqnarray{text-align:center;}
+Css: div.array {text-align:center;}
+Css: div.pmatrix {text-align:center;}
+Css: table.pmatrix {width:100%;}
+Css: span.pmatrix img{vertical-align:middle;}
+Css: div.pmatrix {text-align:center;}
+Css: table.pmatrix {width:100%;}
+Css: span.bar-css {text-decoration:overline;}
+Css: img.cdots{vertical-align:middle;}
+Css: .partToc a, .partToc, .likepartToc a, .likepartToc {line-height: 200%; font-weight:bold; font-size:110%;}
+Css: .chapterToc a, .chapterToc, .likechapterToc a, .likechapterToc, .appendixToc a, .appendixToc {line-height: 200%; font-weight:bold;}
+Css: .index-item, .index-subitem, .index-subsubitem {display:block}
+Css: div.caption {text-indent:-2em; margin-left:3em; margin-right:1em; text-align:left;}
+Css: div.caption span.id{font-weight: bold; white-space: nowrap; }
+Css: h1.partHead{text-align: center}
+Css: p.bibitem { text-indent: -2em; margin-left: 2em; margin-top:0.6em; margin-bottom:0.6em; }
+Css: p.bibitem-p { text-indent: 0em; margin-left: 2em; margin-top:0.6em; margin-bottom:0.6em; }
+Css: .paragraphHead, .likeparagraphHead { margin-top:2em; font-weight: bold;}
+Css: .subparagraphHead, .likesubparagraphHead { font-weight: bold;}
+Css: .quote {margin-bottom:0.25em; margin-top:0.25em; margin-left:1em; margin-right:1em; text-align:justify;}
+Css: .verse{white-space:nowrap; margin-left:2em}
+Css: div.maketitle {text-align:center;}
+Css: h2.titleHead{text-align:center;}
+Css: div.maketitle{ margin-bottom: 2em; }
+Css: div.author, div.date {text-align:center;}
+Css: div.thanks{text-align:left; margin-left:10%; font-size:85%; font-style:italic; }
+Css: .quotation {margin-bottom:0.25em; margin-top:0.25em; margin-left:1em; }
+Css: h1.partHead{text-align: center}
+Css:  .chapterToc, .likechapterToc {margin-left:0em;}
+Css:  .chapterToc ~ .likesectionToc, .chapterToc ~ .sectionToc, .likechapterToc ~ .likesectionToc, .likechapterToc ~ .sectionToc {margin-left:2em;}
+Css:  .chapterToc ~ .likesectionToc ~ .likesubsectionToc, .chapterToc ~ .likesectionToc ~ .subsectionToc, .chapterToc ~ .sectionToc ~ .likesubsectionToc, .chapterToc ~ .sectionToc ~ .subsectionToc, .likechapterToc ~ .likesectionToc ~ .likesubsectionToc, .likechapterToc ~ .likesectionToc ~ .subsectionToc, .likechapterToc ~ .sectionToc ~ .likesubsectionToc, .likechapterToc ~ .sectionToc ~ .subsectionToc {margin-left:4em;}
+Css: .chapterToc ~ .likesectionToc ~ .likesubsectionToc ~ .likesubsubsectionToc, .chapterToc ~ .likesectionToc ~ .likesubsectionToc ~ .subsubsectionToc, .chapterToc ~ .likesectionToc ~ .subsectionToc ~ .likesubsubsectionToc, .chapterToc ~ .likesectionToc ~ .subsectionToc ~ .subsubsectionToc, .chapterToc ~ .sectionToc ~ .likesubsectionToc ~ .likesubsubsectionToc, .chapterToc ~ .sectionToc ~ .likesubsectionToc ~ .subsubsectionToc, .chapterToc ~ .sectionToc ~ .subsectionToc ~ .likesubsubsectionToc, .chapterToc ~ .sectionToc ~ .subsectionToc ~ .subsubsectionToc, .likechapterToc ~ .likesectionToc ~ .likesubsectionToc ~ .likesubsubsectionToc, .likechapterToc ~ .likesectionToc ~ .likesubsectionToc ~ .subsubsectionToc, .likechapterToc ~ .likesectionToc ~ .subsectionToc ~ .likesubsubsectionToc, .likechapterToc ~ .likesectionToc ~ .subsectionToc ~ .subsubsectionToc, .likechapterToc ~ .sectionToc ~ .likesubsectionToc ~ .likesubsubsectionToc, .likechapterToc ~ .sectionToc ~ .likesubsectionToc ~ .subsubsectionToc, .likechapterToc ~ .sectionToc ~ .subsectionToc ~ .likesubsubsectionToc .likechapterToc ~ .sectionToc ~ .subsectionToc ~ .subsubsectionToc {margin-left:6em;}
+Css:  .likesectionToc , .sectionToc {margin-left:0em;}
+Css:  .likesectionToc ~ .likesubsectionToc, .likesectionToc ~ .subsectionToc, .sectionToc ~ .likesubsectionToc, .sectionToc ~ .subsectionToc {margin-left:2em;}
+Css: .likesectionToc ~ .likesubsectionToc ~ .likesubsubsectionToc, .likesectionToc ~ .likesubsectionToc ~ .subsubsectionToc, .likesectionToc ~ .subsectionToc ~ .likesubsubsectionToc, .likesectionToc ~ .subsectionToc ~ .subsubsectionToc, .sectionToc ~ .likesubsectionToc ~ .likesubsubsectionToc, .sectionToc ~ .likesubsectionToc ~ .subsubsectionToc, .sectionToc ~ .subsectionToc ~ .likesubsubsectionToc, .sectionToc ~ .subsectionToc ~ .subsubsectionToc {margin-left:4em;}
+Css:  .likesubsectionToc, .subsectionToc {margin-left:0em;}
+Css:  .likesubsectionToc ~ .subsubsectionToc, .subsectionToc ~ .subsubsectionToc, {margin-left:2em;}
+Css: .figure img.graphics {margin-left:10%;}
+Css: .equation td{text-align:center; }
+Css: .equation-star td{text-align:center; }
+Css: table.equation-star { width:100%; }
+Css: table.equation { width:100%; }
+Css: table.align, table.alignat, table.xalignat, table.xxalignat, table.flalign {width:100%; margin-left:5%; white-space: nowrap;}
+Css: table.align-star, table.alignat-star, table.xalignat-star, table.flalign-star {margin-left:auto; margin-right:auto; white-space: nowrap;}
+Css: td.align-label { width:5%; text-align:center; }
+Css: td.align-odd { text-align:right; padding-right:0.3em;}
+Css: td.align-even { text-align:left; padding-right:0.6em;}
+Css: table.multline, table.multline-star {width:100%;}
+Css: td.gather {text-align:center; }
+Css: table.gather {width:100%;}
+Css: div.gather-star {text-align:center;}
+Css: div.algorithm table.caption { border-bottom: 1px solid black; margin-bottom:1pt; }
+Css: .ALCitem {width:2em; text-align:right;}
+Css: .subfigcaption {margin-top:1em; margin-left:1em; text-align:center;}
+Css: div.subfigure {text-align:center;}
+Css: .lstlisting .label{margin-right:0.5em; }
+Css: div.lstlisting{font-family: monospace; white-space: nowrap; margin-top:0.5em; margin-bottom:0.5em; }
+Css: div.lstinputlisting{ font-family: monospace; white-space: nowrap; }
+Css: .lstinputlisting .label{margin-right:0.5em;}
+File: figures/logobupt.jpg
+File: figures/blog.jpg
+File: figures/_1perception/linear.png
+File: figures/_1perception/nonlinear.png
+--- needs --- main.idv[2] ==> main0x.png ---
+--- needs --- main.idv[4] ==> main1x.png ---
+File: figures/_1perception/mycircle.jpg
+File: figures/_1perception/mytriangle.jpg
+File: figures/_1perception/hyperplane.jpg
+--- needs --- main.idv[6] ==> main2x.png ---
+--- needs --- main.idv[7] ==> main3x.png ---
+--- needs --- main.idv[9] ==> main4x.png ---
+--- needs --- main.idv[11] ==> main5x.png ---
+--- needs --- main.idv[13] ==> main6x.png ---
+--- needs --- main.idv[15] ==> main7x.png ---
+--- needs --- main.idv[17] ==> main8x.png ---
+--- needs --- main.idv[19] ==> main9x.png ---
+--- needs --- main.idv[20] ==> main10x.png ---
+--- needs --- main.idv[21] ==> main11x.png ---
+--- needs --- main.idv[22] ==> main12x.png ---
+--- needs --- main.idv[23] ==> main13x.png ---
+--- needs --- main.idv[24] ==> main14x.png ---
+--- needs --- main.idv[26] ==> main15x.png ---
+--- needs --- main.idv[27] ==> main16x.png ---
+--- needs --- main.idv[28] ==> main17x.png ---
+--- needs --- main.idv[29] ==> main18x.png ---
+--- needs --- main.idv[30] ==> main19x.png ---
+--- needs --- main.idv[31] ==> main20x.png ---
+--- needs --- main.idv[32] ==> main21x.png ---
+--- needs --- main.idv[33] ==> main22x.png ---
+--- needs --- main.idv[34] ==> main23x.png ---
+--- needs --- main.idv[35] ==> main24x.png ---
+--- needs --- main.idv[36] ==> main25x.png ---
+--- needs --- main.idv[37] ==> main26x.png ---
+--- needs --- main.idv[38] ==> main27x.png ---
+--- needs --- main.idv[39] ==> main28x.png ---
+--- needs --- main.idv[40] ==> main29x.png ---
+--- needs --- main.idv[42] ==> main30x.png ---
+--- needs --- main.idv[43] ==> main31x.png ---
+--- needs --- main.idv[44] ==> main32x.png ---
+--- needs --- main.idv[45] ==> main33x.png ---
+--- needs --- main.idv[46] ==> main34x.png ---
+--- needs --- main.idv[47] ==> main35x.png ---
+--- needs --- main.idv[48] ==> main36x.png ---
+--- needs --- main.idv[49] ==> main37x.png ---
+--- needs --- main.idv[50] ==> main38x.png ---
+--- needs --- main.idv[51] ==> main39x.png ---
+--- needs --- main.idv[52] ==> main40x.png ---
+--- needs --- main.idv[53] ==> main41x.png ---
+--- needs --- main.idv[54] ==> main42x.png ---
+--- needs --- main.idv[55] ==> main43x.png ---
+--- needs --- main.idv[56] ==> main44x.png ---
+--- needs --- main.idv[58] ==> main45x.png ---
+--- needs --- main.idv[59] ==> main46x.png ---
+--- needs --- main.idv[60] ==> main47x.png ---
+--- needs --- main.idv[61] ==> main48x.png ---
+--- needs --- main.idv[62] ==> main49x.png ---
+--- needs --- main.idv[64] ==> main50x.png ---
+--- needs --- main.idv[65] ==> main51x.png ---
+--- needs --- main.idv[66] ==> main52x.png ---
+--- needs --- main.idv[67] ==> main53x.png ---
+--- needs --- main.idv[68] ==> main54x.png ---
+--- needs --- main.idv[69] ==> main55x.png ---
+--- needs --- main.idv[70] ==> main56x.png ---
+--- needs --- main.idv[72] ==> main57x.png ---
+--- needs --- main.idv[73] ==> main58x.png ---
+--- needs --- main.idv[74] ==> main59x.png ---
+--- needs --- main.idv[75] ==> main60x.png ---
+--- needs --- main.idv[76] ==> main61x.png ---
+--- needs --- main.idv[77] ==> main62x.png ---
+--- needs --- main.idv[79] ==> main63x.png ---
+--- needs --- main.idv[80] ==> main64x.png ---
+--- needs --- main.idv[81] ==> main65x.png ---
+--- needs --- main.idv[83] ==> main66x.png ---
+--- needs --- main.idv[84] ==> main67x.png ---
+--- needs --- main.idv[86] ==> main68x.png ---
+--- needs --- main.idv[87] ==> main69x.png ---
+--- needs --- main.idv[88] ==> main70x.png ---
+--- needs --- main.idv[89] ==> main71x.png ---
+--- needs --- main.idv[90] ==> main72x.png ---
+--- needs --- main.idv[91] ==> main73x.png ---
+--- needs --- main.idv[92] ==> main74x.png ---
+--- needs --- main.idv[93] ==> main75x.png ---
+--- needs --- main.idv[94] ==> main76x.png ---
+--- needs --- main.idv[96] ==> main77x.png ---
+--- needs --- main.idv[98] ==> main78x.png ---
+--- needs --- main.idv[99] ==> main79x.png ---
+--- needs --- main.idv[100] ==> main80x.png ---
+--- needs --- main.idv[101] ==> main81x.png ---
+--- needs --- main.idv[102] ==> main82x.png ---
+--- needs --- main.idv[103] ==> main83x.png ---
+--- needs --- main.idv[104] ==> main84x.png ---
+--- needs --- main.idv[105] ==> main85x.png ---
+--- needs --- main.idv[106] ==> main86x.png ---
+--- needs --- main.idv[107] ==> main87x.png ---
+--- needs --- main.idv[108] ==> main88x.png ---
+--- needs --- main.idv[109] ==> main89x.png ---
+--- needs --- main.idv[110] ==> main90x.png ---
+--- needs --- main.idv[111] ==> main91x.png ---
+--- needs --- main.idv[112] ==> main92x.png ---
+--- needs --- main.idv[114] ==> main93x.png ---
+--- needs --- main.idv[115] ==> main94x.png ---
+--- needs --- main.idv[116] ==> main95x.png ---
+--- needs --- main.idv[118] ==> main96x.png ---
+--- needs --- main.idv[119] ==> main97x.png ---
+--- needs --- main.idv[120] ==> main98x.png ---
+--- needs --- main.idv[121] ==> main99x.png ---
+--- needs --- main.idv[122] ==> main100x.png ---
+--- needs --- main.idv[123] ==> main101x.png ---
+--- needs --- main.idv[125] ==> main102x.png ---
+--- needs --- main.idv[127] ==> main103x.png ---
+--- needs --- main.idv[128] ==> main104x.png ---
+--- needs --- main.idv[129] ==> main105x.png ---
+--- needs --- main.idv[130] ==> main106x.png ---
+--- needs --- main.idv[131] ==> main107x.png ---
+--- needs --- main.idv[132] ==> main108x.png ---
+--- needs --- main.idv[134] ==> main109x.png ---
+--- needs --- main.idv[136] ==> main110x.png ---
+--- needs --- main.idv[137] ==> main111x.png ---
+--- needs --- main.idv[139] ==> main112x.png ---
+--- needs --- main.idv[140] ==> main113x.png ---
+--- needs --- main.idv[141] ==> main114x.png ---
+--- needs --- main.idv[142] ==> main115x.png ---
+--- needs --- main.idv[143] ==> main116x.png ---
+--- needs --- main.idv[144] ==> main117x.png ---
+--- needs --- main.idv[145] ==> main118x.png ---
+--- needs --- main.idv[146] ==> main119x.png ---
+--- needs --- main.idv[147] ==> main120x.png ---
+--- needs --- main.idv[148] ==> main121x.png ---
+--- needs --- main.idv[150] ==> main122x.png ---
+--- needs --- main.idv[151] ==> main123x.png ---
+--- needs --- main.idv[152] ==> main124x.png ---
+--- needs --- main.idv[153] ==> main125x.png ---
+--- needs --- main.idv[154] ==> main126x.png ---
+--- needs --- main.idv[155] ==> main127x.png ---
+--- needs --- main.idv[156] ==> main128x.png ---
+--- needs --- main.idv[157] ==> main129x.png ---
+--- needs --- main.idv[158] ==> main130x.png ---
+--- needs --- main.idv[160] ==> main131x.png ---
+--- needs --- main.idv[162] ==> main132x.png ---
+--- needs --- main.idv[164] ==> main133x.png ---
+--- needs --- main.idv[165] ==> main134x.png ---
+--- needs --- main.idv[166] ==> main135x.png ---
+--- needs --- main.idv[167] ==> main136x.png ---
+--- needs --- main.idv[168] ==> main137x.png ---
+--- needs --- main.idv[170] ==> main138x.png ---
+--- needs --- main.idv[172] ==> main139x.png ---
+--- needs --- main.idv[174] ==> main140x.png ---
+--- needs --- main.idv[176] ==> main141x.png ---
+--- needs --- main.idv[178] ==> main142x.png ---
+--- needs --- main.idv[180] ==> main143x.png ---
+--- needs --- main.idv[182] ==> main144x.png ---
+--- needs --- main.idv[184] ==> main145x.png ---
+--- needs --- main.idv[186] ==> main146x.png ---
+--- needs --- main.idv[188] ==> main147x.png ---
+--- needs --- main.idv[190] ==> main148x.png ---
+--- needs --- main.idv[191] ==> main149x.png ---
+--- needs --- main.idv[193] ==> main150x.png ---
+--- needs --- main.idv[194] ==> main151x.png ---
+--- needs --- main.idv[196] ==> main152x.png ---
+--- needs --- main.idv[198] ==> main153x.png ---
+File: figures/_2SVD/LDAsimple_a.jpg
+File: figures/_2SVD/LDAsimple_b.jpg
+--- needs --- main.idv[200] ==> main154x.png ---
+--- needs --- main.idv[201] ==> main155x.png ---
+--- needs --- main.idv[203] ==> main156x.png ---
+--- needs --- main.idv[204] ==> main157x.png ---
+--- needs --- main.idv[206] ==> main158x.png ---
+--- needs --- main.idv[208] ==> main159x.png ---
+--- needs --- main.idv[210] ==> main160x.png ---
+--- needs --- main.idv[212] ==> main161x.png ---
+--- needs --- main.idv[213] ==> main162x.png ---
+--- needs --- main.idv[215] ==> main163x.png ---
+--- needs --- main.idv[216] ==> main164x.png ---
+--- needs --- main.idv[218] ==> main165x.png ---
+--- needs --- main.idv[220] ==> main166x.png ---
+--- needs --- main.idv[222] ==> main167x.png ---
+--- needs --- main.idv[224] ==> main168x.png ---
+--- needs --- main.idv[226] ==> main169x.png ---
+--- needs --- main.idv[228] ==> main170x.png ---
+--- needs --- main.idv[230] ==> main171x.png ---
+--- needs --- main.idv[232] ==> main172x.png ---
+--- needs --- main.idv[234] ==> main173x.png ---
+--- needs --- main.idv[236] ==> main174x.png ---
+--- needs --- main.idv[238] ==> main175x.png ---
+--- needs --- main.idv[240] ==> main176x.png ---
+File: figures/_2SVD/LDAcase1.jpg
+File: figures/_2SVD/LDAcase2.jpg
+File: figures/_2SVD/LDAcase3.jpg
+--- needs --- main.idv[242] ==> main177x.png ---
+--- needs --- main.idv[243] ==> main178x.png ---
+--- needs --- main.idv[244] ==> main179x.png ---
+--- needs --- main.idv[245] ==> main180x.png ---
+--- needs --- main.idv[246] ==> main181x.png ---
+--- needs --- main.idv[247] ==> main182x.png ---
+--- needs --- main.idv[248] ==> main183x.png ---
+--- needs --- main.idv[249] ==> main184x.png ---
+--- needs --- main.idv[250] ==> main185x.png ---
+File: figures/_2SVD/PCA_sample.jpg
+--- needs --- main.idv[252] ==> main186x.png ---
+--- needs --- main.idv[253] ==> main187x.png ---
+--- needs --- main.idv[254] ==> main188x.png ---
+--- needs --- main.idv[256] ==> main189x.png ---
+--- needs --- main.idv[258] ==> main190x.png ---
+--- needs --- main.idv[260] ==> main191x.png ---
+--- needs --- main.idv[262] ==> main192x.png ---
+--- needs --- main.idv[264] ==> main193x.png ---
+--- needs --- main.idv[266] ==> main194x.png ---
+--- needs --- main.idv[268] ==> main195x.png ---
+--- needs --- main.idv[270] ==> main196x.png ---
+--- needs --- main.idv[272] ==> main197x.png ---
+--- needs --- main.idv[273] ==> main198x.png ---
+--- needs --- main.idv[275] ==> main199x.png ---
+--- needs --- main.idv[277] ==> main200x.png ---
+--- needs --- main.idv[279] ==> main201x.png ---
+--- needs --- main.idv[281] ==> main202x.png ---
+--- needs --- main.idv[283] ==> main203x.png ---
+--- needs --- main.idv[285] ==> main204x.png ---
+--- needs --- main.idv[286] ==> main205x.png ---
+--- needs --- main.idv[288] ==> main206x.png ---
+--- needs --- main.idv[290] ==> main207x.png ---
+--- needs --- main.idv[292] ==> main208x.png ---
+--- needs --- main.idv[294] ==> main209x.png ---
+--- needs --- main.idv[296] ==> main210x.png ---
+--- needs --- main.idv[298] ==> main211x.png ---
+--- needs --- main.idv[300] ==> main212x.png ---
+--- needs --- main.idv[302] ==> main213x.png ---
+--- needs --- main.idv[304] ==> main214x.png ---
+--- needs --- main.idv[306] ==> main215x.png ---
+File: figures/_2SVD/SVD_intro1.jpg
+File: figures/_2SVD/SVD_intro2.jpg
+--- needs --- main.idv[308] ==> main216x.png ---
+--- needs --- main.idv[310] ==> main217x.png ---
+--- needs --- main.idv[312] ==> main218x.png ---
+--- needs --- main.idv[314] ==> main219x.png ---
+--- needs --- main.idv[316] ==> main220x.png ---
+--- needs --- main.idv[318] ==> main221x.png ---
+--- needs --- main.idv[319] ==> main222x.png ---
+--- needs --- main.idv[320] ==> main223x.png ---
+--- needs --- main.idv[321] ==> main224x.png ---
+--- needs --- main.idv[323] ==> main225x.png ---
+--- needs --- main.idv[325] ==> main226x.png ---
+--- needs --- main.idv[326] ==> main227x.png ---
+--- needs --- main.idv[328] ==> main228x.png ---
+--- needs --- main.idv[329] ==> main229x.png ---
+--- needs --- main.idv[330] ==> main230x.png ---
+--- needs --- main.idv[331] ==> main231x.png ---
+--- needs --- main.idv[332] ==> main232x.png ---
+--- needs --- main.idv[333] ==> main233x.png ---
+--- needs --- main.idv[334] ==> main234x.png ---
+File: figures/_2SVD/SVDPCA.jpg
+--- needs --- main.idv[336] ==> main235x.png ---
+--- needs --- main.idv[337] ==> main236x.png ---
+--- needs --- main.idv[338] ==> main237x.png ---
+--- needs --- main.idv[339] ==> main238x.png ---
+--- needs --- main.idv[341] ==> main239x.png ---
+--- needs --- main.idv[343] ==> main240x.png ---
+--- needs --- main.idv[344] ==> main241x.png ---
+--- needs --- main.idv[345] ==> main242x.png ---
+--- needs --- main.idv[346] ==> main243x.png ---
+--- needs --- main.idv[348] ==> main244x.png ---
+--- needs --- main.idv[349] ==> main245x.png ---
+--- needs --- main.idv[350] ==> main246x.png ---
+--- needs --- main.idv[352] ==> main247x.png ---
+--- needs --- main.idv[354] ==> main248x.png ---
+--- needs --- main.idv[356] ==> main249x.png ---
+--- needs --- main.idv[357] ==> main250x.png ---
+--- needs --- main.idv[358] ==> main251x.png ---
+--- needs --- main.idv[359] ==> main252x.png ---
+--- needs --- main.idv[361] ==> main253x.png ---
+--- needs --- main.idv[363] ==> main254x.png ---
+--- needs --- main.idv[365] ==> main255x.png ---
+--- needs --- main.idv[367] ==> main256x.png ---
+--- needs --- main.idv[369] ==> main257x.png ---
+--- needs --- main.idv[371] ==> main258x.png ---
+--- needs --- main.idv[373] ==> main259x.png ---
+--- needs --- main.idv[375] ==> main260x.png ---
+--- needs --- main.idv[376] ==> main261x.png ---
+--- needs --- main.idv[378] ==> main262x.png ---
+--- needs --- main.idv[379] ==> main263x.png ---
+--- needs --- main.idv[381] ==> main264x.png ---
+--- needs --- main.idv[382] ==> main265x.png ---
+--- needs --- main.idv[384] ==> main266x.png ---
+--- needs --- main.idv[386] ==> main267x.png ---
+--- needs --- main.idv[388] ==> main268x.png ---
+--- needs --- main.idv[389] ==> main269x.png ---
+--- needs --- main.idv[390] ==> main270x.png ---
+--- needs --- main.idv[392] ==> main271x.png ---
+--- needs --- main.idv[394] ==> main272x.png ---
+--- needs --- main.idv[395] ==> main273x.png ---
+--- needs --- main.idv[396] ==> main274x.png ---
+--- needs --- main.idv[398] ==> main275x.png ---
+--- needs --- main.idv[400] ==> main276x.png ---
+--- needs --- main.idv[402] ==> main277x.png ---
+--- needs --- main.idv[403] ==> main278x.png ---
+--- needs --- main.idv[404] ==> main279x.png ---
+--- needs --- main.idv[405] ==> main280x.png ---
+--- needs --- main.idv[407] ==> main281x.png ---
+--- needs --- main.idv[408] ==> main282x.png ---
+File: figures/_3naivebayes/bias1.png
+File: figures/_3naivebayes/bias2.png
+File: figures/_3naivebayes/bias3.png
+File: figures/_3naivebayes/bias4.png
+File: figures/_3naivebayes/bias5.png
+--- needs --- main.idv[410] ==> main283x.png ---
+--- needs --- main.idv[412] ==> main284x.png ---
+--- needs --- main.idv[414] ==> main285x.png ---
+--- needs --- main.idv[415] ==> main286x.png ---
+--- needs --- main.idv[416] ==> main287x.png ---
+--- needs --- main.idv[418] ==> main288x.png ---
+--- needs --- main.idv[419] ==> main289x.png ---
+--- needs --- main.idv[421] ==> main290x.png ---
+--- needs --- main.idv[423] ==> main291x.png ---
+--- needs --- main.idv[425] ==> main292x.png ---
+--- needs --- main.idv[427] ==> main293x.png ---
+--- needs --- main.idv[429] ==> main294x.png ---
+--- needs --- main.idv[431] ==> main295x.png ---
+--- needs --- main.idv[433] ==> main296x.png ---
+--- needs --- main.idv[435] ==> main297x.png ---
+--- needs --- main.idv[437] ==> main298x.png ---
+--- needs --- main.idv[438] ==> main299x.png ---
+--- needs --- main.idv[440] ==> main300x.png ---
+File: figures/_4pagerank/network.jpg
+--- needs --- main.idv[441] ==> main301x.png ---
+--- needs --- main.idv[442] ==> main302x.png ---
+--- needs --- main.idv[444] ==> main303x.png ---
+--- needs --- main.idv[446] ==> main304x.png ---
+--- needs --- main.idv[447] ==> main305x.png ---
+--- needs --- main.idv[448] ==> main306x.png ---
+--- needs --- main.idv[450] ==> main307x.png ---
+--- needs --- main.idv[451] ==> main308x.png ---
+File: figures/_4pagerank/period.jpg
+--- needs --- main.idv[453] ==> main309x.png ---
+--- needs --- main.idv[454] ==> main310x.png ---
+--- needs --- main.idv[456] ==> main311x.png ---
+--- needs --- main.idv[458] ==> main312x.png ---
+--- needs --- main.idv[460] ==> main313x.png ---
+--- needs --- main.idv[461] ==> main314x.png ---
+--- needs --- main.idv[463] ==> main315x.png ---
+--- needs --- main.idv[465] ==> main316x.png ---
+--- needs --- main.idv[467] ==> main317x.png ---
+--- needs --- main.idv[469] ==> main318x.png ---
+--- needs --- main.idv[471] ==> main319x.png ---
+--- characters ---
+Font("cmr","5","5","100")
+Font("cmr","7","7","100")
+Font("cmmi","5","5","100")
+Font("cmmi","7","7","100")
+Font("cmsy","5","5","100")
+Font("cmsy","7","7","100")
+Font("cmr","10","10","105")
+Font("cmcsc","10","10","180")
+Font("gbkhei25","","10","220")
+Font("gbkhei44","","10","220")
+Font("gbkhei52","","10","220")
+Font("gbkhei60","","10","220")
+Font("gbkhei59","","10","220")
+Font("gbkhei47","","10","220")
+Font("gbkhei38","","10","220")
+Font("gbkhei65","","10","220")
+Font("gbkhei46","","10","220")
+Font("cmr","12","12","100")
+Font("cmtt","12","12","100")
+Font("gbksong60","","10","120")
+Font("gbksong50","","10","120")
+Font("gbksong46","","10","120")
+Font("gbksong48","","10","120")
+Font("gbksong63","","10","120")
+Font("gbksong58","","10","120")
+Font("gbksong49","","10","120")
+Font("gbksong45","","10","120")
+Font("gbksong55","","10","120")
+Font("gbksong43","","10","120")
+Font("gbksong47","","10","120")
+Font("gbksong40","","10","120")
+Font("gbksong52","","10","120")
+Font("gbksong51","","10","120")
+Font("gbksong54","","10","120")
+Font("cmtt","10","10","105")
+Font("gbksong51","","10","105")
+Font("gbksong49","","10","105")
+Font("gbksong31","","10","105")
+Font("gbksong45","","10","105")
+Font("gbksong46","","10","105")
+Font("gbksong63","","10","105")
+Font("gbksong40","","10","105")
+Font("gbksong61","","10","105")
+Font("gbksong55","","10","105")
+Font("gbksong42","","10","105")
+Font("gbksong64","","10","105")
+Font("gbksong44","","10","105")
+Font("gbksong60","","10","105")
+Font("gbksong48","","10","105")
+Font("gbksong25","","10","105")
+Font("gbksong57","","10","105")
+Font("gbksong43","","10","105")
+Font("gbksong56","","10","105")
+Font("gbksong41","","10","105")
+Font("gbksong26","","10","105")
+Font("gbksong37","","10","105")
+Font("gbksong62","","10","105")
+Font("gbksong59","","10","105")
+Font("gbksong65","","10","105")
+Font("gbksong58","","10","105")
+Font("gbksong38","","10","105")
+Font("gbksong39","","10","105")
+Font("gbksong52","","10","105")
+Font("gbksong54","","10","105")
+Font("gbksong50","","10","105")
+Font("gbksong47","","10","105")
+Font("cmmi","10","10","105")
+Font("cmsy","10","10","105")
+--- needs --- main.idv[473] ==> cmsy10-59.png ---
+--- needs --- main.idv[474] ==> cmsy10-52.png ---
+--- needs --- main.idv[475] ==> cmsy10-4c.png ---
+Font("cmex","10","10","105")
+Font("cmex","7","7","100")
+Font("cmbx","10","10","105")
+Font("cmbx","7","7","100")
+Font("cmmib","10","10","105")
+Font("cmmib","7","7","100")
+Font("cmbsy","10","10","105")
+--- needs --- main.idv[476] ==> cmbsy10-59.png ---
+--- needs --- main.idv[477] ==> cmbsy10-58.png ---
+Font("msbm","10","10","105")
+Font("gbkhei59","","10","105")
+Font("gbkhei60","","10","105")
+Font("gbkhei47","","10","105")
+Font("gbkhei41","","10","105")
+Font("gbkhei48","","10","105")
+Font("gbkhei51","","10","105")
+Font("gbksong53","","10","105")
+Font("gbkhei42","","10","105")
+Font("gbkhei64","","10","105")
+Font("gbkhei44","","10","105")
+Font("gbkhei55","","10","105")
+Font("gbkhei46","","10","105")
+Font("gbkhei58","","10","105")
+Font("gbkhei49","","10","105")
+Font("gbkhei43","","10","105")
+Font("gbkhei38","","10","105")
+Font("gbkhei40","","10","105")
+Font("gbkhei39","","10","105")
+Font("cmr","7","7","107")
+Font("gbksong51","","10","75")
+Font("gbksong60","","10","75")
+Font("gbksong47","","10","75")
+Font("gbksong62","","10","75")
+Font("gbksong37","","10","75")
+Font("gbkhei61","","10","105")
+Font("tcrm","1000","10","105")
+Font("gbkhei56","","10","105")
+Font("gbkhei57","","10","105")
+Font("gbkhei45","","10","105")
+Font("cmbx","9","9","100")
+Font("cmti","10","10","105")
+Font("gbksong36","","10","105")
+Font("cmr","6","6","108")
+Font("cmr","5","5","110")
+Font("cmmi","6","6","108")
+Font("cmsy","6","6","108")
+Font("tcrm","0600","6","108")
+Font("gbkkai57","","10","105")
+Font("gbkkai45","","10","105")
+Font("gbkkai60","","10","105")
+Font("gbkkai59","","10","105")
+Font("gbkkai41","","10","105")
+Font("gbksong78","","10","105")
+Font("gbksong70","","10","105")
+Font("gbksong09","","10","105")
+Font("gbksong79","","10","105")
+Font("gbkhei37","","10","105")
+Font("gbksong74","","10","105")
+Font("gbkhei52","","10","105")
+Font("cmmi","7","7","107")
+Font("gbksong29","","10","105")
+Font("gbkkai55","","10","105")
+Font("gbkkai64","","10","105")
+Font("gbkkai50","","10","105")
+Font("gbkhei53","","10","105")
+Font("gbkhei62","","10","105")
+Font("gbkhei65","","10","105")
+Font("gbkhei50","","10","105")
+Font("gbkhei54","","10","105")
+Font("gbkhei26","","10","105")
+Font("gbkhei63","","10","105")
+Font("gbksong28","","10","105")

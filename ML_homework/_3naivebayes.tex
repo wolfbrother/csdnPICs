@@ -1,0 +1,345 @@
+
+\newcommand{\mybayes}{Naive Bayes}%{Na\"{\i}ve Bayes}
+\chapter{\mybayes}
+朴素贝叶斯(\mybayes)法是基于{\bf 贝叶斯定理}和{\bf 特征条件独立假设}的分类。对于给定的训练数据集$\bm{T}$（属性向量$\bm{x}=(x^{(1)},x^{(2)},\cdots,x^{(n)})$和类标签$y$组成的对$\langle \bm{x},c\rangle$ 的集合），首先基于特征条件独立假设学习输入/输出的联合概率分布；然后基于此模型，对给定的输入$\bm{x}$,利用贝叶斯定理求出后验概率最大的输出$c$。\mybayes 最大的特点就是原理和实现都很简单，但是学习和预CE的效率都很高。
+\section{\mybayes 基本方法}
+输入空间$\bm{\mathcal{X}}\subseteq \bm{R}^{n}$为$n$维向量的集合，输出空间为包含$K$个元素的类标记集合$\bm{\mathcal{Y}}=\{c_1,c_2,\cdots,c_K\}$,输入是特征向量$\bm{x}\in\bm{\mathcal{X}}$,输出为类标签(class label)$y\in \bm{\mathcal{Y}}$。$\bm{X}$是定义在输入空间$\bm{\mathcal{X}}$上的随机向量,$Y$是定义在输入空间$\bm{\mathcal{Y}}$上的随机变量。$P(\bm{X},Y)$是$\bm{X}$和$Y$的联合概率分布。训练数据集
+\begin{equation*}
+  \bm{T}=\{\langle\bm{x}_1,y_1\rangle,\langle\bm{x}_2,y_2\rangle,\cdots,\langle\bm{x}_N,y_N\rangle\}
+\end{equation*}
+可以看成由$P(\bm{X},Y)$独立同分布产生。
+
+\mybayes 就是通过训练数据集学习刚刚提到的联合概率分布$P(\bm{X},Y)$，其实在学习过程中直接学到的是先验概率分布及条件概率分布，其表达式罗列如下：
+
+先验概率分布
+\begin{equation}
+\label{equ:priorpro}
+  P(Y=c_k)\qquad,k=1,2,\cdots,K
+\end{equation}
+条件概率分布
+\begin{equation}
+\label{equ:conpro}
+  P(\bm{X}=\bm{x}|Y=c_k)=P(\bm{X}^{(1)}=\bm{x}^{(1)},\cdots,\bm{X}^{(n)}=\bm{x}^{(n)}|Y=c_k),\quad k=1,2,\cdots,K
+\end{equation}
+
+\mybayes 对条件概率分布作了条件独立性的假设，这是一个较强的假设，\mybayes 因而得名。具体地，条件独立假设是：
+\begin{equation}
+    \label{equ:duli}
+    \begin{split}
+  P(\bm{X}=\bm{x}|Y=c_k)    &=P(\bm{X}^{(1)}=\bm{x}^{(1)},\cdots,\bm{X}^{(n)}=\bm{x}^{(n)}|Y=c_k)\\
+                            &=\prod_{j=1}^{n}P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)
+  \end{split}
+\end{equation}
+
+\mybayes 法分类时，对给定的输入${\bm{x}}$,通过学习到的模型计算后验概率$P(Y=c_k|\bm{X})$，将后验概率最大的类作为${\bm{x}}$的输出，后验概率的计算根据贝叶斯定理进行：
+\begin{equation}
+    \label{equ:nobayes}
+  P(Y=c_k|\bm{X}=\bm{x})=\frac{P(\bm{X}=\bm{x}|Y=c_k)P(Y=c_k)}{\sum_{k=1}^{K}P(\bm{X}=\bm{x}|Y=c_k)P(Y=c_k)}
+\end{equation}
+将式(\ref{equ:duli})带入式(\ref{equ:nobayes})有
+\begin{equation}
+    \label{equ:bayes1}
+  P(Y=c_k|\bm{X}=\bm{x})=\frac{P(Y=c_k)\prod_{j=1}^{n}P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)}{\sum_{k=1}^{K}P(Y=c_k)\prod_{j=1}^{n}P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)},\quad k=1,2,\cdots,K
+\end{equation}
+于是，\mybayes 分类器可以表示为
+\begin{equation}
+\label{equ:bayes2}
+  y=f(\bm{x})=\arg\max_{c_k}\frac{P(Y=c_k)\prod_{j=1}^{n}P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)}{\sum_{k=1}^{K}P(Y=c_k)\prod_{j=1}^{n}P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)}
+\end{equation}
+注意到式(\ref{equ:bayes2})的分母等于$P(\bm{x})$，这是一个与$c_k$无关的量，所以
+\begin{equation}
+\label{equ:bayes}
+  y=\arg\max_{c_k}P(Y=c_k)\prod_{j=1}^{n}P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)
+\end{equation}
+
+以上就是\mybayes 的基本原理，到这一步，你就可以实现一个简单的贝叶斯分类器了。
+\section{极大似然估计参数}
+由式(\ref{equ:bayes})可知，\mybayes 的学习就是要从训练样本估计$P(Y=c_k)$和$P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)$，可以应用极大似然估计法估计相应的概率。变量定义如表\ref{tab:notations} 所示
+ \begin{table}[h]
+  \centering
+  %\scriptsize
+  \caption{变量或函数定义}
+  \label{tab:notations}
+  \begin{tabular}{ll}
+    \\[-2mm]
+    \hline
+    \hline
+    {\bf \small Symbol}&\qquad {\bf\small Meaning}\\
+    \hline
+    \vspace{1mm}\\[-3mm]
+
+    $y_i$  &第$i$个样本标签\\
+    $c_k$   &第$k$类\\
+    $\bm{x}_i$&       第$i$个样本  \\
+    $\bm{x}_i^{(j)}$& 第$i$个样本的第$j$个特征     \\
+    $a_{jl}$ &第$j$个特征可能取的第$l$个值\\
+    $I$ &指示函数\\
+    \hline
+    \hline
+  \end{tabular}
+\end{table}
+
+先验概率$P(Y=c_k)$的极大似然估计是
+\begin{equation}
+  P(Y=c_k)=\frac{\sum_{i=1}^{N}I\left(y_i=c_k\right)}{N},\quad k=1,2,\cdots,K
+\end{equation}
+
+设第$j$个特征$x^{(j)}$可能的取值集合为$\{a_{j1},a_{j2},\cdots,a_{jS_j}\}$，条件概率$P(X^{(j)}=a_{jl}|Y=c_k)$的极大似然估计是
+\begin{equation}
+  \begin{split}
+    &P(X^{(j)}=a_{jl}|Y=c_k)=\frac{\sum_{i=1}^{N}I\left(x_i^{(j)}=a_{jl},y_i=c_k\right)}{\sum_{i=1}^{N}I\left(y_i=c_k\right)}\\
+    &j=1,2,\cdots,n;l=1,2,\cdots,S_j;k=1,2,\cdots,K
+  \end{split}
+\end{equation}
+\section{后验概率与期望风险的关系}
+\mybayes 法将输入实例$\bm{x}$划归到后验概率最大(后验概率就是式(\ref{equ:nobayes})，后验概率最大由式(\ref{equ:bayes})体现)，这里我们将要证明上一节的``后验概率最大化''蕴含着``期望风险最小化''这一指导准则。
+
+假设选择$0-1$损失函数：
+\begin{eqnarray*}
+L(Y,f(\bm{X}))=
+  \begin{cases}
+    1,\quad &Y\neq f(\bm{X}) \\
+    0,\quad&Y = f(\bm{X})
+  \end{cases}
+\end{eqnarray*}
+式中$f(\bm{X})$是分类决策函数。这时，期望风险函数为
+\begin{equation*}
+  R_{exp}(f)=E[L(Y,f(\bm{X}))]
+\end{equation*}
+期望是对联合分布$P(\bm{X},Y)$取的，由此对上式作进一步推导如下：
+\begin{equation*}
+  \begin{split}
+    R_{exp}(f)  &=E_{\bm{X},Y}[L(Y,f(\bm{X}))]\\
+                &=\sum_{\bm{X}}\sum_{Y}L(Y,f(\bm{X}))P(\bm{X},Y)\\
+                &=\sum_{\bm{X}}\sum_{k=1}^{K}L(c_k,f(\bm{X}))P(\bm{X},c_k)\\
+                &=\sum_{\bm{X}}\sum_{k=1}^{K}L(c_k,f(\bm{X}))P(c_k|\bm{X})P(\bm{X})\\
+                &=\sum_{\bm{X}}P(\bm{X})\sum_{k=1}^{K}L(c_k,f(\bm{X}))P(c_k|\bm{X})\\
+                &=E_{X}\sum_{k=1}^{K}L(c_k,f(\bm{X}))P(c_k|\bm{X})
+  \end{split}
+\end{equation*}
+所以可以将期望风险函数写作
+\begin{equation}
+    \label{equ:exp}
+  R_{exp}(f)=E_{X}\sum_{k=1}^{K}L(c_k,f(\bm{X}))P(c_k|\bm{X})
+\end{equation}
+观察式(\ref{equ:exp})，可以发现对于每个$\bm{x}$，其对应的风险函数$L(c_k,f(\bm{X}))P(c_k|\bm{X})$是独立计算的。为了使期望风险最小化，可以对$X=\bm{x}$逐个极小化，由此得到
+\begin{equation}
+\label{equ:expost}
+  \begin{split}
+    f(\bm{x})   &=\arg\min_{y\in \mathcal{Y}}\sum_{k=1}^{K}L(c_k,y))P(c_k|\bm{X}=\bm{x})\\
+                &=\arg\min_{y\in \mathcal{Y}}\sum_{k=1}^{K}P(y \neq c_k|\bm{X}=\bm{x})\\
+                &=\arg\min_{y\in \mathcal{Y}}\sum_{k=1}^{K}(1-P(y = c_k|\bm{X}=\bm{x}))\\
+                &=\arg\min_{y\in \mathcal{Y}}(1-P(y = c_k|\bm{X}=\bm{x}))\\
+                &=\arg\max_{y\in \mathcal{Y}}P(y = c_k|\bm{X}=\bm{x})
+  \end{split}
+\end{equation}
+由式(\ref{equ:expost})可以知道，根据期望风险最小化准则可以推导出后验概率最大化准则：
+\begin{equation}
+    \label{equ:expost2}
+  f(\bm{x})=\arg\max_{c_k}P(c_k|\bm{X}=\bm{x})
+\end{equation}
+也就是\mybayes 法采用的原理。可以看到式(\ref{equ:expost2})与式(\ref{equ:bayes})是等效的。
+\section{单调递增变换与线性求和}
+\mybayes 的另一个迷人之处在于我们能找到另一种与基本模型等价的形式，那就是我们可以使用严格单调变换对$P(c|\bm{x})$和分类阈值$t$同时变换，而分类结果不变。令$T$是严格单调递增函数，则下面三个例子有助于我们加深对严格单调变换的理解。
+\begin{equation*}
+  \begin{split}
+    P(c|\bm{x})>t &\iff T\left(P(c|\bm{x})\right)>T(t)\\
+    P(c|\bm{x})>P(c|\bm{y}) &\iff T\left(P(c|\bm{x})\right)>T\left(P(c|\bm{y})\right)\\
+    f(\bm{x})=\arg\max_{y\in \mathcal{Y}}P(y = c_k|\bm{X}=\bm{x}) &\iff \arg\max_{y\in \mathcal{Y}}T\left(P(y = c_k|\bm{X}=\bm{x})\right)
+  \end{split}
+\end{equation*}
+定义函数式(\ref{equ:1}),(\ref{equ:2})分别代表的函数就是两种不同的单调递增变换：
+\begin{eqnarray}
+  T_1(x)&= &\frac{x}{1-x} \quad 0 \leq x < 1 \label{equ:1}\\
+  T_2(x)&= &\ln x \quad x>0 \label{equ:2}
+\end{eqnarray}
+对式(\ref{equ:bayes1})(假设$K=2$，即类标签只有$c_1,c_2$两类)作公式(\ref{equ:1})的变换($k=1$为例，$k=2$同$k=1$)：
+\begin{equation}
+\label{equ:trans1}
+\begin{split}
+T_1\left(P(Y=c_1|\bm{X}=\bm{x})\right)    &=\frac{P(Y=c_1|\bm{X}=\bm{x})}{1-P(Y=c_1|\bm{X}=\bm{x})}\\
+                                        &=\frac{P(Y=c_1|\bm{X}=\bm{x})}{P(Y=c_2|\bm{X}=\bm{x})}\\
+                                        &=\frac{P(c_1)}{P(c_2)}\frac{P(\bm{x}|c_1)}{P(\bm{x}|c_2)}\\
+                                        &=\frac{P(c_1)}{P(c_2)}\prod_{i=1}^{n}\frac{P(x_i|c_1)}{P(x_i|c_2)}
+\end{split}
+\end{equation}
+对式(\ref{equ:trans1})作公式(\ref{equ:2})的变换,可得到另一个打分器：
+\begin{equation}
+\label{equ:trans2}
+  \begin{split}
+    T_2\left(T_1\left(P(Y=c_1|\bm{X}=\bm{x})\right)\right) =\ln{\frac{P(c_1)}{P(c_2)}}+\sum_{i=1}^{n}\ln \frac{P(x_i|c_1)}{P(x_i|c_2)}
+  \end{split}
+\end{equation}
+我们定义$w_0=\ln{\frac{P(c_1)}{P(c_2)}}$和$w_i(x_i)=\ln \frac{P(x_i|c_1)}{P(x_i|c_2)}$，并定义函数
+\begin{equation}
+\label{equ:3}
+  T(x)=T_2\left(T_1\left(x\right)\right)
+\end{equation}
+其实式(\ref{equ:3})也是一个单调递增变换函数。则式(\ref{equ:trans2})可重写为：
+\begin{equation}
+  T\left(P(Y=c_1|\bm{X}=\bm{x})\right)=w_0+\sum_{i=1}^{n}w_i(x_i)
+\end{equation}
+
+以上面的推导为基础，我们定义打分器函数
+\begin{equation}
+\label{equ:weight}
+  S(c_1,\bm{x})=w_0+\sum_{i=1}^{n}w_i(x_i)
+\end{equation}
+表示输入$\bm{x}$对类别$c_1$的打分，当然$\bm{x}$对类别$c_2$的打分器函数$S(c_2,\bm{x})$可以类比定义,如果没有特别说明，这里一律对$S(c_1,\bm{x})$进行讨论。有了$S(c_1,\bm{x})$、$S(c_2,\bm{x})$两个评分，我们就可以把$\bm{x}$划归到评分高的类别，这就实现了分类器的目的。
+
+再看上面的几个变换函数，可以知道分值$S=w_0+\sum_{i=1}^{n}w_i(x_i)$是直接由$P(c|\bm{x})$的估计值计算出来的，而且\mybayes 模型其实就是对原始$x_i$的变换的简单求和。
+
+如果每个变量都是离散的或者是将连续变量分割为小的单元来离散化，式(\ref{equ:weight})的形式就特别简单。记变量$x_i$取其第$k_i$ 个单元的值是$x_i^{(k_i)}$,那么$w_i\left(x_i^{(k_i)}\right)$就是``两个份额''之比的对数，即：类别$c_1$的点在变量$x_i$上取值落入的第$k_i$个单元的份额除以类别$c_2$的点在变量$x_i$上取值落入的第$k_i$个单元的份额。有时将这个$w_i\left(x_i^{(k_i)}\right)$ 称为权重，即第$i$个变量对总分值的贡献，或者第$i$个变量为将对象$\bm{x}$划归到类别$c_1$提供的证据。根据这些证据权重，可以识别出哪些变量对于判断任一特定对象的类别归属是重要的。
+\section{独立假设的利弊及扩展}
+第$1$节提到\mybayes 对条件概率分布作了条件独立性的假设，在这一节我们重点讲述该独立性假设的利弊以及人们对其弊端提出的改善措施。
+\subsection{为什么独立性假设可行}
+\subsubsection{降低复杂度}
+式(\ref{equ:conpro})所表达的条件概率分布$P(\bm{X}^{(1)}=\bm{x}^{(1)},\cdots,\bm{X}^{(n)}=\bm{x}^{(n)}|Y=c_k)$有指数级数量的参数。假定$x^{(j)}$可取值有$S_j$个，$j=1,2,\cdots,n$，则$\bm{x}$可能的情况有$\prod_{j=1}^{n}S_j$种；又假设$Y$可能的取值有$K$ 种情况，那么参数的个数为$K\prod_{j=1}^{n}S_j$个。如果对所有的参数进行估计，将需要大量的运算和足够多的训练数据集，而且它们会随着$\bm{X}$的维度的增加而爆炸性增长，维数爆炸问题是如此令人沮丧以至于所有的研究者都选择避其锋芒。
+
+当我们作条件独立性假设后，即
+\begin{equation*}
+P(\bm{X}^{(1)}=\bm{x}^{(1)},\cdots,\bm{X}^{(n)}=\bm{x}^{(n)}|Y=c_k)=\prod_{j=1}^{n}P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)
+\end{equation*}
+，复杂度发生了戏剧性地改善，参数的个数变成了线性数量级，具体的$K\sum_{j=1}^{n}S_j$，这种改善使贝叶斯方法具有实用性。
+\subsubsection{训练数据已做预处理}
+数据集通常在用于将机器学前已经进行了一个变量选择过程，例如线性回归中的变量选择方法。该过程将高度相关变量剔除，剩下的变量之间可能接近于独立关系。
+\subsubsection{距离不遥远}
+独立性假设可能会导致差的概率估计或差的$\frac{P(c_1|\bm{x})}{c_2|\bm{x}}$比率估计，但这并不意味着估计得到的决策面和真实的决策面就相差很远。
+\subsubsection{非线性分类器}
+\mybayes 所产生的决策面可以具有复杂的非线性形状：虽然决策面(式(\ref{equ:weight}))关于$w_i(x_i)$是线性的，但关于原始变量$x_i$是高度的非线性，所以她能拟合出非常复杂的曲面。
+\subsection{收缩系数的引入}
+属性间的独立性假设暗示了\mybayes 可能是有局限性的，毕竟在实际问题中极少有变量独立的情形。接下来我们从``偏差-方差''均衡原理的角度说明模型假设对偏差的影响并引入收缩系数来缓解这种影响。
+\subsubsection{``偏差-方差''均衡原理}
+在统计学和数据挖掘领域，``偏差-方差''均衡原理(bias-variance tradeoff)用于同时优化有导师学习算法产生的模型对训练数据集之外的数据集（如交叉验证中的CE试集）的泛化能力的两种误差：
+\begin{itemize}
+  \item {\bf 偏差}(bias)来源于错误的模型假设
+  \item {\bf 方差}(variance)来源于对训练数据的波动的敏感性
+\end{itemize}
+\begin{figure}[!ht]
+\centering
+\subfigure[Function and noisy data]{
+\label{fig:a}
+\includegraphics[width=0.4\textwidth]{bias1.png}}
+\hspace{0.5in}
+\subfigure[$\sigma$=5]{
+\label{fig:b}
+\includegraphics[width=0.4\textwidth]{bias2.png}}
+
+\subfigure[$\sigma$=1]{
+\label{fig:c}
+\includegraphics[width=0.4\textwidth]{bias3.png}}
+\hspace{0.5in}
+\subfigure[$\sigma$=0.1]{
+\label{fig:d}
+\includegraphics[width=0.4\textwidth]{bias4.png}}
+\caption{A function (red) is approximated using RBF (blue). Several trials are shown in each graph. For each trial, a few noisy data points are provided as training set. For a big $\sigma$ (image \ref{fig:b}) the bias is high(i.e.the RBFs cannot fully approximate the function,especially the central dip), but the variance between different trials is low. As $\sigma$ decreases (image \ref{fig:c} and \ref{fig:c}) the bias decreases(i.e.the blue curves more closely approximate the red). However, depending on the noise in different trials the variance between trials increases. In image\ref{fig:d} the approximated values for x=0 varies wildly depending on where the data points were located.}
+\label{fig:bias_variance}
+\end{figure}
+图\ref{fig:bias_variance}用径向基函数逼近拟合数据的过程。可以看到随着模型假设的复杂度的提高(径向基函数的扩展速度$\sigma$的减小)，模型对相应的训练数据集的偏差(bias)降低，但是不同训练数据集训练出来的模型之间的方差(variance)却增加（如图\ref{fig:bias_variance_show}），所以模型假设的复杂度要取折中，这就是`` 偏差- 方差''均衡原理。
+\begin{figure}[h]
+    \centering
+  \includegraphics{bias5.png}
+  \caption{``方差-偏差''均衡示意图,为了实现方差和偏差二者的均衡，需要对模型假设的复杂度取折中，即模型太复杂了或太简单了都不可取}
+  \label{fig:bias_variance_show}
+\end{figure}
+
+顺便提一下，``偏差-方差''分解方法将算法的泛化错误问题分解对为方差、偏差和残差(噪声)这三部分进行的分析。``偏差-方差''均衡原理用于各种有导师学习算法: classification，regression ，and structured output learning。她也用于解释启发式算法的有效性。
+
+\subsubsection{收缩系数}
+在对为什么要对属性之间作独立性假设的讨论中我们知道，$n$个一元变量编辑分布的复杂性远远小于一个$n$元变量的联合分布。这意味着，为了达到同样的模型精度，独立模型比非独立模型需要更少的数据点。换句话说，如果将模型限制为变量具有独立性，那么基于给定可用样本的估计的方差就比较小。当然，如果该假设与实际不符，就会有偏差增大的风险。这也是``偏差-方差''均衡原理的体现。
+
+为了减少独立性假设带来的偏差风险，\mybayes 的一个简单的修正方法被提出。为了理解这个修正的工作机制，先来分析一种极端情形\raisebox{0.5mm}{------}所有的变量完全相关，在这种情况下，所有的变量具有相同的边际分布且该边际分布与联合分布相等，假设该值为$r$ 。 其\mybayes 估计，即作独立性假设下的条件概率：
+\begin{equation}
+\label{equ:bayr}
+  \frac{P(c_1|\bm{x})}{P(c_2|\bm{x})}=\frac{P(c_1)}{P(c_2)}\prod_{i=1}^{n}\frac{P(x_i|c_1)}{P(x_i|c_2)}=r^n
+\end{equation}
+其实真实的优势比(odd ratio)是：
+\begin{equation}
+\label{equ:realr}
+ \frac{P(c_1|\bm{x})}{P(c_2|\bm{x})}=\frac{P(c_1)}{P(c_2)}\frac{P(\bm{x}|c_1)}{P(\bm{x}|c_2)}=r
+\end{equation}
+
+通过对式(\ref{equ:bayr}),(\ref{equ:realr})的对比，相关性的存在会使\mybayes 高估（$r>1$）或低估（$r<1$）优势比$\frac{P(c_1|\bm{x})}{P(c_2|\bm{x})}$。
+
+从这一现象可以得到一个修改\mybayes 估计的策略，就是对$\frac{P(x_i|c_1)}{P(x_i|c_2)}$取一个小于$1$的幂，将整体估计向真实的优势比收缩靠拢。这就形成一种改良的\mybayes 估计：
+\begin{equation}
+\label{equ:baybetter}
+  \frac{P(c_1|\bm{x})}{P(c_2|\bm{x})}=\frac{P(c_1)}{P(c_2)}\prod_{i=1}^{n}\left(\frac{P(x_i|c_1)}{P(x_i|c_2)}\right)^{\beta}\quad,\beta\leq 1
+\end{equation}
+
+通常要搜索$\beta$所有可能的取值，用交叉验证等方法对每个取值对应的模型进行评估，最后确定能产生最好的预CE结果的$\beta$值。如果用式(\ref{equ:weight})分析，相当于给$w_i\left(x_i\right)$增加一个收缩系数。
+
+
+\section{拉普拉斯平滑}
+用极大似然估计可能会出现要估计的概率值为0的情况，这时会影响到后验概率的计算结果。例如式(\ref{equ:bayes1})（重写如下）分子中只要有一项为0，后验概率就为0，而不管其他项取值多少，这显然是不公平的。
+\begin{equation*}
+  P(Y=c_k|\bm{X}=\bm{x})=\frac{P(Y=c_k)\prod_{j=1}^{n}P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)}{P(\bm{X})}
+\end{equation*}
+对上式，我们不用考虑$P(\bm{X}=0$的情况，只需要设法使条件概率$P(\bm{X}^{(j)}=\bm{x}^{(j)}|Y=c_k)$ 和先验概率$P(c_k)$这两个式子不为$0$就可以了，下面对其分别讨论。
+
+
+下面是修正过程(这里仍沿用表\ref{tab:notations}定义的变量)
+
+\subsection{先验概率修正}
+\begin{enumerate}
+\item 要修正的表达式:
+\begin{equation}
+  P(Y=c_k)=\frac{\sum_{i=1}^{N}I\left(y_i=c_k\right)}{N},\quad k=1,2,\cdots,K
+\end{equation}
+
+\item 作修正的目的:
+\begin{equation}
+  P(Y=c_k)>0
+\end{equation}
+\item 不可破坏的条件:
+\begin{equation}
+  \sum_{k=1}^{K}P(Y=c_k)=1
+\end{equation}
+\end{enumerate}
+很自然地，我们的修正结果为
+\begin{equation}
+  P(Y=c_k)=\frac{\sum_{i=1}^{N}I\left(y_i=c_k\right)+\lambda_1}{N+K\lambda_1}\qquad \lambda_1>0
+\end{equation}
+\subsection{条件概率修正}
+\begin{enumerate}
+\item 要修正的表达式:
+\begin{equation}
+  P(X^{(j)}=a_{jl}|Y=c_k)=\frac{\sum_{i=1}^{N}I\left(x_i^{(j)}=a_{jl},y_i=c_k\right)}{\sum_{i=1}^{N}I\left(y_i=c_k\right)} \quad j=1,2,\cdots,n;l=1,2,\cdots,S_j;k=1,2,\cdots,K
+\end{equation}
+
+\item 作修正的目的:
+\begin{equation}
+  P(X^{(j)}=a_{jl}|Y=c_k)>0
+\end{equation}
+\item 不可破坏的条件:
+\begin{equation}
+  \sum_{l=1}^{S_j}P(X^{(j)}=a_{jl}|Y=c_k)=1
+\end{equation}
+\end{enumerate}
+
+很自然地，我们的修正结果为
+\begin{equation}
+  P(X^{(j)}=a_{jl}|Y=c_k)=\frac{\sum_{i=1}^{N}I\left(x_i^{(j)}=a_{jl},y_i=c_k\right)+\lambda_2}{\sum_{i=1}^{N}I\left(y_i=c_k\right)+S_j\lambda_2}\qquad \lambda_2>0
+\end{equation}
+
+$\lambda_1$和$\lambda_2$的取值过程是完全分离的，所以二者可以相等也可以不相等。一般取$\lambda_1=\lambda_2=1$，这时称为拉普拉斯平滑(Laplace smoothing)。
+\begin{thebibliography}{9}
+\bibitem{lihang}
+  李航,
+  \emph{统计学习方法}.
+  清华大学出版社, 北京,
+  2014.
+  \bibitem{Xindong}
+  {Xindong Wu,Vipin Kumar},
+  \emph{The Top Ten Algorithms in Data Mining}.
+  CRC press, Taylor$\&$ Francis,
+  2009.
+\bibitem{bl}{leftnoteasy},{线性回归,偏差与方差权衡}, \url{http://www.cnblogs.com/LeftNotEasy/archive/2010/12/19/mathmatic_in_machine_learning_2_regression_and_bias_variance_trade_off.html}, 12/19 2010.
+\bibitem{bl}Bias–variance tradeoff, \url{http://en.wikipedia.org/wiki/Bias-variance_tradeoff}, 12/19 2010.
+\bibitem{lihang}
+  吴军,
+  \emph{数学之美}-第三章 统计学习语言.
+  人民邮电出版社, 北京,
+  2013.
+\end{thebibliography}
+
