@@ -1,0 +1,382 @@
+\documentclass{ctexart}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cases}
+\usepackage{bm}
+\usepackage{graphicx}
+\graphicspath{{figure/}}
+\usepackage[top=2cm,bottom=2cm,left=1cm,right=1cm]{geometry}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{everb}   % \colorboxed命令
+\newcommand{\myd}{\mathrm d}
+%\usepackage{mathptm}
+\newenvironment{myquote}{\begin{quote}\kaishu\zihao{4}}{\end{quote}}
+
+\begin{document}
+\section{若干数学工具}
+\subsection{三维傅里叶变换的性质}
+\begin{enumerate}
+  \item {\bf 傅里叶变换}\\
+  \begin{equation}
+    \hat{C}(\omega_x,\omega_y,\omega_z,t) = \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}C(x,y,z,t)e^{-\mathrm{i\left(x\omega_x+y\omega_y+z\omega_z\right)}}\myd x\myd y\myd z = F(C)
+  \end{equation}
+  \item {\bf 傅里叶逆变换}\\
+  \begin{equation}
+    C(x,y,z,t) = \frac{1}{\left(2\pi\right)^3}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\hat{C}(\omega_x,\omega_y,\omega_z,t)\myd \omega_x\myd \omega_y\myd \omega_z
+  \end{equation}
+  \item {\bf 线性性质}\\
+  \begin{equation}
+  F\left(\alpha C_1\left(x,y,z,t\right)+\beta C_2\left(x,y,z,t\right)\right) = \alpha F\left(C_1\right)+\beta F\left(C_2\right)
+  \end{equation}
+  \item {\bf 微分性质}\\
+  \begin{equation}
+  \begin{split}
+    F\left(C_x\left(x,y,z\right)\right) &= \mathrm{i}\omega_x F\left(C\right) = \mathrm{i}\omega_x\hat{C}(\omega_x,\omega_y,\omega_z)\\
+    F\left(C_y\left(x,y,z\right)\right) &= \mathrm{i}\omega_y F\left(C\right) = \mathrm{i}\omega_y\hat{C}(\omega_x,\omega_y,\omega_z)\\
+    F\left(C_z\left(x,y,z\right)\right) &= \mathrm{i}\omega_z F\left(C\right) = \mathrm{i}\omega_z\hat{C}(\omega_x,\omega_y,\omega_z)\\
+  \end{split}
+  \end{equation}
+\end{enumerate}
+\subsection{一阶线性微分求解通式}
+形如${\frac {\myd C}{\myd t}}+P \left( t \right) C =Q \left( t \right)$的公式叫做一阶线性微分方程，其通解形式用Maple求解如图\ref{fig:yijiexianxingweifenfangcheng}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.5\textwidth]{yijiexianxingweifenfangcheng.png}
+\caption{一阶线性偏微分方程求解}
+\label{fig:yijiexianxingweifenfangcheng}
+\end{figure}
+
+从图\ref{fig:yijiexianxingweifenfangcheng}可以看到其通解形式为
+\begin{equation}
+  C = e^{\int -P(t)\myd t}\left(\int Q(t)e^{\int P(t)\myd t}\myd t+const\right)
+\end{equation}
+
+
+\subsection{有限差分}
+现有连续性函数$C=f(t)$,取相邻两点的距离均为$h$的横坐标点$t_{i-2},t_{i-1},t_i,t_{i+1}\cdots$，将这些点的纵坐标分别标记为$C_{i-2},C_{i-1},C_i,C_{i+1}\cdots$。在$i$点附近把函数$C=f(t)$展开为泰勒级数：
+\begin{equation}
+  C=C_i+\left(\frac{\myd C}{\myd t}\right)_i\left(t-t_i\right)+\frac{1}{2!}\left(\frac{\myd^2 C}{\myd t^2}\right)_i\left(t-t_i\right)^2+\frac{1}{3!}\left(\frac{\myd^3 C}{\myd t^3}\right)_i\left(t-t_i\right)^3+\frac{1}{4!}\left(\frac{\myd^4 C}{\myd t^4}\right)_i\left(t-t_i\right)^4+\cdots
+\end{equation}
+其中，$\left(\frac{\myd C}{\myd t}\right)_i,\left(\frac{\myd^2 C}{\myd t^2}\right)_i,\cdots$分别表示各阶导数在$t=t_i$处的值。
+
+\hspace{4cm}在点$i-1$处有\hspace{2cm}$t=t_{i-1}=x_{i}-h$
+
+\hspace{4cm}在点$i+1$处有\hspace{2cm}$t=t_{i+1}=x_{i}+h$
+
+把上述两式分别带入函数$C$泰勒级数展开式中，求得$C$在点$t_{i-1}$和$t_{i+1}$处的值分别为
+\begin{equation}
+  \begin{split}
+    C_{i-1}&=C_{i}-\left(\frac{\myd C}{\myd t}\right)_{i}h+\frac{1}{2!}\left(\frac{\myd^2 C}{\myd t^2}\right)_{i}h^2-\frac{1}{3!}\left(\frac{\myd^3 C}{\myd t^3}\right)_{i}h^3+\frac{1}{4!}\left(\frac{\myd^4 C}{\myd t^4}\right)_{i}h^4-\cdots\\
+    C_{i+1}&=C_{i}+\left(\frac{\myd C}{\myd t}\right)_{i}h+\frac{1}{2!}\left(\frac{\myd^2 C}{\myd t^2}\right)_{i}h^2+\frac{1}{3!}\left(\frac{\myd^3 C}{\myd t^3}\right)_{i}h^3+\frac{1}{4!}\left(\frac{\myd^4 C}{\myd t^4}\right)_{i}h^4-\cdots
+  \end{split}
+\end{equation}
+如果$h$足够小可以忽略$h^3$及更高项，根据上述两式解出$\left(\frac{\myd C}{\myd t}\right)_{i}$,$\left(\frac{\myd^2 C}{\myd t^2}\right)_{i}$的值：
+\begin{equation}
+  \begin{split}
+    \left(\frac{\myd C}{\myd t}\right)_{i}&= \frac{C_{i+1}-C_{i-1}}{2h}\\
+    \left(\frac{\myd^2 C}{\myd t^2}\right)_{i}&=\frac{C_{i+1}-2C_i+C_{i-1}}{h^2}
+  \end{split}
+\end{equation}
+\subsection{三维矩阵的理解}
+可以把三维矩阵的第一项指标看成``行'',第二项指标看成是``列''，第三项指标看成是``页''。
+\subsection{通量,散度和高斯公式}
+\subsubsection{通量}
+设有向量场
+\begin{equation}
+  \bm{A}(x,y,z)=P(x,y,z)\bm{i}+Q(x,y,z)\bm{j}+R(x,y,z)\bm{k}
+\end{equation}
+其中函数$P$、$Q$、$R$均有一阶连续偏导数，$\Sigma$是场内的一片有向曲面，$\bm{n}$是$\Sigma$在点$(x,y,z)$处的单位法向量，则积分
+\begin{equation}
+  \iint\limits_{\Sigma}\bm{A}\cdot\bm{n}\myd S
+\end{equation}
+称为向量场$\bm{A}$通过曲面$\Sigma$向着制定侧的通量（或流量）。
+
+有两类曲面积分的关系，通量又可表达为
+\begin{equation}
+  \iint\limits_{\Sigma}\bm{A}\cdot\bm{n}\myd S=\iint\limits_{\Sigma}\bm{A}\cdot\myd \bm{S} = \iint\limits_{\Sigma}P\myd y\myd z+Q\myd z\myd x+R\myd x\myd y
+\end{equation}
+\subsubsection{散度}
+对于向量场$  \bm{A}(x,y,z)=P(x,y,z)\bm{i}+Q(x,y,z)\bm{j}+R(x,y,z)\bm{k}$，$\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}$叫做向量场$\bm{A}$的散度，记作 $\mathrm{div} \bm{A}$，即
+\begin{equation}
+  \mathrm{div}\bm{A}=\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}
+\end{equation}
+
+利用向量微分算子$\nabla$，$\bm{A}$的散度$\mathrm{div}\bm{A}$也可以表达为$\nabla\cdot\bm{A}$，即
+\begin{equation}
+  \mathrm{div}\bm{A} = \nabla\cdot\bm{A}
+\end{equation}
+\subsubsection{高斯公式}
+设空间闭区域$\Omega$是由分片光滑的闭曲面$\Sigma$所围成，函数$P(x,y,z),Q(x,y,z),R(x,y,z)$在$\Omega$上具有一阶连续偏导数，则有
+\begin{equation}
+  \iiint\limits_{\Omega}\left(\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}\right) \mathrm{d}v= \iint\limits_{\Sigma}P\myd y\myd z+Q\myd z\myd x+R\myd x\myd y
+\end{equation}
+或
+\begin{equation}
+  \iiint\limits_{\Omega}\left(\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}\right) \mathrm{d}v=  \iint\limits_{\Sigma}\left(P\cos\alpha+Q\cos\beta+R\cos\gamma\right)\myd S
+\end{equation}
+
+利用向量场的通量和散度，高斯公式可以写成如下的向量形式
+\begin{equation}
+  \iiint\limits_{\Omega}\mathrm{div}\bm{A}\myd v = \iint\limits_{\Sigma}A_n\myd S
+\end{equation}
+或
+\begin{equation}
+  \iiint\limits_{\Omega}\nabla\cdot\bm{A}\myd v = \iint\limits_{\Sigma}A_n\myd S
+\end{equation}
+\section{模型}
+\subsection{条件假设与符号约定}
+\begin{enumerate}
+  \item 河流的雷诺数已经达到一定的阈值（$>2000$），河水流动的方式为紊流而不是层流;
+  \begin{center}
+    \begin{colorboxed}
+      \begin{myquote}
+        流体力学中，雷诺数（Reynolds number）是流体惯性力$\frac{\rho v^2}{L}$与黏性力$\frac{\mu v}{L^2}$比值的量度，它是一个无量纲量。
+
+        雷诺数较小时，黏滞力对流场的影响大于惯性力，流场中流速的扰动会因黏滞力而衰减，流体流动稳定，为层流；反之，若雷诺数较大时，惯性力对流场的影响大于黏滞力，流体流动较不稳定，流速的微小变化容易发展、增强，形成紊乱、不规则的紊流流场。
+
+        层流与紊流两种流动形态传递动量、热量和质量的方式不同：层流通过分子间相互作用，紊流主要通过质点间的混掺。紊流的传递速率远大于层流。水利工程所涉及的流动，一般为紊流。
+      \end{myquote}
+    \end{colorboxed}
+  \end{center}
+  \item 任取河流上一闭曲面$S$所围成水域为$\Omega$，$C(x,y,z,t)$表示$t$时刻$(x,y,z)$位置点的污染物浓度;
+  \item 污染物因为河水流动和分子自由运动而发生扩散，$D_x,D_y,D_z$分别表示$x,y,z$方向的扩散系数;
+  \item 河水中的微生物分解等作用使河水具有自我净化能力，设自我降解系数为$K(0<K<1)$;
+  \item $\theta(x,y,z,t)$是$(x,y,z)$位置点$t$时刻单位体积单位时间污染物的排放量;
+  \item 河水沿$x,y,z$三方向的流动速度$u_x,u_y,u_z$在一定时间范围内是恒定的。
+\end{enumerate}
+\subsection{模型构建}
+为了使得公式看起来不那么臃肿，下面用$C,\theta$分别代表$C(x,y,z,t)$和$\theta(x,y,z,t)$。
+\begin{enumerate}
+  \item 由多重积分的意义可知，单位时间通过闭曲面$S$扩散进来的$\Omega$的污染物的量为
+  \begin{equation}
+    M_1=\iint\limits_\Sigma \left(D_x\frac{\partial C}{\partial x}\cos\alpha+D_y\frac{\partial C}{\partial y}\cos\beta+D_z\frac{\partial C}{\partial z}\cos\gamma\right)\myd S
+  \end{equation}
+  由高斯定理可知：
+  \begin{equation}\label{equ:m1}
+    M_1=\iiint\limits_\Omega \left(D_x\frac{\partial^2 C}{\partial x^2}+D_y\frac{\partial^2 C}{\partial y^2}+D_z\frac{\partial^2 C}{\partial z^2}\right)\myd x\myd y\myd z
+  \end{equation}
+  \item 由于河流是不断流动的，单位时间通过闭曲面$S$流出$\Omega$的污染物的量为
+    \begin{equation}
+    M_2=\iint\limits_ \Sigma \left(u_xC\cos\alpha+u_yC\cos\beta+u_zC\cos\gamma\right)\myd S
+    \end{equation}
+  同理，由高斯定理知：
+  \begin{equation}\label{equ:m2}
+    M_2 = \iiint\limits_\Omega\left(u_x\frac{\partial C}{\partial x}+u_y\frac{\partial C}{\partial y}+u_z\frac{\partial C}{\partial z}\right)\myd x\myd y\myd z
+  \end{equation}
+  \item 由于河水自我降解，单位时间$\Omega$水域的污染物减少量为
+  \begin{equation}\label{equ:m3}
+    M_3 = \iiint\limits_\Omega\left(KC\right)\myd x\myd y\myd z
+  \end{equation}
+  \item 单位时间$\Omega$水域的污染物的排放量为
+  \begin{equation}\label{equ:m4}
+    M_4 = \iiint\limits_\Omega\theta\myd x\myd y\myd z
+  \end{equation}
+  \item 单位时间$\Omega$水域的污染物浓度变化引起的污染物的增量为
+  \begin{equation}\label{equ:m5}
+    M_5 = \iiint\limits_\Omega\frac{\partial C}{\partial t}\myd x\myd y\myd z
+  \end{equation}
+\end{enumerate}
+
+由质量守恒定理得
+\begin{equation}\label{equ:mall}
+  M_5=M_1-M_2-M_3+M_4
+\end{equation}
+将式\ref{equ:m1},\ref{equ:m2},\ref{equ:m3},\ref{equ:m4},\ref{equ:m5}带入式\ref{equ:mall},得到河流水质污染的4D数学模型即四维水质模型为
+\begin{equation}\label{equ:general}
+  \frac{\partial C}{\partial t}=D_x\frac{\partial^2 C}{\partial x^2}+D_y\frac{\partial^2 C}{\partial y^2}+D_z\frac{\partial^2 C}{\partial z^2}-u_x\frac{\partial C}{\partial x}-u_y\frac{\partial C}{\partial y}-u_z\frac{\partial C}{\partial z}-KC+\theta
+\end{equation}
+
+\section{模型求解}
+\subsection{四维水质一般模型的求解}
+\begin{enumerate}
+  \item 对四维水质的一般模型，即式\ref{equ:general}左右两边同时进行傅里叶变换得
+  \newcommand{\myC}{\hat{C}\left(\omega_x,\omega_y,\omega_z,t\right)}
+  \begin{equation}\label{equ:genFT}
+  \begin{split}
+    \frac{\myd \myC}{\myd t} &= -\left(D_x\omega_x^2+D_y\omega_y^2+D_z\omega_z^2+\mathrm{i}\omega_xu_x+\mathrm{i}\omega_yu_y+\mathrm{i}\omega_zu_z+K\right)\myC
+  +\hat{\theta}\left(\omega_x,\omega_y,\omega_z,t\right)\\
+  \end{split}
+  \end{equation}
+  \item 求解线性微分方程\ref{equ:genFT}得
+  \begin{equation}\label{equ:genFTint}
+    \begin{split}
+      \myC = &e^{-\left(D_x\omega_x^2+D_y\omega_y^2+D_z\omega_z^2+\mathrm{i}\omega_xu_x+\mathrm{i}\omega_yu_y+\mathrm{i}\omega_zu_z+K\right)t}\\
+      &\times\left(\int_{0}^{t}\hat{\theta}\left(\omega_x,\omega_y,\omega_z,t\right)\times
+      e^{\left(D_x\omega_x^2+D_y\omega_y^2+D_z\omega_z^2+\mathrm{i}\omega_xu_x+\mathrm{i}\omega_yu_y+\mathrm{i}\omega_zu_z+K\right)t}\myd t+const\right)
+    \end{split}
+  \end{equation}
+
+  用Maple求解过程如图\ref{fig:genfft}
+  \begin{figure}[!ht]
+\centering
+\includegraphics[width=0.8\textwidth]{genfft.png}
+\caption{一般模型的偏微分方程求解}
+\label{fig:genfft}
+\end{figure}
+
+  \item 对式\ref{equ:genFTint}两边同时进行傅里叶逆变换得
+  \begin{equation}\label{equ:genifft}
+    \begin{split}
+      C(x,y,z,t)=&\frac{1}{(2\pi)^3}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}e^{-\left(D_x\omega_x^2+D_y\omega_y^2+D_z\omega_z^2+\mathrm{i}\omega_xu_x+\mathrm{i}\omega_yu_y+\mathrm{i}\omega_zu_z+K\right)t}\\
+      &\times\left(\int_{0}^{t}\hat{\theta}\left(\omega_x,\omega_y,\omega_z,t\right)\times e^{\left(D_x\omega_x^2+D_y\omega_y^2+D_z\omega_z^2+\mathrm{i}\omega_xu_x+\mathrm{i}\omega_yu_y+\mathrm{i}\omega_zu_z+K\right)t}\myd t+const\right)\myd \omega_x\myd \omega_y\myd \omega_z
+    \end{split}
+  \end{equation}
+\end{enumerate}
+
+式\ref{equ:genifft}中的$\hat{\theta}\left(\omega_x,\omega_y,\omega_z,t\right)$是关于$\omega_x,\omega_y,\omega_z$的函数，但是没有具体的表达式，所以式\ref{equ:genifft}不能求得解析解。下面分析一般模型的几个特殊情况，也就是一般模型的简化模型。
+\subsection{瞬时污染点源四维扩散模型}
+该模型对式\ref{equ:general}的模型进行了简化，如下
+
+\begin{numcases}{}
+&$\frac{\partial C}{\partial t}=D_x\frac{\partial^2 C}{\partial x^2}+D_y\frac{\partial^2 C}
+{\partial y^2}+D_z\frac{\partial^2 C}{\partial z^2}-u_x\frac{\partial C}
+{\partial x}-u_y\frac{\partial C}{\partial y}-u_z\frac{\partial C}{\partial z}-KC$\label{equ:shun1}\\
+&$C(x,y,z,0)=M\delta(x)\delta(y)\delta(z)$\label{equ:shun2}\\
+&$\lim\limits_{x\rightarrow\pm\infty}C(x,y,z,t)=0$,$\lim\limits_{y\rightarrow\pm\infty}C(x,y,z,t)=0$,$\lim\limits_{z\rightarrow\pm\infty}C(x,y,z,t)=0$\label{equ:shun3}\\
+&$-\infty<x<+\infty,-\infty<y<+\infty,-\infty<z<+\infty,t>0$\label{equ:shun4}
+\end{numcases}
+其中式\ref{equ:shun2}是初始条件，式\ref{equ:shun3}是边界条件。
+\begin{enumerate}
+\newcommand{\myC}{\hat{C}\left(\omega_x,\omega_y,\omega_z,t\right)}
+  \item 对式\ref{equ:shun1}进行傅里叶变换，得
+  \begin{equation}\label{equ:shunfft1}
+  \begin{split}
+    \frac{\myd \myC}{\myd t} &= -\left(D_x\omega_x^2+D_y\omega_y^2+D_z\omega_z^2+\mathrm{i}\omega_xu_x+\mathrm{i}\omega_yu_y+\mathrm{i}\omega_zu_z+K\right)\myC\\
+  \end{split}
+  \end{equation}
+
+  对式\ref{equ:shun2}进行傅里叶变换，得
+  \begin{equation}\label{equ:shunfft2}
+    \begin{split}
+      \hat{C}\left(\omega_x,\omega_y,\omega_z,0\right)&=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}M\delta(x)\delta(y)\delta(z)e^{-\mathrm{i\left(x\omega_x+y\omega_y+z\omega_z\right)}}\myd x\myd y\myd z\\
+      =&M\int_{-\infty}^{+\infty}\delta(x)\myd x\int_{-\infty}^{+\infty}\delta(y)\myd y\int_{-\infty}^{+\infty}\delta(z)\myd z\\
+      =&M
+    \end{split}
+  \end{equation}
+  \item 根据式\ref{equ:shunfft1}和式\ref{equ:shunfft2}求解得到$\myC$表达式
+  \begin{equation}\label{equ:shunfftsolve}
+    \myC=Me^{-Kt}\cdot e^{-\left(D_x\omega_x^2+D_y\omega_y^2+D_z\omega_z^2+\mathrm{i}\omega_xu_x+\mathrm{i}\omega_yu_y+\mathrm{i}\omega_zu_z\right)t}
+  \end{equation}
+
+    用Maple求解过程如图\ref{fig:shunfftsolve}
+  \begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{shunfftsolve.png}
+    \caption{瞬时污染点模型的偏微分方程求解}
+    \label{fig:shunfftsolve}
+  \end{figure}
+  \item 对式\ref{equ:shunfftsolve}进行逆傅里叶变换得到$C\left(\omega_x,\omega_y,\omega_z,t\right)$
+  \begin{equation}
+    \begin{split}
+      C\left(\omega_x,\omega_y,\omega_z,t\right)&=Me^{-Kt}\cdot \frac{1}{(2\pi)^3}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\myC e^{\mathrm{i}\left(x\omega_x+y\omega_y+z\omega_z\right)}\myd \omega_x\myd \omega_y\myd \omega_z\\
+      =Me^{-Kt}\cdot &\frac{1}{(2\pi)^3}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}e^{-\left(D_x\omega_x^2+D_y\omega_y^2+D_z\omega_z^2+\mathrm{i}\omega_xu_x+\mathrm{i}\omega_yu_y+\mathrm{i}\omega_zu_z\right)t+\mathrm{i}\left(x\omega_x+y\omega_y+z\omega_z\right)}\myd \omega_x\myd \omega_y\myd \omega_z\\
+      =Me^{-Kt}\cdot &\frac{1}{(2\pi)^3}\int_{-\infty}^{+\infty}e^{-\left(D_x\omega_x^2+\mathrm{i}\omega_xu_x-\mathrm{i}\omega_xu_x\right)} \myd \omega_x\int_{-\infty}^{+\infty} e^{-\left(D_y\omega_y^2+\mathrm{i}\omega_yu_y-\mathrm{i}\omega_yu_y\right)}\myd \omega_y\int_{-\infty}^{+\infty} e^{-\left(D_z\omega_z^2+\mathrm{i}\omega_zu_z-\mathrm{i}\omega_zu_z\right)}\myd \omega_z\\
+      =Me^{-Kt}\cdot &\frac{1}{(2\pi)^3}{{\rm e}^{-1/4\,{\frac { \left( x-tu_{{x}} \right) ^{2}}{tD_{{x}}}}}}\sqrt {\pi }{\frac {1}{\sqrt {tD_{{x}}}}}\cdot{{\rm e}^{-1/4\,{\frac {\left( y-tu_{{y}} \right) ^{2}}{tD_{{y}}}}}}\sqrt {\pi }{\frac {1}{\sqrt {tD_{{y}}}}}\cdot{{\rm e}^{-1/4\,{\frac { \left( z-tu_{{z}} \right)
+        ^{2}}{tD_{{z}}}}}}\sqrt {\pi }{\frac {1}{\sqrt {tD_{{z}}}}}\\
+      =\qquad&\frac{M}{8\left(\pi t\right)^{\frac{3}{2}}\sqrt{D_{{x}}D_{{y}}D_{{z}}}}{{\rm exp}\left({-\frac { \left( x-tu_{{x}} \right) ^{2}}{4tD_{{x}}}}{-\frac { \left( y-tu_{{y}} \right) ^{2}}{4tD_{{y}}}}-{\frac { \left( z-tu_{{z}} \right) ^{2}}{4tD_{{z}}}}\right)}{{\rm exp}(-{\it Kt})} \\
+    \end{split}
+  \end{equation}
+      用Maple求解过程如图\ref{fig:shunfinal}
+  \begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{shunfinal.png}
+    \caption{瞬时污染点模型的解析式}
+    \label{fig:shunfinal}
+  \end{figure}
+\end{enumerate}
+\subsection{连续污染点源四维扩散模型}
+这里我首先介绍一下参考文献中的解法，然后讲一下我对这种解法的看法。
+\subsubsection{积分积出来的解}
+如果污染物释放是以连续污染点源的方式进行，则形成的浓度相当于单位时间内连续释放的瞬时点源的积分，实际上相当于对瞬时污染点模型的解析解进行时间区间上的积分：
+\begin{equation}\label{equ:continues}
+  C\left(x,y,z,t\right)=\int_{0}^{t}\frac{vc}{8\left(\pi t\right)^{\frac{3}{2}}\sqrt{D_{{x}}D_{{y}}D_{{z}}}}{{\rm exp}\left({-\frac { \left( x-tu_{{x}} \right) ^{2}}{4tD_{{x}}}}{-\frac { \left( y-tu_{{y}} \right) ^{2}}{4tD_{{y}}}}-{\frac { \left( z-tu_{{z}} \right) ^{2}}{4tD_{{z}}}}\right)}{{\rm exp}(-{\it Kt})}\myd t
+\end{equation}
+其中，$v$和$c$分别表示单位时间内排放的含有污染物的污水量和污染物的浓度。
+\subsubsection{积分方法的正确性论证}
+式\ref{equ:continues}给出的方法是不精确的，下面对其进行分析：
+
+从当前时间向前推时间$T$，然后将该段时间均分成$N$份，时间点标记为$0=t_0<t_1<t_2\cdots<t_{N-1}<t_N=T$，且有$t_{i+1}-t_{i}=h(i=0,1\cdots N-1,h=\frac{T}{N})$.假设在每个时间点都将量为$hvc$的污染物排放到独立的具有相同参数的水流中（由于各个水流是独立的，所以互相不影响），则当前时间各个水流中的污染物的当前浓度可以用瞬时污染点四维扩散模型（式\ref{equ:shunfftsolve}）来表示为
+\begin{equation}
+  C(x,y,z,t_i)=\frac{Mh}{8\left(\pi t_i\right)^{\frac{3}{2}}\sqrt{D_{{x}}D_{{y}}D_{{z}}}}{{\rm exp}\left({-\frac { \left( x-t_iu_{{x}} \right) ^{2}}{4t_iD_{{x}}}}{-\frac { \left( y-t_iu_{{y}} \right) ^{2}}{4t_iD_{{y}}}}-{\frac { \left( z-t_iu_{{z}} \right) ^{2}}{4t_iD_{{z}}}}\right)}{{\rm exp}(-{\it Kt_i})}
+\end{equation}
+则对所有水流的浓度求和，有
+\begin{equation}
+  \begin{split}
+    C(x,y,z,t)&=\sum_{i=0}^{N}C(x,y,z,t_i)\\
+  \end{split}
+\end{equation}
+
+当$N\rightarrow \infty$时，求和就变成了积分
+\begin{equation}
+  \begin{split}
+    C(x,y,z,t)&=\sum_{i=0}^{N}C(x,y,z,t_i)\rightarrow C(x,y,z,t)=\int_{t=0}^{T}C(x,y,z,t)\myd t\\
+  \end{split}
+\end{equation}
+
+可以发现这就是式\ref{equ:continues}。
+
+上述分析过程存在的问题在于，它把各个水流看成了独立的，各个水流中的污染物浓度不相互影响，因而最终的浓度变成了各个时间点投放污染物的河流的当前污染物浓度的简单叠加。
+
+下面将为什么能简单叠加。为了方便，我们重新抄写式\ref{equ:general}
+\begin{equation*}
+  \frac{\partial C}{\partial t}=D_x\frac{\partial^2 C}{\partial x^2}+D_y\frac{\partial^2 C}{\partial y^2}+D_z\frac{\partial^2 C}{\partial z^2}-u_x\frac{\partial C}{\partial x}-u_y\frac{\partial C}{\partial y}-u_z\frac{\partial C}{\partial z}-KC+\theta
+\end{equation*}
+下面的几个等式的存在说明叠加方法的正确，也说明了式\ref{equ:continues}的正确性。
+\begin{numcases}{}
+& $\frac{\partial^2 \left(\sum_{i=1}^{N}C(x,y,z,t_i)\right)}{\partial x^2}=\sum_{i=1}^{N}\frac{\partial^2 C(x,y,z,t_i)}{\partial x^2}$\\
+& $\frac{\partial \left(\sum_{i=1}^{N}C(x,y,z,t_i)\right)}{\partial x}=\sum_{i=1}^{N}\frac{\partial C(x,y,z,t_i)}{\partial x}$\\
+& $K\left(\sum_{i=1}^{N}C(x,y,z,t_i)\right)=\sum_{i=1}^{N}\left(KC(x,y,z,t_i)\right)$\\
+& $\frac{\partial \left(\sum_{i=1}^{N}C(x,y,z,t_i)\right)}{\partial t}=\frac{\left(\sum_{i=1}^{N}\partial C(x,y,z,t_i)\right)}{\partial t}$
+\end{numcases}
+
+\subsection{连续污染点源的扩散稳态模型}
+\subsubsection{连续污染点源的一维扩散稳态模型}
+假定旨在$x$方向上存在污染物的浓度梯度，则稳态的一维模型
+\begin{equation}
+  D_x\frac{\partial^2 C(x)}{\partial x^2}-u_x\frac{\partial C(x)}{\partial x}-KC(x)=0
+\end{equation}
+求解得到
+\begin{equation}\label{equ:wentai1D}
+  C(x)=C_0{{\rm exp}\left({{\frac { \left( u_x-\sqrt {{u_x}^{2}+4\,K D_x  } \right) x}{2D_x}}}\right)}
+\end{equation}
+用maple求解如图\ref{fig:wentai1D}
+  \begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{wentai1D.png}
+    \caption{连续污染点源的一维扩散稳态模型解析式}
+    \label{fig:wentai1D}
+  \end{figure}
+
+如果忽略弥散作用，则模型变成了
+\begin{equation}
+  -u_x\frac{\partial C(x)}{\partial x}-KC(x)=0
+\end{equation}
+求解得到
+\begin{equation}
+  C(x)=C_0\mathrm{exp}\left(-\frac{Kx}{u_x}\right)
+\end{equation}
+用maple求解如图\ref{fig:wentai1U}
+  \begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{wentai1U.png}
+    \caption{连续污染点源的一维扩散稳态模型解析式}
+    \label{fig:wentai1U}
+  \end{figure}
+\subsubsection{连续污染点源的三维扩散稳态模型}
+模型为
+\begin{equation}\label{equ:wentai3M}
+  D_x\frac{\partial^2 C(x,y,z)}{\partial x^2}+D_y\frac{\partial^2 C(x,y,z)}{\partial y^2}+D_z\frac{\partial^2 C(x,y,z)}{\partial z^2}-u_x\frac{\partial C(x,y,z)}{\partial x}-u_y\frac{\partial C(x,y,z)}{\partial y}-u_z\frac{\partial C(x,y,z)}{\partial z}-KC(x,y,z)=0
+\end{equation}
+仿照式\ref{equ:wentai1D}结构，我们直接给出式\ref{equ:wentai3M}的解
+\begin{equation}
+  C(x,y,z)=C_0{{\rm exp}\left({-{\frac { \left( -u_x+ \sqrt{{u_x}^{2}+\frac{4}{3}KD_{{x}}}\right) x}{2D_{{x}}}}}{-{\frac { \left( -u_y+ \sqrt{{u_y}^{2}+\frac{4}{3}KD_{{y}}}\right) y}{2D_{{y}}}}}{-{\frac { \left( -u_z+ \sqrt{{u_z}^{2}+\frac{4}{3}KD_{{z}}}\right) z}{2D_{{z}}}}}\right)}
+\end{equation}
+用maple验证的过程如图\ref{fig:wentai3}
+  \begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{wentai3.png}
+    \caption{连续污染点源的三维扩散稳态模型解析式}
+    \label{fig:wentai3}
+  \end{figure}
+\end{document}

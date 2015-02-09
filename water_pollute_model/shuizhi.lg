@@ -1,0 +1,403 @@
+htfcss: gbkkai36 font-family: monospace; font-style: italic;
+htfcss: gbkkai65 font-family: monospace; font-style: italic;
+htfcss: gbkkai53 font-family: monospace; font-style: italic;
+htfcss: gbkkai63 font-family: monospace; font-style: italic;
+htfcss: gbkkai45 font-family: monospace; font-style: italic;
+htfcss: gbkkai41 font-family: monospace; font-style: italic;
+htfcss: gbkkai44 font-family: monospace; font-style: italic;
+htfcss: gbkkai54 font-family: monospace; font-style: italic;
+htfcss: gbkkai39 font-family: monospace; font-style: italic;
+htfcss: gbkkai59 font-family: monospace; font-style: italic;
+htfcss: gbkkai38 font-family: monospace; font-style: italic;
+htfcss: gbkkai46 font-family: monospace; font-style: italic;
+htfcss: gbkkai25 font-family: monospace; font-style: italic;
+'' ''         193
+'' ''         194
+'' ''         195
+'' ''         196
+'' ''         197
+'' ''         198
+'' ''         199
+'' ''         200
+'' ''         201
+'' ''         202
+'' ''         203
+'' ''         204
+'' ''         205
+'' ''         206
+'' ''         207
+'' ''         208
+'' ''         209
+'' ''         210
+'' ''         211
+'' ''         212
+'' ''         213
+'' ''         214
+'' ''         215
+'' ''         216
+'' ''         217
+'' ''         218
+'' ''         219
+'' ''         220
+'' ''         221
+'&#x2170;' '' 222
+'&#x2171;' '' 223
+'&#x2172;' '' 224
+'&#x2173;' '' 225
+'&#x2174;' '' 226
+'&#x2175;' '' 227
+'&#x2176;' '' 228
+'&#x2177;' '' 229
+'&#x2178;' '' 230
+'&#x2179;' '' 231
+'' ''         232
+'' ''         233
+'' ''         234
+'' ''         235
+'' ''         236
+'' ''         237
+'&#x2488;' '' 238
+'&#x2489;' '' 239
+'&#x248A;' '' 240
+'&#x248B;' '' 241
+'&#x248C;' '' 242
+'&#x248D;' '' 243
+'&#x248E;' '' 244
+'&#x248F;' '' 245
+'&#x2490;' '' 246
+'&#x2491;' '' 247
+'&#x2492;' '' 248
+'&#x2493;' '' 249
+'&#x2494;' '' 250
+'&#x2495;' '' 251
+'&#x2496;' '' 252
+'&#x2497;' '' 253
+'&#x2498;' '' 254
+'&#x2499;' '' 255  
+gbksong25 0 255
+htfcss: gbkkai58 font-family: monospace; font-style: italic;
+htfcss: gbkkai42 font-family: monospace; font-style: italic;
+htfcss: gbkkai61 font-family: monospace; font-style: italic;
+htfcss: gbkkai56 font-family: monospace; font-style: italic;
+htfcss: gbkkai40 font-family: monospace; font-style: italic;
+htfcss: gbkkai37 font-family: monospace; font-style: italic;
+htfcss: gbkkai83 font-family: monospace; font-style: italic;
+htfcss: gbkkai62 font-family: monospace; font-style: italic;
+htfcss: gbkkai43 font-family: monospace; font-style: italic;
+htfcss: gbkkai55 font-family: monospace; font-style: italic;
+htfcss: gbkkai51 font-family: monospace; font-style: italic;
+htfcss: gbkkai26 font-family: monospace; font-style: italic;
+htfcss: gbkkai64 font-family: monospace; font-style: italic;
+htfcss: gbkkai60 font-family: monospace; font-style: italic;
+htfcss: gbkkai48 font-family: monospace; font-style: italic;
+htfcss: gbkkai57 font-family: monospace; font-style: italic;
+htfcss: gbkkai49 font-family: monospace; font-style: italic;
+htfcss: gbkhei41 font-family: 黑体, sans-serif;
+htfcss: gbkhei58 font-family: 黑体, sans-serif;
+htfcss: gbkhei64 font-family: 黑体, sans-serif;
+htfcss: gbkhei60 font-family: 黑体, sans-serif;
+htfcss: gbkhei59 font-family: 黑体, sans-serif;
+htfcss: gbkhei51 font-family: 黑体, sans-serif;
+htfcss: cmmi font-style: italic;
+htfcss: cmmib font-style: italic; font-weight: bold;
+htfcss: gbkhei44 font-family: 黑体, sans-serif;
+htfcss: gbkhei37 font-family: 黑体, sans-serif;
+htfcss: gbkhei61 font-family: 黑体, sans-serif;
+htfcss: gbkhei48 font-family: 黑体, sans-serif;
+htfcss: gbkhei42 font-family: 黑体, sans-serif;
+File: shuizhi.html
+File: shuizhi.css
+File: shuizhi.tmp
+Css: p.noindent { text-indent: 0em }
+Css: td p.noindent { text-indent: 0em; margin-top:0em; }
+Css: p.nopar { text-indent: 0em; }
+Css: p.indent{ text-indent: 1.5em }
+Css: @media print {div.crosslinks {visibility:hidden;}}
+Css: a img { border-top: 0; border-left: 0; border-right: 0; }
+Font_Css("4"): .small-caps{font-variant: small-caps; }
+Font_Css("10"): .htf-cmbx {font-weight: bold; font-style:normal;}
+Font_Css("12"): .htf-calligraphy {font-family:cursive}
+Font_Css("14"): .htf-italic {font-style: italic;}
+Font_Css("16"): .htf-bold {font-weight: bold;}
+Font_Css("12"): .htf-calligraphy-bold {font-family:cursive ; font-weight: bold; }
+Css: center { margin-top:1em; margin-bottom:1em; }
+Css: td center { margin-top:0em; margin-bottom:0em; }
+Css: .Canvas { position:relative; }
+Css: img.math{vertical-align:middle;}
+Css: li p.indent { text-indent: 0em }
+Css: li p:first-child{ margin-top:0em; }
+Css: li p:last-child, li div:last-child { margin-bottom:0.5em; }
+Css: li p~ul:last-child, li p~ol:last-child{ margin-bottom:0.5em; }
+Css: .enumerate1 {list-style-type:decimal;}
+Css: .enumerate2 {list-style-type:lower-alpha;}
+Css: .enumerate3 {list-style-type:lower-roman;}
+Css: .enumerate4 {list-style-type:upper-alpha;}
+Css: div.newtheorem { margin-bottom: 2em; margin-top: 2em;}
+Css: .obeylines-h,.obeylines-v {white-space: nowrap; }
+Css: div.obeylines-v p { margin-top:0; margin-bottom:0; }
+Css: .overline{ text-decoration:overline; }
+Css: .overline img{ border-top: 1px solid black; }
+Css: td.displaylines {text-align:center; white-space:nowrap;}
+Css: .centerline {text-align:center;}
+Css: .rightline {text-align:right;}
+Css: div.verbatim {font-family: monospace; white-space: nowrap; text-align:left; clear:both; }
+Css: .fbox {padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
+Css: div.fbox {display:table}
+Css: div.center div.fbox {text-align:center; clear:both; padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
+Css: div.minipage{width:100%;}
+Css: div.center, div.center div.center {text-align: center; margin-left:1em; margin-right:1em;}
+Css: div.center div {text-align: left;}
+Css: div.flushright, div.flushright div.flushright {text-align: right;}
+Css: div.flushright div {text-align: left;}
+Css: div.flushleft {text-align: left;}
+Css: .underline{ text-decoration:underline; }
+Css: .underline img{ border-bottom: 1px solid black; margin-bottom:1pt; }
+Css: .framebox-c, .framebox-l, .framebox-r { padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
+Css: .framebox-c {text-align:center;}
+Css: .framebox-l {text-align:left;}
+Css: .framebox-r {text-align:right;}
+Css: span.thank-mark{ vertical-align: super }
+Css: span.footnote-mark sup.textsuperscript, span.footnote-mark a sup.textsuperscript{ font-size:80%; }
+Css: div.footnotes{border-top:solid 1px black; border-bottom:solid 1px black; padding-bottom:1ex; padding-top:0.5ex; margin-right:15%; margin-top:2ex; font-style:italic; font-size:85%;}
+Css: div.footnotes p{margin-top:0; margin-bottom:0; text-indent:0;}
+Css: div.tabular, div.center div.tabular {text-align: center; margin-top:0.5em; margin-bottom:0.5em; }
+Css: table.tabular td p{margin-top:0em;}
+Css: table.tabular {margin-left: auto; margin-right: auto;}
+Css: td p:first-child{ margin-top:0em; }
+Css: td p:last-child{ margin-bottom:0em; }
+Css: div.td00{ margin-left:0pt; margin-right:0pt; }
+Css: div.td01{ margin-left:0pt; margin-right:5pt; }
+Css: div.td10{ margin-left:5pt; margin-right:0pt; }
+Css: div.td11{ margin-left:5pt; margin-right:5pt; }
+Css: table[rules] {border-left:solid black 0.4pt; border-right:solid black 0.4pt; }
+Css: td.td00{ padding-left:0pt; padding-right:0pt; }
+Css: td.td01{ padding-left:0pt; padding-right:5pt; }
+Css: td.td10{ padding-left:5pt; padding-right:0pt; }
+Css: td.td11{ padding-left:5pt; padding-right:5pt; }
+Css: table[rules] {border-left:solid black 0.4pt; border-right:solid black 0.4pt; }
+Css: .hline hr, .cline hr{ height : 1px; margin:0px; }
+Css: .tabbing-right {text-align:right;}
+Css: span.TEX {letter-spacing: -0.125em; }
+Css: span.TEX span.E{ position:relative;top:0.5ex;left:-0.0417em;}
+Css: a span.TEX span.E {text-decoration: none; }
+Css: span.LATEX span.A{ position:relative; top:-0.5ex; left:-0.4em; font-size:85%;}
+Css: span.LATEX span.TEX{ position:relative; left: -0.4em; }
+Css: div.float, div.figure {margin-left: auto; margin-right: auto;}
+Css: div.float img {text-align:center;}
+Css: div.figure img {text-align:center;}
+Css: .marginpar {width:20%; float:right; text-align:left; margin-left:auto; margin-top:0.5em; font-size:85%; text-decoration:underline;}
+Css: .marginpar p{margin-top:0.4em; margin-bottom:0.4em;}
+Css: table.equation {width:100%;}
+Css: .equation td{text-align:center; }
+Css: td.equation { margin-top:1em; margin-bottom:1em; } 
+Css: td.equation-label { width:5%; text-align:center; }
+Css: td.eqnarray4 { width:5%; white-space: normal; }
+Css: td.eqnarray2 { width:5%; }
+Css: table.eqnarray-star, table.eqnarray {width:100%;}
+Css: div.eqnarray{text-align:center;}
+Css: div.array {text-align:center;}
+Css: div.pmatrix {text-align:center;}
+Css: table.pmatrix {width:100%;}
+Css: span.pmatrix img{vertical-align:middle;}
+Css: div.pmatrix {text-align:center;}
+Css: table.pmatrix {width:100%;}
+Css: span.bar-css {text-decoration:overline;}
+Css: img.cdots{vertical-align:middle;}
+Css: .partToc a, .partToc, .likepartToc a, .likepartToc {line-height: 200%; font-weight:bold; font-size:110%;}
+Css: .index-item, .index-subitem, .index-subsubitem {display:block}
+Css: div.caption {text-indent:-2em; margin-left:3em; margin-right:1em; text-align:left;}
+Css: div.caption span.id{font-weight: bold; white-space: nowrap; }
+Css: h1.partHead{text-align: center}
+Css: p.bibitem { text-indent: -2em; margin-left: 2em; margin-top:0.6em; margin-bottom:0.6em; }
+Css: p.bibitem-p { text-indent: 0em; margin-left: 2em; margin-top:0.6em; margin-bottom:0.6em; }
+Css: .paragraphHead, .likeparagraphHead { margin-top:2em; font-weight: bold;}
+Css: .subparagraphHead, .likesubparagraphHead { font-weight: bold;}
+Css: .quote {margin-bottom:0.25em; margin-top:0.25em; margin-left:1em; margin-right:1em; text-align:justify;}
+Css: .verse{white-space:nowrap; margin-left:2em}
+Css: div.maketitle {text-align:center;}
+Css: h2.titleHead{text-align:center;}
+Css: div.maketitle{ margin-bottom: 2em; }
+Css: div.author, div.date {text-align:center;}
+Css: div.thanks{text-align:left; margin-left:10%; font-size:85%; font-style:italic; }
+Css: .quotation {margin-bottom:0.25em; margin-top:0.25em; margin-left:1em; }
+Css: .abstract p {margin-left:5%; margin-right:5%;}
+Css: div.abstract {width:100%;}
+Css: .figure img.graphics {margin-left:10%;}
+Css: .equation td{text-align:center; }
+Css: .equation-star td{text-align:center; }
+Css: table.equation-star { width:100%; }
+Css: table.equation { width:100%; }
+Css: table.align, table.alignat, table.xalignat, table.xxalignat, table.flalign {width:100%; margin-left:5%; white-space: nowrap;}
+Css: table.align-star, table.alignat-star, table.xalignat-star, table.flalign-star {margin-left:auto; margin-right:auto; white-space: nowrap;}
+Css: td.align-label { width:5%; text-align:center; }
+Css: td.align-odd { text-align:right; padding-right:0.3em;}
+Css: td.align-even { text-align:left; padding-right:0.6em;}
+Css: table.multline, table.multline-star {width:100%;}
+Css: td.gather {text-align:center; }
+Css: table.gather {width:100%;}
+Css: div.gather-star {text-align:center;}
+--- needs --- shuizhi.idv[2] ==> shuizhi0x.png ---
+--- needs --- shuizhi.idv[4] ==> shuizhi1x.png ---
+--- needs --- shuizhi.idv[6] ==> shuizhi2x.png ---
+--- needs --- shuizhi.idv[8] ==> shuizhi3x.png ---
+--- needs --- shuizhi.idv[10] ==> shuizhi4x.png ---
+--- needs --- shuizhi.idv[11] ==> shuizhi5x.png ---
+--- needs --- shuizhi.idv[12] ==> shuizhi6x.png ---
+File: figure/yijiexianxingweifenfangcheng.png
+--- needs --- shuizhi.idv[14] ==> shuizhi7x.png ---
+--- needs --- shuizhi.idv[16] ==> shuizhi8x.png ---
+--- needs --- shuizhi.idv[17] ==> shuizhi9x.png ---
+--- needs --- shuizhi.idv[18] ==> shuizhi10x.png ---
+--- needs --- shuizhi.idv[20] ==> shuizhi11x.png ---
+--- needs --- shuizhi.idv[21] ==> shuizhi12x.png ---
+--- needs --- shuizhi.idv[22] ==> shuizhi13x.png ---
+--- needs --- shuizhi.idv[24] ==> shuizhi14x.png ---
+--- needs --- shuizhi.idv[26] ==> shuizhi15x.png ---
+--- needs --- shuizhi.idv[27] ==> shuizhi16x.png ---
+--- needs --- shuizhi.idv[28] ==> shuizhi17x.png ---
+--- needs --- shuizhi.idv[30] ==> shuizhi18x.png ---
+--- needs --- shuizhi.idv[32] ==> shuizhi19x.png ---
+--- needs --- shuizhi.idv[34] ==> shuizhi20x.png ---
+--- needs --- shuizhi.idv[36] ==> shuizhi21x.png ---
+--- needs --- shuizhi.idv[37] ==> shuizhi22x.png ---
+--- needs --- shuizhi.idv[38] ==> shuizhi23x.png ---
+--- needs --- shuizhi.idv[39] ==> shuizhi24x.png ---
+--- needs --- shuizhi.idv[41] ==> shuizhi25x.png ---
+--- needs --- shuizhi.idv[43] ==> shuizhi26x.png ---
+--- needs --- shuizhi.idv[45] ==> shuizhi27x.png ---
+--- needs --- shuizhi.idv[47] ==> shuizhi28x.png ---
+--- needs --- shuizhi.idv[49] ==> shuizhi29x.png ---
+--- needs --- shuizhi.idv[51] ==> shuizhi30x.png ---
+--- needs --- shuizhi.idv[52] ==> shuizhi31x.png ---
+Css: span#colorbox2{background-color:;}
+--- needs --- shuizhi.idv[54] ==> shuizhi32x.png ---
+--- needs --- shuizhi.idv[56] ==> shuizhi33x.png ---
+--- needs --- shuizhi.idv[58] ==> shuizhi34x.png ---
+--- needs --- shuizhi.idv[60] ==> shuizhi35x.png ---
+--- needs --- shuizhi.idv[62] ==> shuizhi36x.png ---
+--- needs --- shuizhi.idv[64] ==> shuizhi37x.png ---
+--- needs --- shuizhi.idv[66] ==> shuizhi38x.png ---
+--- needs --- shuizhi.idv[68] ==> shuizhi39x.png ---
+--- needs --- shuizhi.idv[70] ==> shuizhi40x.png ---
+--- needs --- shuizhi.idv[72] ==> shuizhi41x.png ---
+--- needs --- shuizhi.idv[74] ==> shuizhi42x.png ---
+File: figure/genfft.png
+--- needs --- shuizhi.idv[76] ==> shuizhi43x.png ---
+--- needs --- shuizhi.idv[78] ==> shuizhi44x.png ---
+--- needs --- shuizhi.idv[79] ==> shuizhi45x.png ---
+--- needs --- shuizhi.idv[80] ==> shuizhi46x.png ---
+--- needs --- shuizhi.idv[82] ==> shuizhi47x.png ---
+--- needs --- shuizhi.idv[84] ==> shuizhi48x.png ---
+--- needs --- shuizhi.idv[86] ==> shuizhi49x.png ---
+--- needs --- shuizhi.idv[88] ==> shuizhi50x.png ---
+File: figure/shunfftsolve.png
+--- needs --- shuizhi.idv[90] ==> shuizhi51x.png ---
+--- needs --- shuizhi.idv[91] ==> shuizhi52x.png ---
+File: figure/shunfinal.png
+--- needs --- shuizhi.idv[93] ==> shuizhi53x.png ---
+--- needs --- shuizhi.idv[95] ==> shuizhi54x.png ---
+--- needs --- shuizhi.idv[96] ==> shuizhi55x.png ---
+--- needs --- shuizhi.idv[97] ==> shuizhi56x.png ---
+--- needs --- shuizhi.idv[98] ==> shuizhi57x.png ---
+--- needs --- shuizhi.idv[100] ==> shuizhi58x.png ---
+--- needs --- shuizhi.idv[102] ==> shuizhi59x.png ---
+--- needs --- shuizhi.idv[104] ==> shuizhi60x.png ---
+--- needs --- shuizhi.idv[105] ==> shuizhi61x.png ---
+--- needs --- shuizhi.idv[107] ==> shuizhi62x.png ---
+--- needs --- shuizhi.idv[109] ==> shuizhi63x.png ---
+File: figure/wentai1D.png
+--- needs --- shuizhi.idv[111] ==> shuizhi64x.png ---
+--- needs --- shuizhi.idv[113] ==> shuizhi65x.png ---
+File: figure/wentai1U.png
+--- needs --- shuizhi.idv[115] ==> shuizhi66x.png ---
+--- needs --- shuizhi.idv[117] ==> shuizhi67x.png ---
+File: figure/wentai3.png
+--- characters ---
+Font("cmr","5","5","100")
+Font("cmr","7","7","100")
+Font("cmmi","5","5","100")
+Font("cmmi","7","7","100")
+Font("cmsy","5","5","100")
+Font("cmsy","7","7","100")
+Font("cmr","10","10","105")
+Font("gbksong54","","10","105")
+Font("gbksong42","","10","105")
+Font("gbksong55","","10","105")
+Font("gbksong60","","10","105")
+Font("gbksong46","","10","105")
+Font("gbksong58","","10","105")
+Font("gbksong48","","10","105")
+Font("gbksong61","","10","105")
+Font("gbksong37","","10","105")
+Font("gbksong44","","10","105")
+Font("gbksong40","","10","105")
+Font("gbksong64","","10","105")
+Font("gbkhei42","","10","105")
+Font("gbkhei48","","10","105")
+Font("gbkhei61","","10","105")
+Font("gbkhei37","","10","105")
+Font("gbkhei44","","10","105")
+Font("cmmi","10","10","105")
+Font("cmsy","10","10","105")
+Font("cmex","10","10","109")
+Font("cmex","7","7","100")
+Font("cmmib","10","10","105")
+Font("gbkhei51","","10","105")
+Font("gbkhei59","","10","105")
+Font("gbkhei60","","10","105")
+Font("gbkhei64","","10","105")
+Font("gbkhei58","","10","105")
+Font("gbkhei41","","10","105")
+Font("gbksong59","","10","105")
+Font("gbksong41","","10","105")
+Font("gbksong53","","10","105")
+Font("gbksong57","","10","105")
+Font("gbksong65","","10","105")
+Font("gbksong38","","10","105")
+Font("gbksong26","","10","105")
+Font("gbksong52","","10","105")
+Font("gbksong62","","10","105")
+Font("gbksong39","","10","105")
+Font("gbksong47","","10","105")
+Font("gbksong43","","10","105")
+Font("gbksong49","","10","105")
+Font("gbksong45","","10","105")
+Font("gbksong63","","10","105")
+Font("gbksong25","","10","105")
+Font("gbksong36","","10","105")
+Font("gbksong56","","10","105")
+Font("gbksong51","","10","105")
+Font("gbksong50","","10","105")
+Font("gbksong74","","10","105")
+Font("cmr","12","12","117")
+Font("gbkkai49","","10","140")
+Font("gbkkai57","","10","140")
+Font("gbkkai48","","10","140")
+Font("gbkkai60","","10","140")
+Font("gbkkai64","","10","140")
+Font("gbkkai26","","10","140")
+Font("gbkkai51","","10","140")
+Font("gbkkai55","","10","140")
+Font("gbkkai43","","10","140")
+Font("cmr","7","7","107")
+Font("gbkkai62","","10","140")
+Font("gbkkai83","","10","140")
+Font("gbkkai37","","10","140")
+Font("gbkkai40","","10","140")
+Font("gbkkai56","","10","140")
+Font("gbkkai61","","10","140")
+Font("gbkkai42","","10","140")
+Font("gbkkai58","","10","140")
+Font("gbkkai25","","10","140")
+Font("gbkkai46","","10","140")
+Font("gbkkai38","","10","140")
+Font("gbkkai59","","10","140")
+Font("gbkkai39","","10","140")
+Font("gbkkai54","","10","140")
+Font("gbkkai44","","10","140")
+Font("gbkkai41","","10","140")
+Font("gbkkai45","","10","140")
+Font("gbkkai63","","10","140")
+Font("gbkkai53","","10","140")
+Font("gbkkai65","","10","140")
+Font("gbkkai36","","10","140")
